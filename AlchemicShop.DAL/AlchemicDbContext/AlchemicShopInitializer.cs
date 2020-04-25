@@ -1,10 +1,6 @@
 ﻿using AlchemicShop.DAL.Entities;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.AlchemicDbContext
 {
@@ -20,17 +16,17 @@ namespace AlchemicShop.DAL.AlchemicDbContext
             dbContext.Products.Add(product);
             dbContext.SaveChanges();
 
-            var order = new Order { SheduledDate = new DateTime(2020, 02, 03), Status = Status.InTransit };
-            dbContext.Orders.Add(order);
-            dbContext.SaveChanges();
+            //var order = new Order { SheduledDate = new DateTime(2020, 02, 03), Status = Status.InTransit };
+            //dbContext.Orders.Add(order);
+            //dbContext.SaveChanges();
 
-            var orderProduct = new OrderProduct { OrderId = 1, ProductId = 1, Amount = 10 };
-            dbContext.OrderProducts.Add(orderProduct);
-            dbContext.SaveChanges();
+            //var orderProduct = new OrderProduct { OrderId = 1, ProductId = 1, Amount = 10 };
+            //dbContext.OrderProducts.Add(orderProduct);
+            //dbContext.SaveChanges();
 
-            var user = new User { Name = "Lelouch", Login = "BritainKing", Password = "qwerty", IsAdmin = false, OrderId = 1 };
-            dbContext.Users.Add(user);
-            dbContext.SaveChanges();
+            //var user = new User { Name = "Lelouch", Login = "BritainKing", Password = "qwerty", IsAdmin = false, OrderId = 1 };
+            //dbContext.Users.Add(user);
+            //dbContext.SaveChanges();
         }
     }
 }
