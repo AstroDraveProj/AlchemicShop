@@ -1,6 +1,6 @@
-﻿namespace AlchemicShop.WEB.Models
+﻿namespace AlchemicShop.BLL.DTO
 {
-    public enum StatusViewModel
+    public enum StatusDTO
     {
         Canseled = 0,
         Delivered = 1,
