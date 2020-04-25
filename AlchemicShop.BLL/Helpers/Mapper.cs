@@ -11,20 +11,20 @@ namespace AlchemicShop.BLL.Helpers
         public static Category CategoryMap(CategoryDTO categoryDTO)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<CategoryDTO, Category>()).CreateMapper();
-            var f = mapper.Map<CategoryDTO, Category>(categoryDTO);
-            return f;
+            var category = mapper.Map<CategoryDTO, Category>(categoryDTO);
+            return category;
         }
         public static CategoryDTO CategoryMap(Category category)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Category, CategoryDTO>()).CreateMapper();
-            var f = mapper.Map<Category, CategoryDTO>(category);
-            return f;
+            var categoryDTO = mapper.Map<Category, CategoryDTO>(category);
+            return categoryDTO;
         }
         public static List<CategoryDTO> CategoryMap(List<Category> category)
         {
             var mapper = new MapperConfiguration(cfg => { cfg.CreateMap<Category, CategoryDTO>(); }).CreateMapper();
-            var f = mapper.Map<List<Category>, List<CategoryDTO>>(category);
-            return f;
+            var listCategory = mapper.Map<List<Category>, List<CategoryDTO>>(category);
+            return listCategory;
         }
         #endregion
     }

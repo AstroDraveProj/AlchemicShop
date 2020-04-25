@@ -11,20 +11,20 @@ namespace AlchemicShop.WEB.Helper
         public static CategoryDTO CategoryMap(CategoryViewModel categoryDTO)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<CategoryViewModel, CategoryDTO>()).CreateMapper();
-            var f = mapper.Map<CategoryViewModel, CategoryDTO>(categoryDTO);
-            return f;
+            var category = mapper.Map<CategoryViewModel, CategoryDTO>(categoryDTO);
+            return category;
         }
         public static CategoryViewModel CategoryMap(CategoryDTO category)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<CategoryDTO, CategoryViewModel>()).CreateMapper();
-            var f = mapper.Map<CategoryDTO, CategoryViewModel>(category);
-            return f;
+            var categoryDTO = mapper.Map<CategoryDTO, CategoryViewModel>(category);
+            return categoryDTO;
         }
         public static List<CategoryViewModel> CategoryMap(List<CategoryDTO> category)
         {
             var mapper = new MapperConfiguration(cfg => { cfg.CreateMap<CategoryDTO, CategoryViewModel>(); }).CreateMapper();
-            var f = mapper.Map<List<CategoryDTO>, List<CategoryViewModel>>(category);
-            return f;
+            var listCategory = mapper.Map<List<CategoryDTO>, List<CategoryViewModel>>(category);
+            return listCategory;
         }
         #endregion
     }
