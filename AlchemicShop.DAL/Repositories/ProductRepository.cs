@@ -1,15 +1,15 @@
 ﻿using AlchemicShop.DAL.AlchemicDbContext;
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
-using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace AlchemicShop.DAL.Repositories
 {
     public class ProductRepository : IRepository<Product>
     {
         private AlchemicShopContext dbContext;
-        
+
         public ProductRepository(AlchemicShopContext context)
         {
             dbContext = context;
@@ -17,27 +17,43 @@ namespace AlchemicShop.DAL.Repositories
 
         public void Create(Product item)
         {
-            throw new NotImplementedException();
+            if (item != null)
+            {
+                dbContext.Products.Add(item);
+            }
         }
 
         public void Delete(Product item)
         {
-            throw new NotImplementedException();
+            var deleteItem = Get(item.Id);
+            if (deleteItem != null)
+            {
+                dbContext.Products.Remove(deleteItem);
+            }
         }
 
         public Product Get(int? id)
         {
-            throw new NotImplementedException();
+            return dbContext.Products.Find(id);
         }
 
         public IEnumerable<Product> GetAll()
         {
-            throw new NotImplementedException();
+            return dbContext.Products
+                .Include(x => x.Category);
         }
 
         public void Update(Product item)
         {
-            throw new NotImplementedException();
+            var updateItem = dbContext.Products.Find(item.Id);
+            if (updateItem != null)
+            {
+                updateItem.Name = item.Name;
+                updateItem.Price = item.Price;
+                updateItem.Description = item.Description;
+                updateItem.Amount = item.Amount;
+                updateItem.CategoryId = item.CategoryId;
+            }
         }
     }
 }
