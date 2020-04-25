@@ -10,9 +10,6 @@ namespace AlchemicShop.DAL.Entities
         [Key]
         public int Id { get; set; }
 
-        [MaxLength(80), Required]
-        public string Name { get; set; }
-
         public ICollection<Order> Orders { get; set; }
     }
 }
