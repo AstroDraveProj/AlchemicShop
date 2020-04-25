@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AlchemicShop.DAL.Entities
 {
     public class Product
     {
-        [Key]
         public int Id { get; set; }
 
-        [MaxLength(80), Required]
+        [Required, MaxLength(40)]
         public string Name { get; set; }
-        [Required]
+
+        [Required, MaxLength(40)]
         public int Amount { get; set; }
 
-        [ForeignKey("PotionType")]
-        public int? PotionTypeId { get; set; }
-        public virtual PotionType PotionType { get; set; }
+        public string Description { get; set; }
 
-        [ForeignKey("Manager")]
-        public int? ManagerId { get; set; }
-        public virtual PotionType Manager { get; set; }
+        [Required, MaxLength(40)]
+        public float Price { get; set; }
 
-        public ICollection<ShopingCart> ShopingCarts { get; set; }
+        public int CategoryId { get; set; }
+
+        public Category Category { get; set; }
+
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+
     }
 }

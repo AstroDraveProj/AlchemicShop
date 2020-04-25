@@ -51,13 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Customer.cs" />
-    <Compile Include="Entities\Manager.cs" />
+    <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Order.cs" />
-    <Compile Include="Entities\PotionType.cs" />
+    <Compile Include="Entities\OrderProduct.cs" />
     <Compile Include="Entities\Product.cs" />
-    <Compile Include="Entities\ShopingCart.cs" />
-    <Compile Include="Entities\StatusEnum.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
