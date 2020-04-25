@@ -12,9 +12,9 @@ namespace AlchemicShop.DAL.AlchemicDbContext
             dbContext.Categories.Add(category);
             dbContext.SaveChanges();
 
-            var product = new Product { Name = "Vitality", Amount = 20, Price = 20, Description = "Description", CategoryId = 1 };
-            dbContext.Products.Add(product);
-            dbContext.SaveChanges();
+            //var product = new Product { Name = "Vitality", Amount = 20, Price = 20, Description = "Description", CategoryId = 1 };
+            //dbContext.Products.Add(product);
+            //dbContext.SaveChanges();
 
             //var order = new Order { SheduledDate = new DateTime(2020, 02, 03), Status = Status.InTransit };
             //dbContext.Orders.Add(order);
