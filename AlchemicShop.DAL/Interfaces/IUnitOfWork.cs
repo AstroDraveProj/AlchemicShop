@@ -8,6 +8,12 @@ namespace AlchemicShop.DAL.Interfaces
 
         IRepository<Category> Categories { get; }
 
+        IRepository<User> Users { get; }
+
+        IRepository<Order> Orders { get; }
+
+        IRepository<OrderProduct> OrderProducts { get; }
+
         void Save();
     }
 }

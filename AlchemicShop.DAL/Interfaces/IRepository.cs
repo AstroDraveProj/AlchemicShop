@@ -6,7 +6,7 @@ namespace AlchemicShop.DAL.Interfaces
     {
         void Create(T item);
 
-        void Delte(T item);
+        void Delete(T item);
 
         void Update(T item);
 

@@ -4,38 +4,38 @@ using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 
+
 namespace AlchemicShop.DAL.Repositories
 {
-    public class ProductRepository : IRepository<Product>
+    public class UserRepository : IRepository<User>
     {
         private AlchemicShopContext dbContext;
-        
-        public ProductRepository(AlchemicShopContext context)
+
+        public UserRepository(AlchemicShopContext context)
         {
             dbContext = context;
         }
-
-        public void Create(Product item)
+        public void Create(User item)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Product item)
+        public void Delete(User item)
         {
             throw new NotImplementedException();
         }
 
-        public Product Get(int? id)
+        public User Get(int? id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetAll()
+        public IEnumerable<User> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Product item)
+        public void Update(User item)
         {
             throw new NotImplementedException();
         }

@@ -1,7 +1,6 @@
 ﻿using AlchemicShop.DAL.AlchemicDbContext;
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
-using System;
 
 namespace AlchemicShop.DAL.Repositories
 {
@@ -10,6 +9,9 @@ namespace AlchemicShop.DAL.Repositories
         private AlchemicShopContext dbContext;
         private ProductRepository productRepository;
         private CategoryRepository categoryRepository;
+        private OrderRepository orderRepository;
+        private OrderProductRepository orderProductRepository;
+        private UserRepository userRepository;
 
         public UoWItems(string connection)
         {
@@ -33,6 +35,36 @@ namespace AlchemicShop.DAL.Repositories
                 if (categoryRepository == null)
                     categoryRepository = new CategoryRepository(dbContext);
                 return categoryRepository;
+            }
+        }
+
+        public IRepository<User> Users
+        {
+            get
+            {
+                if (userRepository == null)
+                    userRepository = new UserRepository(dbContext);
+                return userRepository;
+            }
+        }
+
+        public IRepository<OrderProduct> OrderProducts
+        {
+            get
+            {
+                if (orderProductRepository == null)
+                    orderProductRepository = new OrderProductRepository(dbContext);
+                return orderProductRepository;
+            }
+        }
+
+        public IRepository<Order> Orders
+        {
+            get
+            {
+                if (orderRepository == null)
+                    orderRepository = new OrderRepository(dbContext);
+                return orderRepository;
             }
         }
 

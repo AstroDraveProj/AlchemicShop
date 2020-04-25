@@ -19,7 +19,7 @@ namespace AlchemicShop.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public void Delte(Category item)
+        public void Delete(Category item)
         {
             throw new NotImplementedException();
         }

@@ -6,36 +6,36 @@ using System.Collections.Generic;
 
 namespace AlchemicShop.DAL.Repositories
 {
-    public class ProductRepository : IRepository<Product>
+    public class OrderRepository : IRepository<Order>
     {
         private AlchemicShopContext dbContext;
-        
-        public ProductRepository(AlchemicShopContext context)
+
+        public OrderRepository(AlchemicShopContext context)
         {
             dbContext = context;
         }
 
-        public void Create(Product item)
+        public void Create(Order item)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Product item)
+        public void Delete(Order item)
         {
             throw new NotImplementedException();
         }
 
-        public Product Get(int? id)
+        public Order Get(int? id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetAll()
+        public IEnumerable<Order> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Product item)
+        public void Update(Order item)
         {
             throw new NotImplementedException();
         }
