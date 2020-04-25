@@ -20,6 +20,8 @@ namespace AlchemicShop.DAL.Entities
         public ShopingCart ShopingCart { get; set; }
 
         [ForeignKey("Customer")]
+		
+		
         public int? CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
     }
