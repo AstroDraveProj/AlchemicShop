@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace AlchemicShop.BLL.DTO
+namespace AlchemicShop.WEB.Models
 {
-    public class UserDTO
+    public class UserViewModel
     {
         public int Id { get; set; }
 
@@ -17,7 +17,8 @@ namespace AlchemicShop.BLL.DTO
         public string Password { get; set; }
 
         public bool IsAdmin { get; set; }
-       
-        public virtual ICollection<OrderDTO> OrdersDTO { get; set; }
+
+        public ICollection<OrderViewModel> OrdersViewModel { get; set; }
+
     }
 }

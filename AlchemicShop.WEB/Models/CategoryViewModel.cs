@@ -10,6 +10,6 @@ namespace AlchemicShop.WEB.Models
         [Required, MaxLength(40)]
         public string Name { get; set; }
 
-        public virtual ICollection<ProductViewModel> ProductViewModels { get; set; }
+        public ICollection<ProductViewModel> ProductViewModels { get; set; }
     }
 }

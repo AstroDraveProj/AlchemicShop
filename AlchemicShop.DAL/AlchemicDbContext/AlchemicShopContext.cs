@@ -20,7 +20,7 @@ namespace AlchemicShop.DAL.AlchemicDbContext
             Database.SetInitializer(new AlchemicShopInitializer());
         }
 
-        //public AlchemicShopContext() : base("AlchemicShopContext")
+        //public AlchemicShopContext() : base("AlchemicShopConnection")
         //{
         //}
 

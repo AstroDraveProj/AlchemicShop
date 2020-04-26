@@ -3,7 +3,7 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace AlchemicShop.DAL.Repositories
 {
@@ -28,6 +28,10 @@ namespace AlchemicShop.DAL.Repositories
         public User Get(int? id)
         {
             throw new NotImplementedException();
+        }
+        public IEnumerable<User> Find(Func<User, bool> predicate)
+        {
+            return dbContext.Users.Where(predicate).ToList();
         }
 
         public IEnumerable<User> GetAll()

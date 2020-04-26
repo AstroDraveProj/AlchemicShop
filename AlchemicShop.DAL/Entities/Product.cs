@@ -6,6 +6,7 @@ namespace AlchemicShop.DAL.Entities
     public class Product
     {
         public int Id { get; set; }
+        public int CategoryId { get; set; }
 
         [Required, MaxLength(40)]
         public string Name { get; set; }
@@ -17,9 +18,6 @@ namespace AlchemicShop.DAL.Entities
 
         [Required, MaxLength(40)]
         public float Price { get; set; }
-
-        public int CategoryId { get; set; }
-
         public Category Category { get; set; }
 
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }

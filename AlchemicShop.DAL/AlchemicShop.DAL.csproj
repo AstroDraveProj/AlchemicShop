@@ -66,7 +66,7 @@
     <Compile Include="Repositories\OrderProductRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
-    <Compile Include="Repositories\UoWItems.cs" />
+    <Compile Include="Repositories\AlchUnitOfWork.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

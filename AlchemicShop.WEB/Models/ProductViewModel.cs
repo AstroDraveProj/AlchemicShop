@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AlchemicShop.WEB.Models
 {
@@ -20,6 +21,8 @@ namespace AlchemicShop.WEB.Models
         public int CategoryId { get; set; }
 
         public CategoryViewModel CategoryViewModels { get; set; }
+
+        public ICollection<OrderProductViewModel> OrderProductViewModel { get; set; }
 
     }
 }

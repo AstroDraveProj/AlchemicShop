@@ -3,7 +3,7 @@ using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System.Collections.Generic;
 
-namespace AlchemicShop.WEB.Helper
+namespace AlchemicShop.WEB.Helpers
 {
     public class Mapper
     {

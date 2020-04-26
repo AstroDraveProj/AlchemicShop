@@ -1,8 +1,10 @@
 ﻿using AlchemicShop.DAL.AlchemicDbContext;
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace AlchemicShop.DAL.Repositories
 {
@@ -35,6 +37,11 @@ namespace AlchemicShop.DAL.Repositories
         public Product Get(int? id)
         {
             return dbContext.Products.Find(id);
+        }
+
+        public IEnumerable<Product> Find(Func<Product, bool> predicate)
+        {
+            return dbContext.Products.Where(predicate).ToList();
         }
 
         public IEnumerable<Product> GetAll()

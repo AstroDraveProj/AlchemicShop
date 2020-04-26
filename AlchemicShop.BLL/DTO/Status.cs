@@ -1,6 +1,6 @@
 ﻿namespace AlchemicShop.BLL.DTO
 {
-    public enum StatusDTO
+    public enum Status
     {
         Canseled = 0,
         Delivered = 1,
