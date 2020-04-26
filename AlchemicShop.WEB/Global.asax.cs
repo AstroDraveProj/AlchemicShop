@@ -1,4 +1,5 @@
 ﻿using AlchemicShop.BLL.Infrastructure;
+using AlchemicShop.WEB.IoC;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Mvc;
@@ -21,10 +22,10 @@ namespace AlchemicShop.WEB
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            ////NinjectModule orderModule = new OrderModule();
-            //NinjectModule serviceModule = new ServiceModule("DefaultConnection");
-            ////var kernel = new StandardKernel(orderModule, serviceModule);
-            //DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+            NinjectModule alchemicShopModule = new AlchemicShopModule();
+            NinjectModule serviceModule = new ServiceModule("AlchemicShopConnection");
+            var kernel = new StandardKernel(alchemicShopModule, serviceModule);
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }
 }

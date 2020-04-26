@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using AlchemicShop.BLL.DTO;
 
 namespace AlchemicShop.WEB.Models
 {
@@ -13,7 +15,9 @@ namespace AlchemicShop.WEB.Models
         public DateTime? ClosedDate { get; set; }
 
         [Required]
-        public StatusViewModel Status { get; set; }
+        public Status Status { get; set; }
+
+        public  ICollection<OrderProductViewModel> OrderProductViewModel { get; set; }
 
     }
 }
