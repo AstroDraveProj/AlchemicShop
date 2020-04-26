@@ -7,6 +7,8 @@ namespace AlchemicShop.BLL.DTO
     {
         public int Id { get; set; }
 
+        public int CategoryId { get; set; }
+
         [Required, MaxLength(40)]
         public string Name { get; set; }
 
@@ -18,9 +20,7 @@ namespace AlchemicShop.BLL.DTO
         [Required, MaxLength(40)]
         public float Price { get; set; }
 
-        public int CategoryId { get; set; }
-
-        public CategoryDTO CategoryDTO { get; set; }
+        public virtual CategoryDTO CategoryDTO { get; set; }
 
         public virtual ICollection<OrderProductDTO> OrderProductsDTO { get; set; }
     }
