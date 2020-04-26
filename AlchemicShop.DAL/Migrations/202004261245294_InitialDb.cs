@@ -30,21 +30,21 @@
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
                 .Index(t => t.CategoryId);
-
+            
             CreateTable(
-              "dbo.OrderProducts",
-              c => new
-              {
-                  Id = c.Int(nullable: false, identity: true),
-                  OrderId = c.Int(nullable: false),
-                  ProductId = c.Int(nullable: false),
-                  Amount = c.Int(nullable: false),
-              })
-              .PrimaryKey(t => t.Id)
-              .ForeignKey("dbo.Orders", t => t.OrderId, cascadeDelete: true)
-              .ForeignKey("dbo.Products", t => t.ProductId, cascadeDelete: true)
-              .Index(t => new { t.OrderId, t.ProductId }, unique: true, name: "IX_OrderProduct");
-
+                "dbo.OrderProducts",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        OrderId = c.Int(nullable: false),
+                        ProductId = c.Int(nullable: false),
+                        Amount = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Orders", t => t.OrderId, cascadeDelete: true)
+                .ForeignKey("dbo.Products", t => t.ProductId, cascadeDelete: true)
+                .Index(t => new { t.OrderId, t.ProductId }, unique: true, name: "IX_OrderProduct");
+            
             CreateTable(
                 "dbo.Orders",
                 c => new
@@ -58,10 +58,7 @@
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-
-           
-
-
+            
             CreateTable(
                 "dbo.Users",
                 c => new

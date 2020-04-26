@@ -13,7 +13,7 @@ namespace AlchemicShop.DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202004261120104_InitialDb"; }
+            get { return "202004261245294_InitialDb"; }
         }
         
         string IMigrationMetadata.Source
