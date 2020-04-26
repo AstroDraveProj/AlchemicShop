@@ -11,12 +11,12 @@ namespace AlchemicShop.DAL.Entities
         [Required, MaxLength(40)]
         public string Name { get; set; }
 
-        [Required, MaxLength(40)]
+        [Required]
         public int Amount { get; set; }
 
         public string Description { get; set; }
 
-        [Required, MaxLength(40)]
+        [Required]
         public float Price { get; set; }
         public Category Category { get; set; }
 

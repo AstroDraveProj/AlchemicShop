@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace AlchemicShop.DAL.AlchemicDbContext
 {
-    class AlchemicShopInitializer : DropCreateDatabaseIfModelChanges<AlchemicShopContext>
+    class AlchemicShopInitializer : DropCreateDatabaseAlways<AlchemicShopContext>
     {
         protected override void Seed(AlchemicShopContext dbContext)
         {

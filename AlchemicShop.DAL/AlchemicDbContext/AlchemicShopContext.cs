@@ -17,12 +17,12 @@ namespace AlchemicShop.DAL.AlchemicDbContext
 
         static AlchemicShopContext()
         {
-            Database.SetInitializer(new AlchemicShopInitializer());
+            //Database.SetInitializer(new AlchemicShopInitializer());
         }
 
-        //public AlchemicShopContext() : base("AlchemicShopConnection")
-        //{
-        //}
+        public AlchemicShopContext() : base("AlchemicShopConnection")
+        {
+        }
 
         public AlchemicShopContext(string connectionString)
            : base(connectionString)
