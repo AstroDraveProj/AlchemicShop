@@ -3,6 +3,7 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlchemicShop.DAL.Repositories
 {
@@ -28,6 +29,10 @@ namespace AlchemicShop.DAL.Repositories
         {
             throw new NotImplementedException();
         }
+        public IEnumerable<Category> Find(Func<Category, bool> predicate)
+        {
+            return dbContext.Categories.Where(predicate).ToList();
+        }
 
         public IEnumerable<Category> GetAll()
         {
@@ -38,5 +43,6 @@ namespace AlchemicShop.DAL.Repositories
         {
             throw new NotImplementedException();
         }
+
     }
 }

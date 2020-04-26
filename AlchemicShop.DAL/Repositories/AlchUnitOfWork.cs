@@ -1,10 +1,11 @@
 ﻿using AlchemicShop.DAL.AlchemicDbContext;
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
+using System;
 
 namespace AlchemicShop.DAL.Repositories
 {
-    public class UoWItems : IUnitOfWork
+    public class AlchUnitOfWork : IUnitOfWork
     {
         private AlchemicShopContext dbContext;
         private ProductRepository productRepository;
@@ -13,7 +14,7 @@ namespace AlchemicShop.DAL.Repositories
         private OrderProductRepository orderProductRepository;
         private UserRepository userRepository;
 
-        public UoWItems(string connection)
+        public AlchUnitOfWork(string connection)
         {
             dbContext = new AlchemicShopContext(connection);
         }
@@ -71,6 +72,26 @@ namespace AlchemicShop.DAL.Repositories
         public void Save()
         {
             dbContext.SaveChanges();
+        }
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    dbContext.Dispose();
+                }
+                this.disposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

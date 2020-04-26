@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AlchemicShop.DAL.Entities
@@ -19,8 +20,6 @@ namespace AlchemicShop.DAL.Entities
 
         public bool IsAdmin { get; set; }
 
-        public int OrderId { get; set; }
-
-        public Order Order { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }         
     }
 }
