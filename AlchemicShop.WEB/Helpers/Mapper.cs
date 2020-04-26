@@ -27,5 +27,17 @@ namespace AlchemicShop.WEB.Helpers
             return listCategory;
         }
         #endregion
+
+        #region OrderDTO
+        #endregion
+
+        #region ProductDTO
+        #endregion
+
+        #region UserDTO
+        #endregion
+
+        #region OrderProductDTO
+        #endregion
     }
 }

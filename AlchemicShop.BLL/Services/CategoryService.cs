@@ -24,6 +24,7 @@ namespace AlchemicShop.BLL.Services
             Database.Categories.Create(category);
             Database.Save();
         }
+
         public IEnumerable<CategoryDTO> GetCategories()
         {
             return Mapper.CategoryMap(Database.Categories.GetAll().ToList());
