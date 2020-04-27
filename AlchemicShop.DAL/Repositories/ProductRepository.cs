@@ -39,7 +39,7 @@ namespace AlchemicShop.DAL.Repositories
             return dbContext.Products.Find(id);
         }
 
-        public IEnumerable<Product> Find(Func<Product, Boolean> predicate)
+        public IEnumerable<Product> Find(Func<Product, bool> predicate)
         {
             return dbContext.Products.Where(predicate).ToList();
         }

@@ -2,7 +2,7 @@
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Helpers;
 using AlchemicShop.WEB.Models;
-using System.Collections.Generic;
+using AutoMapper;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -10,12 +10,15 @@ namespace AlchemicShop.WEB.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ICategoryService _categoryService;
+        private readonly ICategoryService _categoryServise;
+        private readonly IMapper _mapper; 
 
         public CategoryController(
-            ICategoryService service)
+            ICategoryService service,
+            IMapper mapper)
         {
-            _categoryService = service;
+            _categoryServise = service;
+            _mapper = mapper;
         }
 
         public ActionResult AddCategories()
@@ -26,13 +29,19 @@ namespace AlchemicShop.WEB.Controllers
         [HttpPost]
         public ActionResult AddCategories(CategoryViewModel category)
         {
-            var categoryDTO = Mapper.Mapping<CategoryViewModel, CategoryDTO>(category);
-            _categoryService.AddCategory(categoryDTO);
+            var categoryDTO = _mapper.Map<CategoryDTO>(category);
+            _categoryServise.AddCategory(categoryDTO);
 
-            return RedirectToAction(nameof(GetCategories));
+            //return RedirectToAction(nameof(GetCategories));
+            return View();
         }
-
+        
         public ActionResult GetCategories()
+        {
+            return View();
+        }
+		
+		public ActionResult GetCategories()
         {
             var categories = Mapper.Mapping<CategoryDTO, CategoryViewModel>(_categoryService.GetCategories().ToList());
             return View(categories);
@@ -41,10 +50,10 @@ namespace AlchemicShop.WEB.Controllers
         public ActionResult Details(int? id)
         {
             var categoryDto = _categoryService.GetCategory(id);
-            var category = Mapper.Mapping<CategoryDTO, CategoryViewModel>(categoryDto);
+            var category = _mapper.Mapp<CategoryViewModel>(categoryDto);
             var productsListDtos = _categoryService.GetProducts(categoryDto).ToList();
 
-            var productsList = Mapper.Mapping<ProductDTO, ProductViewModel>(productsListDtos);
+            var productsList = _mapper.Map<ProductViewModel>(productsListDtos);
                   ViewBag.Products = productsList;
 
             return View(category);

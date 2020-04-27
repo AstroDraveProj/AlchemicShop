@@ -27,7 +27,7 @@ namespace AlchemicShop.DAL.Repositories
 
         public Category Get(int? id)
         {
-            return dbContext.Categories.Find(id);
+            throw new NotImplementedException();
         }
         public IEnumerable<Category> Find(Func<Category, bool> predicate)
         {

@@ -1,11 +1,8 @@
-﻿using AlchemicShop.BLL.DTO;
-using AlchemicShop.BLL.Helpers;
-using AlchemicShop.BLL.Interfaces;
+﻿using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.BLL.Services;
 using AlchemicShop.WEB.Helpers;
-using AlchemicShop.WEB.Models;
-using AutoMapper;
 using Ninject.Modules;
+using AutoMapper;
 
 namespace AlchemicShop.WEB.IoC
 {
@@ -18,8 +15,7 @@ namespace AlchemicShop.WEB.IoC
             Bind<IOrderService>().To<OrderService>();
             Bind<IOrderProductService>().To<OrderProductService>();
             Bind<IUserService>().To<UserService>();
+            Bind<IMapper>().ToConstant(WebMapper.Configure().CreateMapper());
         }
-
-
     }
 }

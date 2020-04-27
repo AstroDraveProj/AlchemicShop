@@ -1,17 +1,14 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
-using System.Collections.Generic;
 
 namespace AlchemicShop.WEB.Helpers
 {
     public static class Mapper
     {
-        private static IMapper mapperConfig;
-
-        static Mapper()
+        public static MapperConfiguration Configure()
         {
-            mapperConfig = new MapperConfiguration(cfg =>
+            var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<UserViewModel, UserDTO>();
                 cfg.CreateMap<OrderViewModel, OrderDTO>();
@@ -24,17 +21,8 @@ namespace AlchemicShop.WEB.Helpers
                 cfg.CreateMap<OrderProductDTO, OrderProductViewModel>();
                 cfg.CreateMap<ProductDTO, ProductViewModel>();
                 cfg.CreateMap<CategoryDTO, CategoryViewModel>();
-            }).CreateMapper();
-        }
-
-        public static TDestination Mapping<TSource, TDestination>(TSource source)
-        {
-            return mapperConfig.Map<TSource, TDestination>(source);
-        }
-
-        public static List<TDestination> Mapping<TSource, TDestination>(List<TSource> source)
-        {
-            return mapperConfig.Map<List<TSource>, List<TDestination>>(source);
+            });
+            return config;
         }
     }
 }

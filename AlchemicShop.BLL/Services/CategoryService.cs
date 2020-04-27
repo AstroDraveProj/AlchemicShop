@@ -19,6 +19,7 @@ namespace AlchemicShop.BLL.Services
 
         public void AddCategory(CategoryDTO categoryDTO)
         {
+            //var category = Mapper.CategoryMap(categoryDTO);
             Category category = new Category { Name = categoryDTO.Name };
             Database.Categories.Create(category);
             Database.Save();
@@ -26,7 +27,7 @@ namespace AlchemicShop.BLL.Services
 
         public IEnumerable<CategoryDTO> GetCategories()
         {
-            return Mapper.Mapping<Category, CategoryDTO>(Database.Categories.GetAll().ToList());
+             return Mapper.Mapping<Category, CategoryDTO>(Database.Categories.GetAll().ToList());
         }
 
         public IEnumerable<ProductDTO> GetProducts(CategoryDTO categoryDTO)
@@ -47,8 +48,9 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Категория не найдена", "");
             }
 
-            var categoryDto = Mapper.Mapping<Category, CategoryDTO>(category);
+            var categoryDto =  Mapper.CategoryMap(category);
             return categoryDto;
+            //new CategoryDTO { Id = category.Id, Name = category.Name };
         }
         public void Dispose()
         {

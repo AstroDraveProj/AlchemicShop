@@ -39,11 +39,13 @@ namespace AlchemicShop.BLL.Services
                 Order = order
             };
             Database.OrderProducts.Create(orderProduct);
+            //ещё надо как-то записать в Order.OrderProductsDTO.Add(orderProduct);
+            //ещё надо как-то записать в Product.ProductsDTO.Add(orderProduct);
             Database.Save();
         }
         public IEnumerable<OrderProductDTO> GetOrderProducts()
         {
-            return Mapper.Mapping<OrderProduct, OrderProductDTO>(Database.OrderProducts.GetAll().ToList());
+            return Mapper.OrderProductMap(Database.OrderProducts.GetAll().ToList());
         }
 
         public OrderProductDTO GetOrderProduct(int? id)
@@ -58,7 +60,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Заказаный продукт не найден", "");
             }
 
-            var orderProductDTO = Mapper.Mapping<OrderProduct, OrderProductDTO>(orderProduct);
+            var orderProductDTO = Mapper.OrderProductMap(orderProduct);
             return orderProductDTO;           
         }
         public void Dispose()
