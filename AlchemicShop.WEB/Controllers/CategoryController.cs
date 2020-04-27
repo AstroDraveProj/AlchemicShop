@@ -20,10 +20,6 @@ namespace AlchemicShop.WEB.Controllers
             _categoryServise = service;
             _mapper = mapper;
         }
-        public ActionResult GetCategories()
-        {
-            return View();
-        }
 
         public ActionResult AddCategories()
         {
@@ -37,6 +33,11 @@ namespace AlchemicShop.WEB.Controllers
             _categoryServise.AddCategory(categoryDTO);
 
             return RedirectToAction(nameof(GetCategories));
+        }
+        
+        public ActionResult GetCategories()
+        {
+            return View();
         }
     }
 }

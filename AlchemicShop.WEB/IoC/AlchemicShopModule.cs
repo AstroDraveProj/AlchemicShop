@@ -16,6 +16,21 @@ namespace AlchemicShop.WEB.IoC
             Bind<IOrderService>().To<OrderService>();
             Bind<IOrderProductService>().To<OrderProductService>();
             Bind<IUserService>().To<UserService>();
+
+            var mapperConfiguration = new MapperConfiguration(cfg => { CreateConfiguration(); });
+            Bind<IMapper>().ToConstructor(c => new AutoMapper.Mapper(mapperConfiguration)).InSingletonScope();
+
+        }
+
+        public static MapperConfiguration CreateConfiguration()
+        {
+            MapperConfiguration config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new WEBProfile());  //mapping between Web and Business layer objects
+                cfg.AddProfile(new BLProfile());  // mapping between Business and DB layer objects
+            });
+
+            return config;
         }
     }
 

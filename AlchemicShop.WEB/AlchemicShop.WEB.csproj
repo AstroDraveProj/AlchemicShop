@@ -153,7 +153,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Mapper.cs" />
-    <Compile Include="Helpers\WebMappingProfile.cs" />
+    <Compile Include="Helpers\WEBProfile.cs" />
     <Compile Include="IoC\AlchemicShopModule.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\OrderProductViewModel.cs" />
