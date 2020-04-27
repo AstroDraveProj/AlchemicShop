@@ -4,7 +4,7 @@ using AutoMapper;
 
 namespace AlchemicShop.WEB.Helpers
 {
-    public static class Mapper
+    public static class WebMapper
     {
         public static MapperConfiguration Configure()
         {
