@@ -1,7 +1,9 @@
-﻿using AlchemicShop.BLL.Helpers;
+﻿using AlchemicShop.BLL.DTO;
+using AlchemicShop.BLL.Helpers;
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.BLL.Services;
 using AlchemicShop.WEB.Helpers;
+using AlchemicShop.WEB.Models;
 using AutoMapper;
 using Ninject.Modules;
 
@@ -17,22 +19,36 @@ namespace AlchemicShop.WEB.IoC
             Bind<IOrderProductService>().To<OrderProductService>();
             Bind<IUserService>().To<UserService>();
 
-            var mapperConfiguration = new MapperConfiguration(cfg => { CreateConfiguration(); });
-            Bind<IMapper>().ToConstructor(c => new AutoMapper.Mapper(mapperConfiguration)).InSingletonScope();
+            var configur = Mapper.Configure();
 
+            Bind<IMapper>().ToConstant(configur.CreateMapper());
+            // Bind(configur.CreateMapper()).To<IMapper>();    
+            //Bind<IMapper>().ToMethod(c => configur.CreateMapper());
         }
 
-        public static MapperConfiguration CreateConfiguration()
+        public static class Mapper
         {
-            MapperConfiguration config = new MapperConfiguration(cfg =>
+            public static MapperConfiguration Configure()
             {
-                cfg.AddProfile(new WEBProfile());  //mapping between Web and Business layer objects
-                cfg.AddProfile(new BLProfile());  // mapping between Business and DB layer objects
-            });
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<UserViewModel, UserDTO>();
+                    cfg.CreateMap<OrderViewModel, OrderDTO>();
+                    cfg.CreateMap<OrderProductViewModel, OrderProductDTO>();
+                    cfg.CreateMap<ProductViewModel, ProductDTO>();
+                    cfg.CreateMap<CategoryViewModel, CategoryDTO>();
 
-            return config;
+                    cfg.CreateMap<UserDTO, UserViewModel>();
+                    cfg.CreateMap<OrderDTO, OrderViewModel>();
+                    cfg.CreateMap<OrderProductDTO, OrderProductViewModel>();
+                    cfg.CreateMap<ProductDTO, ProductViewModel>();
+                    cfg.CreateMap<CategoryDTO, CategoryViewModel>();
+                });
+                return config;
+            }
+           
         }
     }
 
-    
+
 }

@@ -32,7 +32,8 @@ namespace AlchemicShop.WEB.Controllers
             var categoryDTO = _mapper.Map<CategoryDTO>(category);
             _categoryServise.AddCategory(categoryDTO);
 
-            return RedirectToAction(nameof(GetCategories));
+            //return RedirectToAction(nameof(GetCategories));
+            return View();
         }
         
         public ActionResult GetCategories()

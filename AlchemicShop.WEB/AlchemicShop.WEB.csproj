@@ -316,10 +316,6 @@
       <Project>{8b8037c1-a326-4f23-9651-0af8009f2b8d}</Project>
       <Name>AlchemicShop.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AlchemicShop.DAL\AlchemicShop.DAL.csproj">
-      <Project>{BD978264-AABD-446C-9D40-055A02861115}</Project>
-      <Name>AlchemicShop.DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
