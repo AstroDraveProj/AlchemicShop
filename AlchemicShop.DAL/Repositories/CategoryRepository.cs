@@ -17,7 +17,7 @@ namespace AlchemicShop.DAL.Repositories
         }
         public void Create(Category item)
         {
-            throw new NotImplementedException();
+            dbContext.Categories.Add(item);
         }
 
         public void Delete(Category item)
@@ -36,7 +36,7 @@ namespace AlchemicShop.DAL.Repositories
 
         public IEnumerable<Category> GetAll()
         {
-            throw new NotImplementedException();
+            return dbContext.Categories.ToList();
         }
 
         public void Update(Category item)

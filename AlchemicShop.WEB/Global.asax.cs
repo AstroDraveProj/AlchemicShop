@@ -1,5 +1,8 @@
-﻿using AlchemicShop.BLL.Infrastructure;
+﻿using AlchemicShop.BLL.Helpers;
+using AlchemicShop.BLL.Infrastructure;
+using AlchemicShop.WEB.Helpers;
 using AlchemicShop.WEB.IoC;
+using AutoMapper;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Mvc;
@@ -27,5 +30,6 @@ namespace AlchemicShop.WEB
             var kernel = new StandardKernel(alchemicShopModule, serviceModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
+
     }
 }
