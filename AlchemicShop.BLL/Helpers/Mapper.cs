@@ -10,7 +10,7 @@ namespace AlchemicShop.BLL.Helpers
 {
     public static class Mapper
     {
-
+        
         #region Category
         public static Category CategoryMap(CategoryDTO categoryDTO)
         {
@@ -182,6 +182,6 @@ namespace AlchemicShop.BLL.Helpers
         }
 
         #endregion
-
+        
     }
 }
