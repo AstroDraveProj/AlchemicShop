@@ -50,7 +50,7 @@ namespace AlchemicShop.WEB.Controllers
             var productsListDtos = _categoryService.GetProducts(categoryDto).ToList();
 
             
-            List<ProductViewModel> productsList = _mapper.Map<ProductViewModel>(productsListDtos);
+            List<ProductViewModel> productsList = _mapper.Map<List<ProductViewModel>>(productsListDtos);
                   ViewBag.Products = productsList;
 
             return View(category);
