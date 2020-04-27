@@ -1,5 +1,7 @@
 ﻿using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Repositories;
+using AutoMapper;
+using Ninject;
 using Ninject.Modules;
 
 namespace AlchemicShop.BLL.Infrastructure
@@ -14,7 +16,6 @@ namespace AlchemicShop.BLL.Infrastructure
         public override void Load()
         {
             Bind<IUnitOfWork>().To<AlchUnitOfWork>().WithConstructorArgument(connectionString);
-
         }
     }
 }

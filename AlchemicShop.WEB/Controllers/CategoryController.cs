@@ -1,10 +1,7 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Interfaces;
-using AlchemicShop.WEB.Helpers;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace AlchemicShop.WEB.Controllers
@@ -39,21 +36,21 @@ namespace AlchemicShop.WEB.Controllers
 
         public ActionResult GetCategories()
         {
-            var categories = _mapper.Map<CategoryViewModel>(_categoryService.GetCategories().ToList());
+            var categories = _mapper.Map<CategoryViewModel>(_categoryService.GetCategories());
             return View(categories);
         }
 
         public ActionResult Details(int? id)
         {
-            var categoryDto = _categoryService.GetCategory(id);
-            var category = _mapper.Map<CategoryViewModel>(categoryDto);
-            var productsListDtos = _categoryService.GetProducts(categoryDto).ToList();
+            //var categoryDto = _categoryService.GetCategory(id);
+            //var category = _mapper.Map<CategoryViewModel>(categoryDto);
+            //var productsListDtos = _categoryService.GetProducts(categoryDto).ToList();
 
 
-            List<ProductViewModel> productsList = _mapper.Map<List<ProductViewModel>>(productsListDtos);
-            ViewBag.Products = productsList;
+            //List<ProductViewModel> productsList = _mapper.Map<List<ProductViewModel>>(productsListDtos);
+            //ViewBag.Products = productsList;
 
-            return View(category);
+            return View(/*category*/);
         }
     }
 }

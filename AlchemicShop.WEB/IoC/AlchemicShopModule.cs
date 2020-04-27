@@ -1,13 +1,14 @@
 ﻿using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.BLL.Services;
 using AlchemicShop.WEB.Helpers;
-using Ninject.Modules;
 using AutoMapper;
+using Ninject.Modules;
 
 namespace AlchemicShop.WEB.IoC
 {
     public class AlchemicShopModule : NinjectModule
     {
+        delegate IMapper Config();
         public override void Load()
         {
             Bind<ICategoryService>().To<CategoryService>();
@@ -15,7 +16,9 @@ namespace AlchemicShop.WEB.IoC
             Bind<IOrderService>().To<OrderService>();
             Bind<IOrderProductService>().To<OrderProductService>();
             Bind<IUserService>().To<UserService>();
+
             Bind<IMapper>().ToConstant(WebMapper.Configure().CreateMapper());
+           
         }
     }
 }

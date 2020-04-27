@@ -8,7 +8,7 @@ namespace AlchemicShop.BLL.Interfaces
         void AddCategory(CategoryDTO categoryDto);
         CategoryDTO GetCategory(int? id);
         IEnumerable<CategoryDTO> GetCategories();
-		IEnumerable<ProductDTO> GetProducts(CategoryDTO categoryDTO);
+		//IEnumerable<ProductDTO> GetProducts(CategoryDTO categoryDTO);
         void Dispose();
     }
 }

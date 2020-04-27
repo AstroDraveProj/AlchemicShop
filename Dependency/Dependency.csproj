@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8B8037C1-A326-4F23-9651-0AF8009F2B8D}</ProjectGuid>
+    <ProjectGuid>{2D1F22E4-BC22-4E1B-906A-6F31F30DFDFB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AlchemicShop.BLL</RootNamespace>
-    <AssemblyName>AlchemicShop.BLL</AssemblyName>
+    <RootNamespace>Dependency</RootNamespace>
+    <AssemblyName>Dependency</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -34,11 +34,7 @@
     <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,29 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessModels\Discount.cs" />
-    <Compile Include="DTO\CategoryDTO.cs" />
-    <Compile Include="DTO\OrderDTO.cs" />
-    <Compile Include="DTO\OrderProductDTO.cs" />
-    <Compile Include="DTO\ProductDTO.cs" />
-    <Compile Include="DTO\Status.cs" />
-    <Compile Include="DTO\UserDTO.cs" />
-    <Compile Include="Helpers\Mapper.cs" />
-    <Compile Include="Infrastructure\ServiceModule.cs" />
-    <Compile Include="Infrastructure\ValidationException.cs" />
-    <Compile Include="Interfaces\ICategoryService.cs" />
-    <Compile Include="Interfaces\IOrderProductService.cs" />
-    <Compile Include="Interfaces\IOrderService.cs" />
-    <Compile Include="Interfaces\IProductService.cs" />
-    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="DLMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Services\OrderProductService.cs" />
-    <Compile Include="Services\OrderService.cs" />
-    <Compile Include="Services\ProductService.cs" />
-    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AlchemicShop.BLL\AlchemicShop.BLL.csproj">
+      <Project>{8b8037c1-a326-4f23-9651-0af8009f2b8d}</Project>
+      <Name>AlchemicShop.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AlchemicShop.DAL\AlchemicShop.DAL.csproj">
       <Project>{bd978264-aabd-446c-9d40-055a02861115}</Project>
       <Name>AlchemicShop.DAL</Name>
@@ -79,6 +60,5 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
