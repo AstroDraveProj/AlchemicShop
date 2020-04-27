@@ -6,14 +6,17 @@ using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 
 namespace AlchemicShop.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        IUnitOfWork Database { get; set; }
-        public CategoryService(IUnitOfWork uow)
+        private  IUnitOfWork Database { get; set; }
+        private readonly IMapper _mapper;
+        public CategoryService(IUnitOfWork uow, IMapper mapper)
         {
+            _mapper = mapper;
             Database = uow;
         }
 
@@ -27,7 +30,8 @@ namespace AlchemicShop.BLL.Services
 
         public IEnumerable<CategoryDTO> GetCategories()
         {
-             return Mapper.Mapping<Category, CategoryDTO>(Database.Categories.GetAll().ToList());
+            var categories = Database.Categories.GetAll().ToList();
+             return _mapper.Map<CategoryDTO>(categories);
         }
 
         public IEnumerable<ProductDTO> GetProducts(CategoryDTO categoryDTO)

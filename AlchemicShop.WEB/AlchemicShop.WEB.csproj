@@ -152,8 +152,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Mapper.cs" />
-    <Compile Include="Helpers\WEBProfile.cs" />
+    <Compile Include="Helpers\WebMapper.cs" />
     <Compile Include="IoC\AlchemicShopModule.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\OrderProductViewModel.cs" />
@@ -303,6 +302,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Category\GetCategories.cshtml" />
     <Content Include="Views\Category\AddCategories.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
