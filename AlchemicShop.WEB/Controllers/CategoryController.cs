@@ -1,6 +1,8 @@
-﻿using AlchemicShop.BLL.Interfaces;
+﻿using AlchemicShop.BLL.DTO;
+using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Helpers;
 using AlchemicShop.WEB.Models;
+using AutoMapper;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -8,15 +10,19 @@ namespace AlchemicShop.WEB.Controllers
 {
     public class CategoryController : Controller
     {
-        private ICategoryService categoryServise;
+        private readonly ICategoryService _categoryServise;
+        private readonly IMapper _mapper; 
 
-        public CategoryController(ICategoryService service)
+        public CategoryController(
+            ICategoryService service,
+            IMapper mapper)
         {
-            categoryServise = service;
+            _categoryServise = service;
+            _mapper = mapper;
         }
         public ActionResult GetCategories()
         {
-            return View(Mapper.CategoryMap(categoryServise.GetCategories().ToList()));
+            return View();
         }
 
         public ActionResult AddCategories()
@@ -27,8 +33,8 @@ namespace AlchemicShop.WEB.Controllers
         [HttpPost]
         public ActionResult AddCategories(CategoryViewModel category)
         {
-            var categoryDTO = Mapper.CategoryMap(category);
-            categoryServise.AddCategory(categoryDTO);
+            var categoryDTO = _mapper.Map<CategoryDTO>(category);
+            _categoryServise.AddCategory(categoryDTO);
 
             return RedirectToAction(nameof(GetCategories));
         }

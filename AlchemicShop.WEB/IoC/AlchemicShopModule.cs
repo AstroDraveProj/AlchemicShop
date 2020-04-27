@@ -1,6 +1,9 @@
-﻿using Ninject.Modules;
+﻿using AlchemicShop.BLL.Helpers;
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.BLL.Services;
+using AlchemicShop.WEB.Helpers;
+using AutoMapper;
+using Ninject.Modules;
 
 namespace AlchemicShop.WEB.IoC
 {
@@ -15,4 +18,6 @@ namespace AlchemicShop.WEB.IoC
             Bind<IUserService>().To<UserService>();
         }
     }
+
+    
 }

@@ -1,12 +1,16 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.DAL.Entities;
 using AutoMapper;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace AlchemicShop.BLL.Helpers
 {
     public static class Mapper
     {
+
         #region Category
         public static Category CategoryMap(CategoryDTO categoryDTO)
         {
@@ -176,6 +180,7 @@ namespace AlchemicShop.BLL.Helpers
             var userListDto = mapper.Map<List<User>, List<UserDTO>>(userList);
             return userListDto;
         }
+
         #endregion
 
     }
