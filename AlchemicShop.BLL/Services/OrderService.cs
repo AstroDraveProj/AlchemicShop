@@ -23,7 +23,7 @@ namespace AlchemicShop.BLL.Services
         }
         public IEnumerable<OrderDTO> GetOrders()
         {
-            return Mapper.OrderMap(Database.Orders.GetAll().ToList());
+            return Mapper.Mapping<Order, OrderDTO>(Database.Orders.GetAll().ToList());
         }
 
         public OrderDTO GetOrder(int? id)
@@ -38,7 +38,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Заказ не найден", "");
             }
 
-            var orderDTO = Mapper.OrderMap(order);
+            var orderDTO = Mapper.Mapping<Order, OrderDTO>(order);
             return orderDTO;
         }
         public void Dispose()

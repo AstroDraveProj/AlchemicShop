@@ -23,7 +23,7 @@ namespace AlchemicShop.BLL.Services
         }
         public IEnumerable<UserDTO> GetUsers()
         {
-            return Mapper.UserMap(Database.Users.GetAll().ToList());
+            return Mapper.Mapping<User, UserDTO>(Database.Users.GetAll().ToList());
         }
 
         public UserDTO GetUser(int? id)
@@ -38,7 +38,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Пользователь не найден", "");
             }
 
-            var userDTO = Mapper.UserMap(user);
+            var userDTO = Mapper.Mapping<User, UserDTO>(user);
             return userDTO;
         }
         public void Dispose()

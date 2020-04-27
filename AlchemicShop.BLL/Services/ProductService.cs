@@ -40,7 +40,7 @@ namespace AlchemicShop.BLL.Services
         }
         public IEnumerable<ProductDTO> GetProducts()
         {
-            return Mapper.ProductMap(Database.Products.GetAll().ToList());
+            return Mapper.Mapping<Product, ProductDTO>(Database.Products.GetAll().ToList());
         }
 
         public ProductDTO GetProduct(int? id)
@@ -56,7 +56,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Продукт не найден", "");
             }
 
-            var productDto = Mapper.ProductMap(product);
+            var productDto = Mapper.Mapping < Product, ProductDTO> (product);
             return productDto;            
         }
         public void Dispose()

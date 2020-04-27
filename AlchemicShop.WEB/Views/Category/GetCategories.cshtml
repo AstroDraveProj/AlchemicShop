@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AlchemicShop.WEB.Models.CategoryViewModel>
+﻿@model List<AlchemicShop.WEB.Models.CategoryViewModel>
 
 @{
     ViewBag.Title = "GetCategories";
@@ -7,12 +7,12 @@
 <h2>GetCategories</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "AddCategories")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Model.GetType()
         </th>
         <th></th>
     </tr>

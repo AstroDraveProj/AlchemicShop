@@ -153,7 +153,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Mapper.cs" />
-    <Compile Include="Helpers\WEBProfile.cs" />
     <Compile Include="IoC\AlchemicShopModule.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\OrderProductViewModel.cs" />
@@ -303,6 +302,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Category\GetCategories.cshtml" />
     <Content Include="Views\Category\AddCategories.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -315,10 +315,6 @@
     <ProjectReference Include="..\AlchemicShop.BLL\AlchemicShop.BLL.csproj">
       <Project>{8b8037c1-a326-4f23-9651-0af8009f2b8d}</Project>
       <Name>AlchemicShop.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AlchemicShop.DAL\AlchemicShop.DAL.csproj">
-      <Project>{BD978264-AABD-446C-9D40-055A02861115}</Project>
-      <Name>AlchemicShop.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
