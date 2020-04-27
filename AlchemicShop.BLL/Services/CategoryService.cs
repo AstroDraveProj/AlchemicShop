@@ -1,19 +1,21 @@
 ﻿using AlchemicShop.BLL.DTO;
-using AlchemicShop.BLL.Helpers;
 using AlchemicShop.BLL.Infrastructure;
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 
 namespace AlchemicShop.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        IUnitOfWork Database { get; set; }
-        public CategoryService(IUnitOfWork uow)
+        private IUnitOfWork Database { get; set; }
+        private readonly IMapper _mapper;
+        public CategoryService(IUnitOfWork uow, IMapper mapper)
         {
+            _mapper = mapper;
             Database = uow;
         }
 
@@ -27,7 +29,13 @@ namespace AlchemicShop.BLL.Services
 
         public IEnumerable<CategoryDTO> GetCategories()
         {
-            return Mapper.CategoryMap(Database.Categories.GetAll().ToList());
+            var categories = Database.Categories.GetAll().ToList();
+            return _mapper.Map<List<CategoryDTO>>(categories);
+        }
+
+        public IEnumerable<ProductDTO> GetProducts(CategoryDTO categoryDTO)
+        {
+            return _mapper.Map<List<ProductDTO>>(Database.Products.Find(p => p.CategoryId == _mapper.Map<Category>(categoryDTO).Id).ToList());
         }
 
         public CategoryDTO GetCategory(int? id)
@@ -43,9 +51,8 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Категория не найдена", "");
             }
 
-            var categoryDto =  Mapper.CategoryMap(category);
+            var categoryDto = _mapper.Map<CategoryDTO>(category);
             return categoryDto;
-            //new CategoryDTO { Id = category.Id, Name = category.Name };
         }
         public void Dispose()
         {

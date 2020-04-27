@@ -1,19 +1,21 @@
 ﻿using AlchemicShop.BLL.DTO;
-using AlchemicShop.BLL.Helpers;
 using AlchemicShop.BLL.Infrastructure;
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 
 namespace AlchemicShop.BLL.Services
 {
     public class ProductService : IProductService
     {
-        IUnitOfWork Database { get; set; }
-        public ProductService(IUnitOfWork uow)
+        private IUnitOfWork Database { get; set; }
+        private readonly IMapper _mapper;
+        public ProductService(IUnitOfWork uow, IMapper mapper)
         {
+            _mapper = mapper;
             Database = uow;
         }
 
@@ -26,7 +28,8 @@ namespace AlchemicShop.BLL.Services
             {
                 throw new ValidationException("Категория не найдена", "");
             }
-            Product product = new Product { 
+            Product product = new Product
+            {
                 Name = productDTO.Name,
                 Amount = productDTO.Amount,
                 CategoryId = category.Id,
@@ -40,7 +43,7 @@ namespace AlchemicShop.BLL.Services
         }
         public IEnumerable<ProductDTO> GetProducts()
         {
-            return Mapper.ProductMap(Database.Products.GetAll().ToList());
+            return _mapper.Map<IEnumerable<ProductDTO>>(Database.Products.GetAll().ToList());
         }
 
         public ProductDTO GetProduct(int? id)
@@ -56,8 +59,8 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Продукт не найден", "");
             }
 
-            var productDto = Mapper.ProductMap(product);
-            return productDto;            
+            var productDto = _mapper.Map<ProductDTO>(product);
+            return productDto;
         }
         public void Dispose()
         {
