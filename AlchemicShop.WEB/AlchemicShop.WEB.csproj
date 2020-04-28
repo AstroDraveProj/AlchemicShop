@@ -317,12 +317,15 @@
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Category\DeleteSuccess.cshtml" />
     <Content Include="Views\Order\GetOrderList.cshtml" />
-    <Content Include="Views\Order\DeleteOrder.cshtml" />
+    <Content Include="Views\User\GetUserList.cshtml" />
+    <Content Include="Views\User\CreateUser.cshtml" />
+    <Content Include="Views\User\DeleteUser.cshtml" />
+    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\User\DeleteSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\Index\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

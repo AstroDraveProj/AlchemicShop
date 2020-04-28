@@ -22,14 +22,17 @@ namespace AlchemicShop.DAL.Repositories
             if (item != null)
             {
                 _dbContext.Users.Add(item);
+                _dbContext.SaveChanges();
             }
         }
 
         public void Delete(User item)
         {
-            if (item != null)
+            var deleteItem = Get(item.Id);
+            if (deleteItem != null)
             {
-                _dbContext.Users.Remove(item);
+                _dbContext.Users.Remove(deleteItem);
+                _dbContext.SaveChanges();
             }
         }
 
@@ -63,7 +66,9 @@ namespace AlchemicShop.DAL.Repositories
                     updateItem.IsAdmin = item.IsAdmin;
                     updateItem.Login = item.Login;
                     updateItem.Name = item.Name;
+                    _dbContext.SaveChanges();
                 }
+
             }
         }
     }

@@ -6,11 +6,11 @@ namespace AlchemicShop.BLL.Interfaces
 {
     public interface IUserService
     {
-        void AddUser(UserDTO userDto);
+        void AddUser(UserDTO userDTO);
 
-        void DeleteUser(UserDTO userDto);
+        void DeleteUser(int? id);
 
-        void UpdateUser(UserDTO userDto);
+        void UpdateUser(UserDTO userDTO);
       
         UserDTO GetUser(int? id);
 

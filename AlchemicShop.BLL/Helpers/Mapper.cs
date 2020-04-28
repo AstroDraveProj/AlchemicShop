@@ -13,10 +13,15 @@ namespace AlchemicShop.BLL.Helpers
             mapperConfig = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<User, UserDTO>();
+                cfg.CreateMap<UserDTO, User>();
                 cfg.CreateMap<Order, OrderDTO>();
+                cfg.CreateMap<OrderDTO, Order>();
                 cfg.CreateMap<OrderProduct, OrderProductDTO>();
+                cfg.CreateMap<OrderProductDTO, OrderProduct>();
                 cfg.CreateMap<Product, ProductDTO>();
+                cfg.CreateMap<ProductDTO, Product>();
                 cfg.CreateMap<Category, CategoryDTO>();
+                cfg.CreateMap<CategoryDTO, Category>();
             }).CreateMapper();
         }
 

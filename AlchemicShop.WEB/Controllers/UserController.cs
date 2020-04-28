@@ -2,6 +2,8 @@
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace AlchemicShop.WEB.Controllers
@@ -21,7 +23,7 @@ namespace AlchemicShop.WEB.Controllers
 
         public ActionResult GetUserList()
         {
-            return View(_mapper.Map<UserViewModel>(_userService.GetUsers()));
+            return View(_mapper.Map<List<UserViewModel>>(_userService.GetUsers()));
         }
 
         public ActionResult CreateUser()
@@ -36,15 +38,33 @@ namespace AlchemicShop.WEB.Controllers
             return View();
         }
 
+        public ActionResult DeleteSuccess(string deletingCategory)
+        {
+            ViewBag.Name = deletingCategory;
+            return View();
+        }
+
         public ActionResult DeleteUser(int? id)
         {
-            return View(_userService.GetUser(id));
+            return View(_mapper.Map<UserViewModel>(_userService.GetUser(id)));
         }
 
         [HttpPost]
-        public ActionResult DeleteUser(UserViewModel user)
+        public ActionResult DeleteUser(int? id, string name)
         {
-            _userService.DeleteUser(_mapper.Map<UserDTO>(user));
+            _userService.DeleteUser(id);
+            return RedirectToAction(nameof(DeleteSuccess), new { deletingCategory = name });
+        }
+
+        public ActionResult EditUser(int? id)
+        {
+            return View(_mapper.Map<UserViewModel>(_userService.GetUser(id)));
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(UserViewModel user)
+        {
+            _userService.UpdateUser(_mapper.Map<UserDTO>(user));
             return View();
         }
     }

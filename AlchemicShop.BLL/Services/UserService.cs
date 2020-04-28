@@ -22,9 +22,19 @@ namespace AlchemicShop.BLL.Services
             _dbOperation.Users.Create(Mapper.Mapping<UserDTO, User>(userDTO));
         }
 
-        public void DeleteUser(UserDTO userDTO)
+        public void DeleteUser(int? id)
         {
-            _dbOperation.Users.Delete(Mapper.Mapping<UserDTO, User>(userDTO));
+            if (id == null)
+            {
+                throw new ValidationException("Не установлено id категории", "");
+            }
+
+            var user = _dbOperation.Users.Get(id.Value);
+            if (user == null)
+            {
+                throw new ValidationException("Категория не найден", "");
+            }
+            _dbOperation.Users.Delete(user);
         }
 
         public void UpdateUser(UserDTO userDTO)
