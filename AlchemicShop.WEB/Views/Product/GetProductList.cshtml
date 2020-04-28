@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Category)
+            Category
         </th>
         <th></th>
     </tr>
@@ -36,11 +36,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
-            @foreach (var cat in ViewBag.Categories)
+            @foreach (var category in ViewBag.Categories)
             {
-                if (cat.Id == item.CategoryId)
+                if (category.Id == item.CategoryId)
                 {
-                    <td> @cat.Name
+                    <td> @category.Name
                     </td>
                 }
             }

@@ -47,6 +47,22 @@ namespace AlchemicShop.BLL.Services
             return products;
         }
 
+        public void Delete(int? id)
+        {
+            if (id == null)
+            {
+                throw new ValidationException("Не установлено id продукта", "");
+            }
+
+            var product = _dbOperation.Products.Get(id.Value);
+            if (product == null)
+            {
+                throw new ValidationException("Продукт не найден", "");
+            }
+            _dbOperation.Products.Delete(product);
+
+        }
+
         public ProductDTO GetProduct(int? id)
         {
             if (id == null)

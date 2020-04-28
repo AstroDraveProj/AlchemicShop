@@ -11,10 +11,10 @@ namespace AlchemicShop.BLL.Services
 {
     public class UserService : IUserService
     {
-        private IUnitOfWork Database { get; set; }
+        private IUnitOfWork _dbOperation { get; set; }
         public UserService(IUnitOfWork uow)
         {
-            Database = uow;
+            _dbOperation = uow;
         }
 
         public void AddUser(UserDTO userDTO)
@@ -23,7 +23,7 @@ namespace AlchemicShop.BLL.Services
         }
         public IEnumerable<UserDTO> GetUsers()
         {
-            return Mapper.Mapping<User, UserDTO>(Database.Users.GetAll().ToList());
+            return Mapper.Mapping<User, UserDTO>(_dbOperation.Users.GetAll().ToList());
         }
 
         public UserDTO GetUser(int? id)
@@ -32,7 +32,7 @@ namespace AlchemicShop.BLL.Services
             {
                 throw new ValidationException("Не установлено id пользователя", "");
             }
-            var user = Database.Users.Get(id.Value);
+            var user = _dbOperation.Users.Get(id.Value);
             if (user == null)
             {
                 throw new ValidationException("Пользователь не найден", "");
@@ -43,7 +43,7 @@ namespace AlchemicShop.BLL.Services
         }
         public void Dispose()
         {
-            Database.Dispose();
+            _dbOperation.Dispose();
         }
     }
 }

@@ -6,9 +6,13 @@ namespace AlchemicShop.BLL.Interfaces
     public interface ICategoryService
     {
         void AddCategory(CategoryDTO categoryDto);
+
         CategoryDTO GetCategory(int? id);
+
         IEnumerable<CategoryDTO> GetCategories();
-		//IEnumerable<ProductDTO> GetProducts(CategoryDTO categoryDTO);
+
+        void Delete(int? id);
+
         void Dispose();
     }
 }

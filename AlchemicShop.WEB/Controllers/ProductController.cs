@@ -33,5 +33,29 @@ namespace AlchemicShop.WEB.Controllers
 
             return View(_mapper.Map<List<ProductViewModel>>(products));
         }
+
+        
+        public ActionResult Delete(int? id)
+        {
+            var product = _productService.GetProduct(id);
+
+            return View(_mapper.Map<ProductViewModel>(product));
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int? id, string name)
+        {
+
+            _productService.Delete(id);
+
+            return RedirectToAction(nameof(DeleteSuccess), new { deletingProduct = name });
+        }
+
+        public ActionResult DeleteSuccess(string deletingProduct)
+        {
+            ViewBag.Name = deletingProduct;
+            return View();
+        }
+
     }
 }

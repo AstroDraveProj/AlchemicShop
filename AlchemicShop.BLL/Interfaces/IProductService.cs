@@ -7,6 +7,7 @@ namespace AlchemicShop.BLL.Interfaces
     {
         void AddProduct(ProductDTO productDto);
         ProductDTO GetProduct(int? id);
+        void Delete(int? id);
         IEnumerable<ProductDTO> GetProducts();
         void Dispose();
     }

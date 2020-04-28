@@ -22,12 +22,17 @@ namespace AlchemicShop.DAL.Repositories
 
         public void Delete(Category item)
         {
-            throw new NotImplementedException();
+            var deleteItem = Get(item.Id);
+            if (deleteItem != null)
+            {
+                dbContext.Categories.Remove(deleteItem);
+            }
+            dbContext.SaveChanges();
         }
 
         public Category Get(int? id)
         {
-            throw new NotImplementedException();
+            return dbContext.Categories.Find(id);
         }
         public IEnumerable<Category> Find(Func<Category, bool> predicate)
         {
