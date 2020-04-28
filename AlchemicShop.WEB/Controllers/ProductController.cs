@@ -31,19 +31,34 @@ namespace AlchemicShop.WEB.Controllers
 
             return View(_mapper.Map<List<ProductViewModel>>(products));
         }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 
         public ActionResult Delete(int? id)
         {
             var product = _productService.GetProduct(id);
+=======
+
+        
+        public ActionResult Delete(int? id)
+        {
+            var product = _productService.GetProduct(id);
+
+>>>>>>> SergeyB
             return View(_mapper.Map<ProductViewModel>(product));
         }
 
         [HttpPost]
         public ActionResult Delete(int? id, string name)
         {
+<<<<<<< HEAD
             _productService.Delete(id);
+=======
+
+            _productService.Delete(id);
+
+>>>>>>> SergeyB
             return RedirectToAction(nameof(DeleteSuccess), new { deletingProduct = name });
         }
 
@@ -53,6 +68,9 @@ namespace AlchemicShop.WEB.Controllers
             return View();
         }
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> SergeyB
     }
 }
