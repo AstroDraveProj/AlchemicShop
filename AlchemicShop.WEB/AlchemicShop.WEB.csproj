@@ -312,6 +312,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Product\GetProductList.cshtml" />
+    <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Product\DeleteSuccess.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Category\DeleteSuccess.cshtml" />
     <Content Include="Views\Order\GetOrderList.cshtml" />
     <Content Include="Views\Order\DeleteOrder.cshtml" />
   </ItemGroup>

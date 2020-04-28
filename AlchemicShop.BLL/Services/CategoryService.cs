@@ -11,22 +11,38 @@ namespace AlchemicShop.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        IUnitOfWork Database { get; set; }
+        IUnitOfWork _dbOperation { get; set; }
         public CategoryService(IUnitOfWork uow)
         {
-            Database = uow;
+            _dbOperation = uow;
         }
 
         public void AddCategory(CategoryDTO categoryDTO)
         {
             var category = Mapper.Mapping<CategoryDTO, Category>(categoryDTO);
             // Category category = new Category { Name = categoryDTO.Name };
-            Database.Categories.Create(category);
-            Database.Save();
+            _dbOperation.Categories.Create(category);
+            _dbOperation.Save();
         }
         public IEnumerable<CategoryDTO> GetCategories()
         {
-            return Mapper.Mapping<Category, CategoryDTO>(Database.Categories.GetAll().ToList());
+            return Mapper.Mapping<Category, CategoryDTO>(_dbOperation.Categories.GetAll().ToList());
+        }
+
+        public void Delete(int? id)
+        {
+            if (id == null)
+            {
+                throw new ValidationException("Не установлено id категории", "");
+            }
+
+            var category = _dbOperation.Categories.Get(id.Value);
+            if (category == null)
+            {
+                throw new ValidationException("Категория не найден", "");
+            }
+            _dbOperation.Categories.Delete(category);
+
         }
 
         public CategoryDTO GetCategory(int? id)
@@ -36,7 +52,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Не установлено id категории", "");
             }
 
-            var category = Database.Categories.Get(id.Value);
+            var category = _dbOperation.Categories.Get(id.Value);
             if (category == null)
             {
                 throw new ValidationException("Категория не найдена", "");
@@ -48,7 +64,7 @@ namespace AlchemicShop.BLL.Services
         }
         public void Dispose()
         {
-            Database.Dispose();
+            _dbOperation.Dispose();
         }
     }
 }

@@ -11,16 +11,16 @@ namespace AlchemicShop.BLL.Services
 {
     public class OrderProductService : IOrderProductService
     {
-        private IUnitOfWork Database { get; set; }
+        private IUnitOfWork _dbOperation { get; set; }
         public OrderProductService(IUnitOfWork uow)
         {
-            Database = uow;
+            _dbOperation = uow;
         }
 
         public void AddOrderProduct(OrderProductDTO orderProductDTO)
         {
-            var product = Database.Products.Get(orderProductDTO.ProductId);
-            var order = Database.Orders.Get(orderProductDTO.OrderId);
+            var product = _dbOperation.Products.Get(orderProductDTO.ProductId);
+            var order = _dbOperation.Orders.Get(orderProductDTO.OrderId);
             // валидация
             if (product == null)
             {
@@ -38,12 +38,12 @@ namespace AlchemicShop.BLL.Services
                 OrderId = order.Id,
                 Order = order
             };
-            Database.OrderProducts.Create(orderProduct);
-            Database.Save();
+            _dbOperation.OrderProducts.Create(orderProduct);
+            _dbOperation.Save();
         }
         public IEnumerable<OrderProductDTO> GetOrderProducts()
         {
-            return Mapper.Mapping<OrderProduct, OrderProductDTO>(Database.OrderProducts.GetAll().ToList());
+            return Mapper.Mapping<OrderProduct, OrderProductDTO>(_dbOperation.OrderProducts.GetAll().ToList());
         }
 
         public OrderProductDTO GetOrderProduct(int? id)
@@ -52,7 +52,7 @@ namespace AlchemicShop.BLL.Services
             {
                 throw new ValidationException("Не установлено id заказанного продукта", "");
             }
-            var orderProduct = Database.OrderProducts.Get(id.Value);
+            var orderProduct = _dbOperation.OrderProducts.Get(id.Value);
             if (orderProduct == null)
             {
                 throw new ValidationException("Заказаный продукт не найден", "");
@@ -63,7 +63,7 @@ namespace AlchemicShop.BLL.Services
         }
         public void Dispose()
         {
-            Database.Dispose();
+            _dbOperation.Dispose();
         }
     }
 }

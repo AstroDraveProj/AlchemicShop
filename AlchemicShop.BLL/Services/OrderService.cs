@@ -12,7 +12,6 @@ namespace AlchemicShop.BLL.Services
     public class OrderService : IOrderService
     {
         private IUnitOfWork _dbOperation { get; set; }
-
         public OrderService(IUnitOfWork uow)
         {
             _dbOperation = uow;

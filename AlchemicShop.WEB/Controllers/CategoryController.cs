@@ -42,17 +42,27 @@ namespace AlchemicShop.WEB.Controllers
             return View(categories);
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Delete(int? id)
         {
-            //var categoryDto = _categoryService.GetCategory(id);
-            //var category = _mapper.Map<CategoryViewModel>(categoryDto);
-            //var productsListDtos = _categoryService.GetProducts(categoryDto).ToList();
+            var product = _categoryService.GetCategory(id);
 
-
-            //List<ProductViewModel> productsList = _mapper.Map<List<ProductViewModel>>(productsListDtos);
-            //ViewBag.Products = productsList;
-
-            return View(/*category*/);
+            return View(_mapper.Map<CategoryViewModel>(product));
         }
+
+        [HttpPost]
+        public ActionResult Delete(int? id, string name)
+        {
+
+            _categoryService.Delete(id);
+
+            return RedirectToAction(nameof(DeleteSuccess), new { deletingCategory = name });
+        }
+
+        public ActionResult DeleteSuccess(string deletingCategory)
+        {
+            ViewBag.Name = deletingCategory;
+            return View();
+        }
+
     }
 }

@@ -32,6 +32,7 @@ namespace AlchemicShop.DAL.Repositories
             {
                 dbContext.Products.Remove(deleteItem);
             }
+            dbContext.SaveChanges();
         }
 
         public Product Get(int? id)
