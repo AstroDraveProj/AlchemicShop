@@ -5,17 +5,15 @@ using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
+using AlchemicShop.BLL.Helpers;
 
 namespace AlchemicShop.BLL.Services
 {
     public class OrderProductService : IOrderProductService
     {
         private IUnitOfWork Database { get; set; }
-        private readonly IMapper _mapper;
-        public OrderProductService(IUnitOfWork uow, IMapper mapper)
+        public OrderProductService(IUnitOfWork uow)
         {
-            _mapper = mapper;
             Database = uow;
         }
 
@@ -45,7 +43,7 @@ namespace AlchemicShop.BLL.Services
         }
         public IEnumerable<OrderProductDTO> GetOrderProducts()
         {
-            return _mapper.Map<IEnumerable<OrderProductDTO>>(Database.OrderProducts.GetAll().ToList());
+            return Mapper.Mapping<OrderProduct, OrderProductDTO>(Database.OrderProducts.GetAll().ToList());
         }
 
         public OrderProductDTO GetOrderProduct(int? id)
@@ -60,7 +58,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Заказаный продукт не найден", "");
             }
 
-            var orderProductDTO = _mapper.Map<OrderProductDTO>(orderProduct);
+            var orderProductDTO = Mapper.Mapping<OrderProduct, OrderProductDTO>(orderProduct);
             return orderProductDTO;
         }
         public void Dispose()

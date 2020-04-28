@@ -5,17 +5,15 @@ using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
+using AlchemicShop.BLL.Helpers;
 
 namespace AlchemicShop.BLL.Services
 {
     public class UserService : IUserService
     {
         private IUnitOfWork Database { get; set; }
-        private readonly IMapper _mapper;
-        public UserService(IUnitOfWork uow, IMapper mapper)
+        public UserService(IUnitOfWork uow)
         {
-            _mapper = mapper;
             Database = uow;
         }
 
@@ -25,7 +23,7 @@ namespace AlchemicShop.BLL.Services
         }
         public IEnumerable<UserDTO> GetUsers()
         {
-            return _mapper.Map<IEnumerable<UserDTO>>(Database.Users.GetAll().ToList());
+            return Mapper.Mapping<User, UserDTO>(Database.Users.GetAll().ToList());
         }
 
         public UserDTO GetUser(int? id)
@@ -40,7 +38,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Пользователь не найден", "");
             }
 
-            var userDTO = _mapper.Map<UserDTO>(user);
+            var userDTO = Mapper.Mapping<User, UserDTO>(user);
             return userDTO;
         }
         public void Dispose()
