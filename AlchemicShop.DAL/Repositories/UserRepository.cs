@@ -56,7 +56,7 @@ namespace AlchemicShop.DAL.Repositories
         {
             if (item != null)
             {
-                var updateItem = Get(item.Id);
+                var updateItem = _dbContext.Users.Find(item.Id);
 
                 if (updateItem != null)
                 {

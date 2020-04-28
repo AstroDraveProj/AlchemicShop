@@ -11,19 +11,31 @@ namespace AlchemicShop.BLL.Services
 {
     public class OrderService : IOrderService
     {
-        private IUnitOfWork Database { get; set; }
+        private IUnitOfWork _dbOperation { get; set; }
+
         public OrderService(IUnitOfWork uow)
         {
-            Database = uow;
+            _dbOperation = uow;
         }
 
-        public void AddOrder(OrderDTO orderProductDTO)
+        public void AddOrder(OrderDTO orderDTO)
         {
-
+            _dbOperation.Orders.Create(Mapper.Mapping<OrderDTO, Order>(orderDTO));
         }
+
+        public void DeleteOrder(OrderDTO orderDTO)
+        {
+            _dbOperation.Orders.Delete(Mapper.Mapping<OrderDTO, Order>(orderDTO));
+        }
+
+        public void UpdateOrder(OrderDTO orderDTO)
+        {
+            _dbOperation.Orders.Update(Mapper.Mapping<OrderDTO, Order>(orderDTO));
+        }
+
         public IEnumerable<OrderDTO> GetOrders()
         {
-            return Mapper.Mapping<Order, OrderDTO>(Database.Orders.GetAll().ToList());
+            return Mapper.Mapping<Order, OrderDTO>(_dbOperation.Orders.GetAll().ToList());
         }
 
         public OrderDTO GetOrder(int? id)
@@ -32,7 +44,7 @@ namespace AlchemicShop.BLL.Services
             {
                 throw new ValidationException("Не установлено id заказа", "");
             }
-            var order = Database.Orders.Get(id.Value);
+            var order = _dbOperation.Orders.Get(id.Value);
             if (order == null)
             {
                 throw new ValidationException("Заказ не найден", "");
@@ -43,7 +55,7 @@ namespace AlchemicShop.BLL.Services
         }
         public void Dispose()
         {
-            Database.Dispose();
+            _dbOperation.Dispose();
         }
     }
 }

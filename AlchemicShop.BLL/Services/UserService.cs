@@ -19,9 +19,10 @@ namespace AlchemicShop.BLL.Services
         }
 
         public void AddUser(UserDTO userDTO)
-        {           
+        {
             _dbOperation.Users.Create(Mapper.Mapping<UserDTO, User>(userDTO));
         }
+
         public IEnumerable<UserDTO> GetUsers()
         {
             return Mapper.Mapping<User, UserDTO>(_dbOperation.Users.GetAll().ToList());
@@ -46,6 +47,16 @@ namespace AlchemicShop.BLL.Services
         public void Dispose()
         {
             _dbOperation.Dispose();
+        }
+
+        public void DeleteUser(UserDTO userDTO)
+        {
+            _dbOperation.Users.Delete(Mapper.Mapping<UserDTO, User>(userDTO));
+        }
+
+        public void UpdateUser(UserDTO userDTO)
+        {
+            _dbOperation.Users.Update(Mapper.Mapping<UserDTO, User>(userDTO));
         }
     }
 }
