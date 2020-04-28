@@ -177,6 +177,5 @@ namespace AlchemicShop.BLL.Helpers
             return userListDto;
         }
         #endregion
-
     }
 }

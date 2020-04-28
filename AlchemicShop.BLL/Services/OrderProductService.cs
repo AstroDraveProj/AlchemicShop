@@ -1,19 +1,21 @@
 ﻿using AlchemicShop.BLL.DTO;
-using AlchemicShop.BLL.Helpers;
 using AlchemicShop.BLL.Infrastructure;
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 
 namespace AlchemicShop.BLL.Services
 {
     public class OrderProductService : IOrderProductService
     {
-        IUnitOfWork Database { get; set; }
-        public OrderProductService(IUnitOfWork uow)
+        private IUnitOfWork Database { get; set; }
+        private readonly IMapper _mapper;
+        public OrderProductService(IUnitOfWork uow, IMapper mapper)
         {
+            _mapper = mapper;
             Database = uow;
         }
 
@@ -39,13 +41,11 @@ namespace AlchemicShop.BLL.Services
                 Order = order
             };
             Database.OrderProducts.Create(orderProduct);
-            //ещё надо как-то записать в Order.OrderProductsDTO.Add(orderProduct);
-            //ещё надо как-то записать в Product.ProductsDTO.Add(orderProduct);
             Database.Save();
         }
         public IEnumerable<OrderProductDTO> GetOrderProducts()
         {
-            return Mapper.OrderProductMap(Database.OrderProducts.GetAll().ToList());
+            return _mapper.Map<IEnumerable<OrderProductDTO>>(Database.OrderProducts.GetAll().ToList());
         }
 
         public OrderProductDTO GetOrderProduct(int? id)
@@ -60,8 +60,8 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Заказаный продукт не найден", "");
             }
 
-            var orderProductDTO = Mapper.OrderProductMap(orderProduct);
-            return orderProductDTO;           
+            var orderProductDTO = _mapper.Map<OrderProductDTO>(orderProduct);
+            return orderProductDTO;
         }
         public void Dispose()
         {

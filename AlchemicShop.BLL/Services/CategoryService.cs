@@ -19,8 +19,8 @@ namespace AlchemicShop.BLL.Services
 
         public void AddCategory(CategoryDTO categoryDTO)
         {
-            //var category = Mapper.CategoryMap(categoryDTO);
-            Category category = new Category { Name = categoryDTO.Name };
+            var category = Mapper.CategoryMap(categoryDTO);
+           // Category category = new Category { Name = categoryDTO.Name };
             Database.Categories.Create(category);
             Database.Save();
         }
@@ -42,7 +42,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Категория не найдена", "");
             }
 
-            var categoryDto =  Mapper.CategoryMap(category);
+            var categoryDto = Mapper.CategoryMap(category);
             return categoryDto;
             //new CategoryDTO { Id = category.Id, Name = category.Name };
         }
