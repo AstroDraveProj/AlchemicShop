@@ -23,6 +23,16 @@ namespace AlchemicShop.BLL.Services
             _dbOperation.Users.Create(Mapper.Mapping<UserDTO, User>(userDTO));
         }
 
+        public void DeleteUser(UserDTO userDTO)
+        {
+            _dbOperation.Users.Delete(Mapper.Mapping<UserDTO, User>(userDTO));
+        }
+
+        public void UpdateUser(UserDTO userDTO)
+        {
+            _dbOperation.Users.Update(Mapper.Mapping<UserDTO, User>(userDTO));
+        }
+
         public IEnumerable<UserDTO> GetUsers()
         {
             return Mapper.Mapping<User, UserDTO>(_dbOperation.Users.GetAll().ToList());
@@ -40,10 +50,10 @@ namespace AlchemicShop.BLL.Services
             {
                 throw new ValidationException("Пользователь не найден", "");
             }
-
             var userDTO = Mapper.Mapping<User, UserDTO>(user);
             return userDTO;
         }
+
         public void Dispose()
         {
             _dbOperation.Dispose();

@@ -313,7 +313,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Product\GetProductList.cshtml" />
     <Content Include="Views\Order\GetOrderList.cshtml" />
-    <Content Include="Views\Order\CreateOrder.cshtml" />
+    <Content Include="Views\Order\DeleteOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
