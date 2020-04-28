@@ -1,4 +1,5 @@
-﻿using AlchemicShop.BLL.Interfaces;
+﻿using AlchemicShop.BLL.DTO;
+using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System;
@@ -32,6 +33,18 @@ namespace AlchemicShop.WEB.Controllers
             ViewBag.Users = _mapper.Map<List<UserViewModel>>(users);
 
             return View(_mapper.Map<List<OrderViewModel>>(orders));
+        }
+
+        public ActionResult DeleteOrder(int? id)
+        {
+            return View(_orderService.GetOrder(id));
+        }
+
+        [HttpPost]
+        public ActionResult DeleteOrder(OrderViewModel order)
+        {
+            _orderService.DeleteOrder(_mapper.Map<OrderDTO>(order));
+            return View();
         }
     }
 }
