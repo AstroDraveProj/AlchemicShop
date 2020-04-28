@@ -150,6 +150,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -169,9 +170,9 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\img_about1.png" />
-    <Content Include="Content\Images\img_about3.png" />
-    <Content Include="Content\Images\img_about2.png" />
+    <Content Include="Content\Images\About\img_about1.png" />
+    <Content Include="Content\Images\About\img_about3.png" />
+    <Content Include="Content\Images\About\img_about2.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -308,9 +309,11 @@
     <Content Include="Views\Category\AddCategories.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Product\GetProductList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\Index\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

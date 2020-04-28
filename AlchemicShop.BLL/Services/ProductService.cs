@@ -5,45 +5,46 @@ using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
+using AlchemicShop.BLL.Helpers;
 
 namespace AlchemicShop.BLL.Services
 {
     public class ProductService : IProductService
     {
-        private IUnitOfWork Database { get; set; }
-        private readonly IMapper _mapper;
-        public ProductService(IUnitOfWork uow, IMapper mapper)
+        private IUnitOfWork _dbOperation;
+
+        public ProductService(IUnitOfWork uow)
         {
-            _mapper = mapper;
-            Database = uow;
+            _dbOperation = uow;
         }
 
         public void AddProduct(ProductDTO productDTO)
         {
-            var category = Database.Categories.Get(productDTO.CategoryId);
+            //var category = _dbOperation.Categories.Get(productDTO.CategoryId);
 
-            // валидация
-            if (category == null)
-            {
-                throw new ValidationException("Категория не найдена", "");
-            }
-            Product product = new Product
-            {
-                Name = productDTO.Name,
-                Amount = productDTO.Amount,
-                CategoryId = category.Id,
-                Category = category,
-                Description = productDTO.Description,
-                Price = productDTO.Price,
-                OrderProducts = null // потому что как только мы добавили продукт его ещё не заказывали
-            };
-            Database.Products.Create(product);
-            Database.Save();
+            //// валидация
+            //if (category == null)
+            //{
+            //    throw new ValidationException("Категория не найдена", "");
+            //}
+            //Product product = new Product
+            //{
+            //    Name = productDTO.Name,
+            //    Amount = productDTO.Amount,
+            //    CategoryId = category.Id,
+            //    Category = category,
+            //    Description = productDTO.Description,
+            //    Price = productDTO.Price,
+            //    OrderProducts = null // потому что как только мы добавили продукт его ещё не заказывали
+            //};
+            //_dbOperation.Products.Create(product);
+            _dbOperation.Save();
         }
+
         public IEnumerable<ProductDTO> GetProducts()
         {
-            return _mapper.Map<IEnumerable<ProductDTO>>(Database.Products.GetAll().ToList());
+            var products = Mapper.ProductMap(_dbOperation.Products.GetAll().ToList());
+            return products;
         }
 
         public ProductDTO GetProduct(int? id)
@@ -53,18 +54,20 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Не установлено id продукта", "");
             }
 
-            var product = Database.Products.Get(id.Value);
+            var product = _dbOperation.Products.Get(id.Value);
             if (product == null)
             {
                 throw new ValidationException("Продукт не найден", "");
             }
 
-            var productDto = _mapper.Map<ProductDTO>(product);
+            var productDto = new ProductDTO();
+            //= Mapper.ProductMap(ProductDTO)(product);
             return productDto;
         }
+
         public void Dispose()
         {
-            Database.Dispose();
+            _dbOperation.Dispose();
         }
     }
 }

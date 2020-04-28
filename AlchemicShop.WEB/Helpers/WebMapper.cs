@@ -2,7 +2,6 @@
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 
-
 namespace AlchemicShop.WEB.Helpers
 {
     public static class WebMapper
@@ -13,6 +12,8 @@ namespace AlchemicShop.WEB.Helpers
             {
                 cfg.CreateMap<CategoryViewModel, CategoryDTO>();
                 cfg.CreateMap<CategoryDTO, CategoryViewModel>();
+                cfg.CreateMap<ProductViewModel, ProductDTO>();
+                cfg.CreateMap<ProductDTO, ProductViewModel>();
             });
 
             return config;
