@@ -9,6 +9,8 @@ namespace AlchemicShop.WEB.Models
     {
         public int Id { get; set; }
 
+        public int UserId { get; set; }
+
         [Required]
         public DateTime SheduledDate { get; set; }
 
@@ -17,7 +19,8 @@ namespace AlchemicShop.WEB.Models
         [Required]
         public Status Status { get; set; }
 
-        public  ICollection<OrderProductViewModel> OrderProductViewModel { get; set; }
+        public UserViewModel User { get; set; }
 
+        public ICollection<OrderProductViewModel> OrderProductViewModel { get; set; }
     }
 }

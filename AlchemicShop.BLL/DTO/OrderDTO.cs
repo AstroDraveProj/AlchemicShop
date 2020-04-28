@@ -8,6 +8,7 @@ namespace AlchemicShop.BLL.DTO
     public class OrderDTO
     {
         public int Id { get; set; }
+        
         public int UserId { get; set; }
 
         [Required]
@@ -17,6 +18,7 @@ namespace AlchemicShop.BLL.DTO
 
         [Required]
         public Status StatusDTO { get; set; }
+
         public UserDTO User { get; set; }
 
         public virtual ICollection<OrderProductDTO> OrderProductsDTO { get; set; }

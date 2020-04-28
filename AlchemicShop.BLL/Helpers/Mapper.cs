@@ -10,7 +10,6 @@ namespace AlchemicShop.BLL.Helpers
         private static IMapper mapperConfig;
         static Mapper()
         {
-
             mapperConfig = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<User, UserDTO>();
