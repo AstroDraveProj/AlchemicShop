@@ -2,6 +2,8 @@
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace AlchemicShop.WEB.Controllers
@@ -36,7 +38,7 @@ namespace AlchemicShop.WEB.Controllers
 
         public ActionResult GetCategories()
         {
-            var categories = _mapper.Map<CategoryViewModel>(_categoryService.GetCategories());
+            var categories = _mapper.Map<List<CategoryViewModel>>(_categoryService.GetCategories().ToList());
             return View(categories);
         }
 
