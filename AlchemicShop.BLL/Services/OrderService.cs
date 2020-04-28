@@ -17,10 +17,21 @@ namespace AlchemicShop.BLL.Services
             _dbOperation = uow;
         }
 
-        public void AddOrder(OrderDTO orderProductDTO)
+        public void AddOrder(OrderDTO orderDTO)
         {
-
+            _dbOperation.Orders.Create(Mapper.Mapping<OrderDTO, Order>(orderDTO));
         }
+
+        public void DeleteOrder(OrderDTO orderDTO)
+        {
+            _dbOperation.Orders.Delete(Mapper.Mapping<OrderDTO, Order>(orderDTO));
+        }
+
+        public void UpdateOrder(OrderDTO orderDTO)
+        {
+            _dbOperation.Orders.Update(Mapper.Mapping<OrderDTO, Order>(orderDTO));
+        }
+
         public IEnumerable<OrderDTO> GetOrders()
         {
             return Mapper.Mapping<Order, OrderDTO>(_dbOperation.Orders.GetAll().ToList());

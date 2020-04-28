@@ -3,45 +3,68 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace AlchemicShop.DAL.Repositories
 {
     public class UserRepository : IRepository<User>
     {
-        private AlchemicShopContext dbContext;
+        private AlchemicShopContext _dbContext;
 
         public UserRepository(AlchemicShopContext context)
         {
-            dbContext = context;
+            _dbContext = context;
         }
+
         public void Create(User item)
         {
-            throw new NotImplementedException();
+            if (item != null)
+            {
+                _dbContext.Users.Add(item);
+            }
         }
 
         public void Delete(User item)
         {
-            throw new NotImplementedException();
+            if (item != null)
+            {
+                _dbContext.Users.Remove(item);
+            }
         }
 
         public User Get(int? id)
         {
-            throw new NotImplementedException();
+            if (id != null)
+            {
+                return _dbContext.Users.Find(id);
+            }
+            throw new ValidationException();
         }
+
         public IEnumerable<User> Find(Func<User, bool> predicate)
         {
-            return dbContext.Users.Where(predicate).ToList();
+            return _dbContext.Users.Where(predicate).ToList();
         }
 
         public IEnumerable<User> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Users.ToList();
         }
 
         public void Update(User item)
         {
-            throw new NotImplementedException();
+            if (item != null)
+            {
+                var updateItem = _dbContext.Users.Find(item.Id);
+
+                if (updateItem != null)
+                {
+                    updateItem.IsAdmin = item.IsAdmin;
+                    updateItem.Login = item.Login;
+                    updateItem.Name = item.Name;
+                }
+            }
         }
     }
 }

@@ -3,47 +3,65 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace AlchemicShop.DAL.Repositories
 {
     public class OrderRepository : IRepository<Order>
     {
-        private AlchemicShopContext dbContext;
+        private AlchemicShopContext _dbContext;
 
         public OrderRepository(AlchemicShopContext context)
         {
-            dbContext = context;
+            _dbContext = context;
         }
 
         public void Create(Order item)
         {
-            throw new NotImplementedException();
+            _dbContext.Orders.Add(item);
         }
 
         public void Delete(Order item)
         {
-            throw new NotImplementedException();
+            if (item != null)
+            {
+                _dbContext.Orders.Remove(item);
+            }
         }
 
         public Order Get(int? id)
         {
-            throw new NotImplementedException();
+            if (id != null)
+            {
+                return _dbContext.Orders.Find(id);
+            }
+            throw new ValidationException();
         }
 
         public IEnumerable<Order> Find(Func<Order, bool> predicate)
         {
-            return dbContext.Orders.Where(predicate).ToList();
+            return _dbContext.Orders.Where(predicate).ToList();
         }
 
         public IEnumerable<Order> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Orders.ToList();
         }
 
         public void Update(Order item)
         {
-            throw new NotImplementedException();
+            if (item != null)
+            {
+                var updateItem = _dbContext.Orders.Find(item.Id);
+
+                if (updateItem != null)
+                {
+                    updateItem.SheduledDate = item.SheduledDate;
+                    updateItem.ClosedDate = item.ClosedDate;
+                    updateItem.Status = item.Status;
+                }
+            }
         }
     }
 }
