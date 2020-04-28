@@ -13,18 +13,24 @@ namespace AlchemicShop.WEB.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
 
         public ProductController(
             IMapper mapper,
+            ICategoryService categoryService,
             IProductService productService)
         {
             _mapper = mapper;
+            _categoryService = categoryService;
             _productService = productService;
         }
 
         public ActionResult GetProductList()
         {
             var products = _productService.GetProducts();
+            var categories = _categoryService.GetCategories().ToList();
+            ViewBag.Categories = _mapper.Map < List < CategoryViewModel >> (categories);
+
             return View(_mapper.Map<List<ProductViewModel>>(products));
         }
     }
