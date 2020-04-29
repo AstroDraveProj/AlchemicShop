@@ -52,6 +52,7 @@ namespace AlchemicShop.BLL.Services
             var orderDTO = Mapper.Mapping<Order, OrderDTO>(order);
             return orderDTO;
         }
+
         public void Dispose()
         {
             _dbOperation.Dispose();

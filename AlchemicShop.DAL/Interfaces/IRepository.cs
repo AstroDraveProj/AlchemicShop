@@ -12,7 +12,9 @@ namespace AlchemicShop.DAL.Interfaces
         void Update(T item);
 
         IEnumerable<T> GetAll();
+    
         IEnumerable<T> Find(Func<T, bool> predicate);
+     
         T Get(int? id);
     }
 }

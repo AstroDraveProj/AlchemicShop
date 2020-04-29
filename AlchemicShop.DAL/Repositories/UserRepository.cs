@@ -32,7 +32,7 @@ namespace AlchemicShop.DAL.Repositories
             if (deleteItem != null)
             {
                 _dbContext.Users.Remove(deleteItem);
-                _dbContext.SaveChanges();
+            //    _dbContext.SaveChanges();
             }
         }
 

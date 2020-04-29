@@ -35,6 +35,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Категория не найден", "");
             }
             _dbOperation.Users.Delete(user);
+            _dbOperation.Save();
         }
 
         public void UpdateUser(UserDTO userDTO)
