@@ -24,6 +24,14 @@ namespace AlchemicShop.BLL.Services
             _dbOperation.Categories.Create(category);
             _dbOperation.Save();
         }
+
+        public void EditCategory(CategoryDTO categoryDTO)
+        {
+            var category = Mapper.Mapping<CategoryDTO, Category>(categoryDTO);
+            _dbOperation.Categories.Update(category);
+            _dbOperation.Save();
+        }
+
         public IEnumerable<CategoryDTO> GetCategories()
         {
             return Mapper.Mapping<Category, CategoryDTO>(_dbOperation.Categories.GetAll().ToList());

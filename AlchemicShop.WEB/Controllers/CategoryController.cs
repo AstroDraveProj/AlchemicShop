@@ -21,7 +21,7 @@ namespace AlchemicShop.WEB.Controllers
             _mapper = mapper;
         }
 
-        public ActionResult AddCategories()
+        public ActionResult CreateCategories()
         {
             return View();
         }
@@ -32,8 +32,22 @@ namespace AlchemicShop.WEB.Controllers
             var categoryDTO = _mapper.Map<CategoryDTO>(category);
             _categoryService.AddCategory(categoryDTO);
 
-            //return RedirectToAction(nameof(GetCategories));
-            return View();
+            return RedirectToAction(nameof(GetCategoryList));
+        }
+
+        public ActionResult CategoryEdit(int? id)
+        {
+            var category = _categoryService.GetCategory(id);
+            return View(_mapper.Map<CategoryViewModel>(category));
+        }
+
+        [HttpPost]
+        public ActionResult CategoryEdit(CategoryViewModel categoryView)
+        {
+            var categoryDTO = _mapper.Map<CategoryDTO>(categoryView);
+            _categoryService.EditCategory(categoryDTO);
+
+            return RedirectToAction(nameof(GetCategoryList));
         }
 
         public ActionResult GetCategoryList()
@@ -44,9 +58,9 @@ namespace AlchemicShop.WEB.Controllers
 
         public ActionResult CategoryDelete(int? id)
         {
-            var product = _categoryService.GetCategory(id);
+            var category= _categoryService.GetCategory(id);
 
-            return View(_mapper.Map<CategoryViewModel>(product));
+            return View(_mapper.Map<CategoryViewModel>(category));
         }
 
         [HttpPost]

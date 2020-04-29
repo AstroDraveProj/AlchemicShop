@@ -2,6 +2,7 @@
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -53,15 +54,8 @@ namespace AlchemicShop.DAL.Repositories
 
         public void Update(Product item)
         {
-            var updateItem = dbContext.Products.Find(item.Id);
-            if (updateItem != null)
-            {
-                updateItem.Name = item.Name;
-                updateItem.Price = item.Price;
-                updateItem.Description = item.Description;
-                updateItem.Amount = item.Amount;
-                updateItem.CategoryId = item.CategoryId;
-            }
+            dbContext.Entry(item).State = EntityState.Modified;
+            dbContext.SaveChanges();
         }
     }
 }

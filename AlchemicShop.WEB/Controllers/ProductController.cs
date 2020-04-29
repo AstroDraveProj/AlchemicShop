@@ -55,6 +55,23 @@ namespace AlchemicShop.WEB.Controllers
             else return View(product);
         }
 
+        public ActionResult ProductEdit(int? id)
+        {
+            var product = _productService.GetProduct(id);
+            SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(_categoryService.GetCategories()), "Id", "Name");
+            ViewBag.Categories = categories;
+            return View(_mapper.Map<ProductViewModel>(product));
+        }
+
+        [HttpPost]
+        public ActionResult ProductEdit(ProductViewModel productView)
+        {
+            var productDTO = _mapper.Map<ProductDTO>(productView);
+            _productService.EditProduct(productDTO);
+
+            return RedirectToAction(nameof(GetProductList));
+        }
+
         public ActionResult ProductDelete(int? id)
         {
             var product = _productService.GetProduct(id);

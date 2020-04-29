@@ -2,6 +2,7 @@
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -42,7 +43,8 @@ namespace AlchemicShop.DAL.Repositories
 
         public void Update(Category item)
         {
-            throw new NotImplementedException();
+            dbContext.Entry(item).State = EntityState.Modified;
+            dbContext.SaveChanges();
         }
 
     }

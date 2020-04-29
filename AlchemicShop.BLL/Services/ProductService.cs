@@ -39,6 +39,13 @@ namespace AlchemicShop.BLL.Services
             _dbOperation.Save();
         }
 
+        public void EditProduct(ProductDTO productDTO)
+        {
+            var product = Mapper.Mapping<ProductDTO, Product>(productDTO);
+            _dbOperation.Products.Update(product);
+            _dbOperation.Save();
+        }
+
         public IEnumerable<ProductDTO> GetProducts()
         {
             var products = Mapper.Mapping<Product, ProductDTO>(_dbOperation.Products.GetAll().ToList());
