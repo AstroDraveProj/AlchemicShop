@@ -1,7 +1,9 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Interfaces;
+using AlchemicShop.WEB.Filters;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -24,6 +26,7 @@ namespace AlchemicShop.WEB.Controllers
             _productService = productService;
         }
 
+        
         public ActionResult GetProductList()
         {
             var products = _productService.GetProducts();
@@ -66,10 +69,19 @@ namespace AlchemicShop.WEB.Controllers
         [HttpPost]
         public ActionResult ProductEdit(ProductViewModel productView)
         {
-            var productDTO = _mapper.Map<ProductDTO>(productView);
-            _productService.EditProduct(productDTO);
+            if (ModelState.IsValid)
+            {
+                var productDTO = _mapper.Map<ProductDTO>(productView);
+                _productService.EditProduct(productDTO);
 
-            return RedirectToAction(nameof(GetProductList));
+                return RedirectToAction(nameof(GetProductList));
+            }
+            else
+            {               
+                SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(_categoryService.GetCategories()), "Id", "Name");
+                ViewBag.Categories = categories;
+                return View(productView);
+            }
         }
 
         public ActionResult ProductDelete(int? id)

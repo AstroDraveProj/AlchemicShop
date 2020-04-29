@@ -7,7 +7,8 @@ namespace AlchemicShop.WEB.Models
     {
         public int Id { get; set; }
 
-        [Required, MaxLength(40)]
+        [Required(ErrorMessage = "Please, enter name of category")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Category name is incorrect")]
         public string Name { get; set; }
 
         public ICollection<ProductViewModel> ProductViewModels { get; set; }
