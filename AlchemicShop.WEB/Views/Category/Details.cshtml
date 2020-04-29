@@ -1,0 +1,18 @@
+﻿@model AlchemicShop.WEB.Models.CategoryViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<h5>@Model.Name</h5>
+
+@foreach (var product in ViewBag.Products)
+{
+    <ul>
+        <li>
+            <p>@product.Name</p>
+        </li>
+    </ul>
+}
+
