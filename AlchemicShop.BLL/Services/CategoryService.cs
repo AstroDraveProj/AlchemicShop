@@ -29,7 +29,7 @@ namespace AlchemicShop.BLL.Services
             return Mapper.Mapping<Category, CategoryDTO>(_dbOperation.Categories.GetAll().ToList());
         }
 
-        public void Delete(int? id)
+        public void DeleteCategory(int? id)
         {
             if (id == null)
             {
@@ -42,6 +42,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Категория не найден", "");
             }
             _dbOperation.Categories.Delete(category);
+            _dbOperation.Save();
 
         }
 

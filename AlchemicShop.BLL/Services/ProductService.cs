@@ -20,24 +20,22 @@ namespace AlchemicShop.BLL.Services
 
         public void AddProduct(ProductDTO productDTO)
         {
-            //var category = _dbOperation.Categories.Get(productDTO.CategoryId);
+            var category = _dbOperation.Categories.Get(productDTO.CategoryId);
 
-            //// валидация
-            //if (category == null)
-            //{
-            //    throw new ValidationException("Категория не найдена", "");
-            //}
-            //Product product = new Product
-            //{
-            //    Name = productDTO.Name,
-            //    Amount = productDTO.Amount,
-            //    CategoryId = category.Id,
-            //    Category = category,
-            //    Description = productDTO.Description,
-            //    Price = productDTO.Price,
-            //    OrderProducts = null // потому что как только мы добавили продукт его ещё не заказывали
-            //};
-            //_dbOperation.Products.Create(product);
+            // валидация
+            if (category == null)
+            {
+                throw new ValidationException("Категория не найдена", "");
+            }
+            Product product = new Product
+            {
+                Name = productDTO.Name,
+                Amount = productDTO.Amount,
+                CategoryId = category.Id,
+                Description = productDTO.Description,
+                Price = productDTO.Price
+            };
+            _dbOperation.Products.Create(product);
             _dbOperation.Save();
         }
 
@@ -60,6 +58,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Продукт не найден", "");
             }
             _dbOperation.Products.Delete(product);
+            _dbOperation.Save();
 
         }
 

@@ -11,7 +11,7 @@ namespace AlchemicShop.BLL.Interfaces
 
         IEnumerable<CategoryDTO> GetCategories();
 
-        void Delete(int? id);
+        void DeleteCategory(int? id);
 
         void Dispose();
     }
