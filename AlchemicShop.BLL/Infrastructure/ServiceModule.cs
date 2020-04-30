@@ -1,7 +1,5 @@
 ﻿using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Repositories;
-using AutoMapper;
-using Ninject;
 using Ninject.Modules;
 
 namespace AlchemicShop.BLL.Infrastructure

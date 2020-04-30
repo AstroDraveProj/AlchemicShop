@@ -15,6 +15,8 @@ namespace AlchemicShop.DAL.Interfaces
 
         IRepository<OrderProduct> OrderProducts { get; }
 
+        IAccount<User> Accounts { get; }
+
         void Save();
     }
 }

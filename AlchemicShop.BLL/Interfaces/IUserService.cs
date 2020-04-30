@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AlchemicShop.BLL.DTO;
 
 namespace AlchemicShop.BLL.Interfaces
