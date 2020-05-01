@@ -22,7 +22,6 @@ namespace AlchemicShop.DAL.Repositories
             if (item != null)
             {
                 await Task.Run(() => _dbContext.Categories.Add(item));
-                await _dbContext.SaveChangesAsync();
             }
             else throw new ArgumentNullException();
         }
@@ -33,7 +32,6 @@ namespace AlchemicShop.DAL.Repositories
             if (deleteItem != null)
             {
                 await Task.Run(() => _dbContext.Categories.Remove(deleteItem));
-                await _dbContext.SaveChangesAsync();
             }
             else throw new ArgumentNullException();
         }
@@ -59,7 +57,6 @@ namespace AlchemicShop.DAL.Repositories
         public async Task Update(Category item)
         {
             _dbContext.Entry(item).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
         }
 
     }

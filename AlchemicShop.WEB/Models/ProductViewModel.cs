@@ -18,8 +18,7 @@ namespace AlchemicShop.WEB.Models
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Please, enter price of product")]
-        [Range(0, 1000, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
-        public int Price { get; set; }
+        public float Price { get; set; }
 
         public int CategoryId { get; set; }
 

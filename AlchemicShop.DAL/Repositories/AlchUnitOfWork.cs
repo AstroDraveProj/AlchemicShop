@@ -83,7 +83,7 @@ namespace AlchemicShop.DAL.Repositories
 
         public async Task Save()
         {
-            await Task.Run(() => dbContext.SaveChanges());
+            await dbContext.SaveChangesAsync();
         }
 
         private bool disposed = false;

@@ -36,7 +36,7 @@ namespace AlchemicShop.BLL.Services
             {
                 Name = productDTO.Name,
                 Amount = productDTO.Amount,
-                CategoryId = category.Id,
+                CategoryId = productDTO.CategoryId,
                 Description = productDTO.Description,
                 Price = productDTO.Price
             };

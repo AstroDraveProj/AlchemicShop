@@ -24,7 +24,6 @@ namespace AlchemicShop.DAL.Repositories
             if (item != null)
             {
                 await Task.Run(() => _dbContext.Users.Add(item));
-                await Task.Run(() => _dbContext.SaveChanges());
             }
             else throw new ArgumentNullException();
         }
@@ -35,7 +34,6 @@ namespace AlchemicShop.DAL.Repositories
             if (deleteItem != null)
             {
                 await Task.Run(() => _dbContext.Users.Remove(deleteItem));
-                await _dbContext.SaveChangesAsync();
             }
             else throw new ArgumentNullException();
         }
