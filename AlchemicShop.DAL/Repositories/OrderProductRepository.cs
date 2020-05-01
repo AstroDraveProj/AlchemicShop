@@ -4,6 +4,7 @@ using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Repositories
 {
@@ -16,7 +17,7 @@ namespace AlchemicShop.DAL.Repositories
             dbContext = context;
         }
 
-        public void Create(OrderProduct item)
+        public async Task Create(OrderProduct item)
         {
             throw new NotImplementedException();
         }

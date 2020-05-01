@@ -5,6 +5,7 @@ using System;
 using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Repositories
 {
@@ -16,7 +17,7 @@ namespace AlchemicShop.DAL.Repositories
         {
             dbContext = context;
         }
-        public void Create(Category item)
+        public async Task Create(Category item)
         {
             dbContext.Categories.Add(item);
         }

@@ -6,6 +6,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace AlchemicShop.WEB.Controllers
@@ -26,7 +27,7 @@ namespace AlchemicShop.WEB.Controllers
             _productService = productService;
         }
 
-        
+
         public ActionResult GetProductList()
         {
             var products = _productService.GetProducts();
@@ -37,21 +38,19 @@ namespace AlchemicShop.WEB.Controllers
         }
 
 
-        public ActionResult CreateProduct()
+        public async Task<ActionResult> CreateProduct()
         {
-
-            SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(_categoryService.GetCategories()), "Id", "Name");
-            ViewBag.Categories = categories;
-
+            var categories = await Task.Run(() => _categoryService.GetCategories());
+            ViewBag.Categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(categories), "Id", "Name");
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateProduct(ProductViewModel product)
+        public async Task<ActionResult> CreateProduct(ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
-                _productService.AddProduct(_mapper.Map<ProductDTO>(product));
+                await Task.Run(() => _productService.AddProduct(_mapper.Map<ProductDTO>(product)));
 
                 return RedirectToAction(nameof(GetProductList));
             }
@@ -77,7 +76,7 @@ namespace AlchemicShop.WEB.Controllers
                 return RedirectToAction(nameof(GetProductList));
             }
             else
-            {               
+            {
                 SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(_categoryService.GetCategories()), "Id", "Name");
                 ViewBag.Categories = categories;
                 return View(productView);

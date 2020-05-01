@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AlchemicShop.BLL.Helpers;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
 {
@@ -23,16 +24,15 @@ namespace AlchemicShop.BLL.Services
             _mapper = mapper;
         }
 
-        public void AddProduct(ProductDTO productDTO)
+        public async Task AddProduct(ProductDTO productDTO)
         {
             var category = _dbOperation.Categories.Get(productDTO.CategoryId);
 
-            // валидация
             if (category == null)
             {
                 throw new ValidationException("Категория не найдена", "");
             }
-            Product product = new Product
+            var product = new Product
             {
                 Name = productDTO.Name,
                 Amount = productDTO.Amount,
@@ -40,8 +40,8 @@ namespace AlchemicShop.BLL.Services
                 Description = productDTO.Description,
                 Price = productDTO.Price
             };
-            _dbOperation.Products.Create(product);
-            _dbOperation.Save();
+            await Task.Run(() => _dbOperation.Products.Create(product));
+           await Task.Run(()=> _dbOperation.Save());
         }
 
         public void EditProduct(ProductDTO productDTO)
