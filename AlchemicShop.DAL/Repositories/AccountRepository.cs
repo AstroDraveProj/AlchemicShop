@@ -2,6 +2,7 @@
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Repositories
 {
@@ -14,9 +15,9 @@ namespace AlchemicShop.DAL.Repositories
             dbContext = context;
         }
 
-        public User GetUserAccount(string login, string password)
+        public async Task<User> GetUserAccount(string login, string password)
         {
-            return dbContext.Users.FirstOrDefault(x => x.Login == login && x.Password == password);
+            return await Task.Run(() => dbContext.Users.FirstOrDefault(x => x.Login == login && x.Password == password));
         }
     }
 }

@@ -1,19 +1,20 @@
 ﻿using AlchemicShop.BLL.DTO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Interfaces
 {
     public interface ICategoryService
     {
-        void AddCategory(CategoryDTO categoryDto);
+        Task AddCategory(CategoryDTO categoryDto);
 
-        CategoryDTO GetCategory(int? id);
+        Task<CategoryDTO> GetCategory(int? id);
 
-        IEnumerable<CategoryDTO> GetCategories();
+        Task<IEnumerable<CategoryDTO>> GetCategories();
 
-        void EditCategory(CategoryDTO categoryDTO);
+        Task EditCategory(CategoryDTO categoryDTO);
 
-        void DeleteCategory(int? id);
+        Task DeleteCategory(int? id);
 
         void Dispose();
     }

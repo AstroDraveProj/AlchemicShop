@@ -4,6 +4,7 @@ using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace AlchemicShop.WEB.Controllers
@@ -21,9 +22,9 @@ namespace AlchemicShop.WEB.Controllers
             _userService = userService;
         }
 
-        public ActionResult GetUserList()
+        public async Task<ActionResult> GetUserList()
         {
-            return View(_mapper.Map<List<UserViewModel>>(_userService.GetUsers()));
+            return View(_mapper.Map<List<UserViewModel>>(await _userService.GetUsers()));
         }
 
         public ActionResult CreateUser()
@@ -32,9 +33,9 @@ namespace AlchemicShop.WEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateUser(UserViewModel user)
+        public async Task<ActionResult> CreateUser(UserViewModel user)
         {
-            _userService.AddUser(_mapper.Map<UserDTO>(user));
+            await _userService.AddUser(_mapper.Map<UserDTO>(user));
             return View();
         }
 
@@ -44,27 +45,28 @@ namespace AlchemicShop.WEB.Controllers
             return View();
         }
 
-        public ActionResult DeleteUser(int? id)
+        public async Task<ActionResult> DeleteUser(int? id)
         {
-            return View(_mapper.Map<UserViewModel>(_userService.GetUser(id)));
+            var user = await _userService.GetUser(id);
+            return View(_mapper.Map<UserViewModel>(user));
         }
 
         [HttpPost]
-        public ActionResult DeleteUser(int? id, string name)
+        public async Task<ActionResult> DeleteUser(int? id, string name)
         {
-            _userService.DeleteUser(id);
+            await _userService.DeleteUser(id);
             return RedirectToAction(nameof(DeleteSuccess), new { deletingCategory = name });
         }
 
-        public ActionResult EditUser(int? id)
+        public async Task<ActionResult> EditUser(int? id)
         {
-            return View(_mapper.Map<UserViewModel>(_userService.GetUser(id)));
+            return View(_mapper.Map<UserViewModel>(await _userService.GetUser(id)));
         }
 
         [HttpPost]
-        public ActionResult EditUser(UserViewModel user)
+        public async Task<ActionResult> EditUser(UserViewModel user)
         {
-            _userService.UpdateUser(_mapper.Map<UserDTO>(user));
+            await _userService.UpdateUser(_mapper.Map<UserDTO>(user));
             return View();
         }
     }

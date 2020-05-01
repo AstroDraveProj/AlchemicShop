@@ -24,51 +24,52 @@ namespace AlchemicShop.BLL.Services
             _mapper = mapper;
         }
 
-        public void AddCategory(CategoryDTO categoryDTO)
+        public async Task AddCategory(CategoryDTO categoryDTO)
         {
-            var category = _mapper.Map<CategoryDTO, Category>(categoryDTO);          
-            _dbOperation.Categories.Create(category);
-            _dbOperation.Save();
+            var category =  _mapper.Map<CategoryDTO, Category>(categoryDTO);
+            await _dbOperation.Categories.Create(category);
+            await _dbOperation.Save();
         }
 
-        public void EditCategory(CategoryDTO categoryDTO)
+        public async Task EditCategory(CategoryDTO categoryDTO)
         {
             var category = _mapper.Map<CategoryDTO, Category>(categoryDTO);
-            _dbOperation.Categories.Update(category);
-            _dbOperation.Save();
+            await _dbOperation.Categories.Update(category);
+            await _dbOperation.Save();
         }
 
-        public IEnumerable<CategoryDTO> GetCategories()
+        public async Task<IEnumerable<CategoryDTO>> GetCategories()
         {
-            var res =  _mapper.Map<List<CategoryDTO>>(_dbOperation.Categories.GetAll());
-           return res;
+            var categories = await _dbOperation.Categories.GetAll();
+            var res = _mapper.Map<List<CategoryDTO>>(categories);
+            return res;
         }
 
-        public void DeleteCategory(int? id)
+        public async Task DeleteCategory(int? id)
         {
             if (id == null)
             {
                 throw new ValidationException("Не установлено id категории", "");
             }
 
-            var category = _dbOperation.Categories.Get(id.Value);
+            var category = await _dbOperation.Categories.Get(id.Value);
             if (category == null)
             {
                 throw new ValidationException("Категория не найден", "");
             }
-            _dbOperation.Categories.Delete(category);
-            _dbOperation.Save();
+            await _dbOperation.Categories.Delete(category);
+            await _dbOperation.Save();
 
         }
 
-        public CategoryDTO GetCategory(int? id)
+        public async Task<CategoryDTO> GetCategory(int? id)
         {
             if (id == null)
             {
                 throw new ValidationException("Не установлено id категории", "");
             }
 
-            var category = _dbOperation.Categories.Get(id.Value);
+            var category = await _dbOperation.Categories.Get(id.Value);
             if (category == null)
             {
                 throw new ValidationException("Категория не найдена", "");

@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AlchemicShop.BLL.DTO;
 
 namespace AlchemicShop.BLL.Interfaces
 {
     public interface IUserService
     {
-        void AddUser(UserDTO userDTO);
+        Task AddUser(UserDTO userDTO);
 
-        void DeleteUser(int? id);
+        Task DeleteUser(int? id);
 
-        void UpdateUser(UserDTO userDTO);
-      
-        UserDTO GetUser(int? id);
+        Task UpdateUser(UserDTO userDTO);
 
-        IEnumerable<UserDTO> GetUsers();
+        Task<UserDTO> GetUser(int? id);
+
+        Task<IEnumerable<UserDTO>> GetUsers();
 
         void Dispose();
     }

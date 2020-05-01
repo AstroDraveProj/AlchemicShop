@@ -7,10 +7,10 @@ namespace AlchemicShop.BLL.Interfaces
     public interface IProductService
     {
         Task AddProduct(ProductDTO productDto);
-        void EditProduct(ProductDTO productDTO);
-        ProductDTO GetProduct(int? id);
-        void Delete(int? id);
-        IEnumerable<ProductDTO> GetProducts();
+        Task EditProduct(ProductDTO productDTO);
+        Task<ProductDTO> GetProduct(int? id);
+        Task Delete(int? id);
+        Task<IEnumerable<ProductDTO>> GetProducts();
         void Dispose();
     }
 }

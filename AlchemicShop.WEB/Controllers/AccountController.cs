@@ -2,6 +2,7 @@
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -25,11 +26,11 @@ namespace AlchemicShop.WEB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel account)
+        public async Task<ActionResult> Login(LoginViewModel account)
         {
             if (ModelState.IsValid)
             {
-                var userAccount = _accountService.GetAccount(account.Login, account.Password);
+                var userAccount = await _accountService.GetAccount(account.Login, account.Password);
                 if (userAccount != null)
                 {
                     FormsAuthentication.SetAuthCookie(userAccount.Login, true);

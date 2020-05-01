@@ -28,19 +28,19 @@ namespace AlchemicShop.WEB.Controllers
         }
 
 
-        public ActionResult GetProductList()
+        public async Task<ActionResult> GetProductList()
         {
-            var products = _productService.GetProducts();
-            var categories = _categoryService.GetCategories().ToList();
-            ViewBag.Categories = _mapper.Map<List<CategoryViewModel>>(categories);
+            var products = await _productService.GetProducts();
+            var categories = await _categoryService.GetCategories();
+            ViewBag.Categories = _mapper.Map<List<CategoryViewModel>>(categories.ToList());
 
-            return View(_mapper.Map<List<ProductViewModel>>(products));
+            return View( _mapper.Map<List<ProductViewModel>>(products.ToList()));
         }
 
 
         public async Task<ActionResult> CreateProduct()
         {
-            var categories = await Task.Run(() => _categoryService.GetCategories());
+            var categories = await _categoryService.GetCategories();
             ViewBag.Categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(categories), "Id", "Name");
             return View();
         }
@@ -50,51 +50,51 @@ namespace AlchemicShop.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                await Task.Run(() => _productService.AddProduct(_mapper.Map<ProductDTO>(product)));
+                var productDto = _mapper.Map<ProductDTO>(product);
+                await _productService.AddProduct(productDto);
 
                 return RedirectToAction(nameof(GetProductList));
             }
             else return View(product);
         }
 
-        public ActionResult ProductEdit(int? id)
+        public async Task<ActionResult> ProductEdit(int? id)
         {
-            var product = _productService.GetProduct(id);
-            SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(_categoryService.GetCategories()), "Id", "Name");
+            var product = await _productService.GetProduct(id);
+            var categoryList = await _categoryService.GetCategories();
+            SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(categoryList), "Id", "Name");
             ViewBag.Categories = categories;
-            return View(_mapper.Map<ProductViewModel>(product));
+            return View( _mapper.Map<ProductViewModel>(product));
         }
 
         [HttpPost]
-        public ActionResult ProductEdit(ProductViewModel productView)
+        public async Task<ActionResult> ProductEdit(ProductViewModel productView)
         {
             if (ModelState.IsValid)
             {
                 var productDTO = _mapper.Map<ProductDTO>(productView);
-                _productService.EditProduct(productDTO);
+                await _productService.EditProduct(productDTO);
 
                 return RedirectToAction(nameof(GetProductList));
             }
             else
             {
-                SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(_categoryService.GetCategories()), "Id", "Name");
+                SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(await _categoryService.GetCategories()), "Id", "Name");
                 ViewBag.Categories = categories;
                 return View(productView);
             }
         }
 
-        public ActionResult ProductDelete(int? id)
+        public async Task<ActionResult> ProductDelete(int? id)
         {
-            var product = _productService.GetProduct(id);
-
-
+            var product = await _productService.GetProduct(id);
             return View(_mapper.Map<ProductViewModel>(product));
         }
 
         [HttpPost]
-        public ActionResult ProductDelete(int? id, string name)
+        public async Task<ActionResult> ProductDelete(int? id, string name)
         {
-            _productService.Delete(id);
+            await _productService.Delete(id);
 
             return RedirectToAction(nameof(DeleteSuccess), new { deletingProduct = name });
         }

@@ -2,6 +2,7 @@
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Repositories
 {
@@ -80,9 +81,9 @@ namespace AlchemicShop.DAL.Repositories
             }
         }
 
-        public void Save()
+        public async Task Save()
         {
-            dbContext.SaveChanges();
+            await Task.Run(() => dbContext.SaveChanges());
         }
 
         private bool disposed = false;

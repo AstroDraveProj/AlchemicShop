@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AlchemicShop.BLL.Helpers;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
 {
@@ -22,10 +23,10 @@ namespace AlchemicShop.BLL.Services
             _mapper = mapper;
         }
 
-        public void AddOrderProduct(OrderProductDTO orderProductDTO)
+        public async Task AddOrderProduct(OrderProductDTO orderProductDTO)
         {
-            var product = _dbOperation.Products.Get(orderProductDTO.ProductId);
-            var order = _dbOperation.Orders.Get(orderProductDTO.OrderId);
+            var product = await _dbOperation.Products.Get(orderProductDTO.ProductId);
+            var order = await _dbOperation.Orders.Get(orderProductDTO.OrderId);
             // валидация
             if (product == null)
             {
@@ -43,21 +44,22 @@ namespace AlchemicShop.BLL.Services
                 OrderId = order.Id,
                 Order = order
             };
-            _dbOperation.OrderProducts.Create(orderProduct);
-            _dbOperation.Save();
+            await _dbOperation.OrderProducts.Create(orderProduct);
+            await _dbOperation.Save();
         }
-        public IEnumerable<OrderProductDTO> GetOrderProducts()
+        public async Task<IEnumerable<OrderProductDTO>> GetOrderProducts()
         {
-            return _mapper.Map<List<OrderProduct>, List<OrderProductDTO>>(_dbOperation.OrderProducts.GetAll().ToList());
+            var orderProducts = await _dbOperation.OrderProducts.GetAll();
+            return _mapper.Map<IEnumerable<OrderProduct>, IEnumerable<OrderProductDTO>>(orderProducts);
         }
 
-        public OrderProductDTO GetOrderProduct(int? id)
+        public async Task<OrderProductDTO> GetOrderProduct(int? id)
         {
             if (id == null)
             {
                 throw new ValidationException("Не установлено id заказанного продукта", "");
             }
-            var orderProduct = _dbOperation.OrderProducts.Get(id.Value);
+            var orderProduct = await _dbOperation.OrderProducts.Get(id.Value);
             if (orderProduct == null)
             {
                 throw new ValidationException("Заказаный продукт не найден", "");

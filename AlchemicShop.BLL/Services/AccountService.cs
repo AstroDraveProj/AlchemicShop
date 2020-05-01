@@ -4,6 +4,7 @@ using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
 {
@@ -19,11 +20,11 @@ namespace AlchemicShop.BLL.Services
             _mapper = mapper;
         }
 
-        public UserDTO GetAccount(string login, string password)
+        public async Task<UserDTO> GetAccount(string login, string password)
         {
-            var userAccount = _dbOperation.Accounts.GetUserAccount(login, password);
+            var userAccount = await _dbOperation.Accounts.GetUserAccount(login, password);
 
-            return _mapper.Map<User, UserDTO>(userAccount);
+            return  _mapper.Map<User, UserDTO>(userAccount);
 
         }
     }

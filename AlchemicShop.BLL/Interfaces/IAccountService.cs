@@ -1,9 +1,10 @@
 ﻿using AlchemicShop.BLL.DTO;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Interfaces
 {
     public interface IAccountService
     {
-        UserDTO GetAccount(string login,string password);
+        Task<UserDTO> GetAccount(string login,string password);
     }
 }

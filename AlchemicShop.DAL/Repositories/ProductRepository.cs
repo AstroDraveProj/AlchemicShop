@@ -11,51 +11,59 @@ namespace AlchemicShop.DAL.Repositories
 {
     public class ProductRepository : IRepository<Product>
     {
-        private AlchemicShopContext dbContext;
+        private AlchemicShopContext _dbContext;
 
         public ProductRepository(AlchemicShopContext context)
         {
-            dbContext = context;
+            _dbContext = context;
         }
 
         public async Task Create(Product item)
         {
             if (item != null)
             {
-                await Task.Run(()=> dbContext.Products.Add(item));
+                await Task.Run(() => _dbContext.Products.Add(item));
+                await _dbContext.SaveChangesAsync();
             }
+            else throw new ArgumentNullException();
         }
 
-        public void Delete(Product item)
+        public async Task Delete(Product item)
         {
-            var deleteItem = Get(item.Id);
+            var deleteItem = await Get(item.Id);
             if (deleteItem != null)
             {
-                dbContext.Products.Remove(deleteItem);
+                await Task.Run(() => _dbContext.Products.Remove(deleteItem));
+                await _dbContext.SaveChangesAsync();
             }
-            dbContext.SaveChanges();
+            else throw new ArgumentNullException();
         }
 
-        public Product Get(int? id)
+        public async Task<Product> Get(int? id)
         {
-            return dbContext.Products.Find(id);
+            if (id != null)
+            {
+                return await Task.Run(() => _dbContext.Products.Find(id));
+            }
+            else throw new ArgumentNullException();
+
         }
 
-        public IEnumerable<Product> Find(Func<Product, bool> predicate)
+        public async Task<IEnumerable<Product>> Find(Func<Product, bool> predicate)
         {
-            return dbContext.Products.Where(predicate).ToList();
+            return await Task.Run(() => _dbContext.Products.Where(predicate).ToList());
         }
 
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAll()
         {
-            return dbContext.Products
-                .Include(x => x.Category);
+            return await Task.Run(() => _dbContext.Products
+                .Include(x => x.Category));
         }
 
-        public void Update(Product item)
+        public async Task Update(Product item)
         {
-            dbContext.Entry(item).State = EntityState.Modified;
-            dbContext.SaveChanges();
+            _dbContext.Entry(item).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

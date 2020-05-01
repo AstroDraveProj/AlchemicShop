@@ -6,6 +6,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace AlchemicShop.WEB.Controllers
@@ -25,18 +26,17 @@ namespace AlchemicShop.WEB.Controllers
 
         public ActionResult CreateCategories()
         {
-
             return View();
         }
 
-        
+
         [HttpPost]
-        public ActionResult CreateCategories(CategoryViewModel category)
+        public async Task<ActionResult> CreateCategories(CategoryViewModel category)
         {
             if (ModelState.IsValid)
             {
                 var categoryDTO = _mapper.Map<CategoryDTO>(category);
-                _categoryService.AddCategory(categoryDTO);
+                await _categoryService.AddCategory(categoryDTO);
 
                 return RedirectToAction(nameof(GetCategoryList));
             }
@@ -46,21 +46,21 @@ namespace AlchemicShop.WEB.Controllers
             }
         }
 
-        public ActionResult CategoryEdit(int? id)
+        public async Task<ActionResult> CategoryEdit(int? id)
         {
-            var category = _categoryService.GetCategory(id);
+            var category = await _categoryService.GetCategory(id);
             return View(_mapper.Map<CategoryViewModel>(category));
         }
 
         [HttpPost]
-        public ActionResult CategoryEdit(CategoryViewModel categoryView)
+        public async Task<ActionResult> CategoryEdit(CategoryViewModel categoryView)
         {
             if (ModelState.IsValid)
             {
                 var categoryDTO = _mapper.Map<CategoryDTO>(categoryView);
-            _categoryService.EditCategory(categoryDTO);
+                await _categoryService.EditCategory(categoryDTO);
 
-            return RedirectToAction(nameof(GetCategoryList));
+                return RedirectToAction(nameof(GetCategoryList));
             }
             else
             {
@@ -68,24 +68,24 @@ namespace AlchemicShop.WEB.Controllers
             }
         }
 
-        public ActionResult GetCategoryList()
+        public async Task<ActionResult> GetCategoryList()
         {
-            var categories = _mapper.Map<List<CategoryViewModel>>(_categoryService.GetCategories().ToList());
-            return View(categories);
+            var categories = await _categoryService.GetCategories();
+            return View(_mapper.Map<List<CategoryViewModel>>(categories.ToList()));
         }
 
-        public ActionResult CategoryDelete(int? id)
+        public async Task<ActionResult> CategoryDelete(int? id)
         {
-            var category= _categoryService.GetCategory(id);
+            var category = await _categoryService.GetCategory(id);
 
             return View(_mapper.Map<CategoryViewModel>(category));
         }
 
         [HttpPost]
-        public ActionResult CategoryDelete(int? id, string name)
+        public async Task<ActionResult> CategoryDelete(int? id, string name)
         {
 
-            _categoryService.DeleteCategory(id);
+            await _categoryService.DeleteCategory(id);
 
             return RedirectToAction(nameof(DeleteSuccess), new { deletingCategory = name });
         }

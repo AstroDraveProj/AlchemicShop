@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AlchemicShop.BLL.DTO;
 
 namespace AlchemicShop.BLL.Interfaces
 {
     public interface IOrderService
     {
-        void AddOrder(OrderDTO orderDto);
+        Task AddOrder(OrderDTO orderDto);
 
-        void DeleteOrder(OrderDTO orderDto);
+        Task DeleteOrder(OrderDTO orderDto);
 
-        void UpdateOrder(OrderDTO orderDto);
+        Task UpdateOrder(OrderDTO orderDto);
 
-        OrderDTO GetOrder(int? id);
+        Task<OrderDTO> GetOrder(int? id);
 
-        IEnumerable<OrderDTO> GetOrders();
+        Task<IEnumerable<OrderDTO>> GetOrders();
 
         void Dispose();
     }

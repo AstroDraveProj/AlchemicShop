@@ -8,14 +8,14 @@ namespace AlchemicShop.DAL.Interfaces
     {
         Task Create(T item);
 
-        void Delete(T item);
+        Task Delete(T item);
 
-        void Update(T item);
+        Task Update(T item);
 
-        IEnumerable<T> GetAll();
-    
-        IEnumerable<T> Find(Func<T, bool> predicate);
-     
-        T Get(int? id);
+        Task<IEnumerable<T>> GetAll();
+
+        Task<IEnumerable<T>> Find(Func<T, bool> predicate);
+
+        Task<T> Get(int? id);
     }
 }

@@ -11,41 +11,55 @@ namespace AlchemicShop.DAL.Repositories
 {
     public class CategoryRepository : IRepository<Category>
     {
-        private AlchemicShopContext dbContext;
+        private AlchemicShopContext _dbContext;
 
         public CategoryRepository(AlchemicShopContext context)
         {
-            dbContext = context;
+            _dbContext = context;
         }
         public async Task Create(Category item)
         {
-            dbContext.Categories.Add(item);
+            if (item != null)
+            {
+                await Task.Run(() => _dbContext.Categories.Add(item));
+                await _dbContext.SaveChangesAsync();
+            }
+            else throw new ArgumentNullException();
         }
 
-        public void Delete(Category item)
+        public async Task Delete(Category item)
         {
-            var deleteItem = Get(item.Id);
-            dbContext.Categories.Remove(deleteItem);
+            var deleteItem = await Get(item.Id);
+            if (deleteItem != null)
+            {
+                await Task.Run(() => _dbContext.Categories.Remove(deleteItem));
+                await _dbContext.SaveChangesAsync();
+            }
+            else throw new ArgumentNullException();
         }
 
-        public Category Get(int? id)
+        public async Task<Category> Get(int? id)
         {
-            return dbContext.Categories.Find(id);
+            if (id != null)
+            {
+                return await Task.Run(() => _dbContext.Categories.Find(id));
+            }
+            else throw new ArgumentNullException();
         }
-        public IEnumerable<Category> Find(Func<Category, bool> predicate)
+        public async Task<IEnumerable<Category>> Find(Func<Category, bool> predicate)
         {
-            return dbContext.Categories.Where(predicate).ToList();
+            return await Task.Run(() => _dbContext.Categories.Where(predicate).ToList());
         }
 
-        public IEnumerable<Category> GetAll()
+        public async Task<IEnumerable<Category>> GetAll()
         {
-            return dbContext.Categories.ToList();
+            return await Task.Run(() => _dbContext.Categories.ToList());
         }
 
-        public void Update(Category item)
+        public async Task Update(Category item)
         {
-            dbContext.Entry(item).State = EntityState.Modified;
-            dbContext.SaveChanges();
+            _dbContext.Entry(item).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
         }
 
     }

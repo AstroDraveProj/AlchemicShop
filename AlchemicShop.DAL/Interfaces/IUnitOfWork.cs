@@ -1,5 +1,6 @@
 ﻿using AlchemicShop.DAL.Entities;
 using System;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Interfaces
 {
@@ -17,6 +18,6 @@ namespace AlchemicShop.DAL.Interfaces
 
         IAccount<User> Accounts { get; }
 
-        void Save();
+        Task Save();
     }
 }

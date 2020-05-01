@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AlchemicShop.BLL.Helpers;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
 {
@@ -22,44 +23,47 @@ namespace AlchemicShop.BLL.Services
             _mapper = mapper;
         }
 
-        public void AddUser(UserDTO userDTO)
+        public async Task AddUser(UserDTO userDTO)
         {
-            _dbOperation.Users.Create(_mapper.Map<UserDTO, User>(userDTO));
+            var user = _mapper.Map<UserDTO, User>(userDTO);
+            await _dbOperation.Users.Create(user);
         }
 
-        public void DeleteUser(int? id)
+        public async Task DeleteUser(int? id)
         {
             if (id == null)
             {
                 throw new ValidationException("Не установлено id категории", "");
             }
 
-            var user = _dbOperation.Users.Get(id.Value);
+            var user = await _dbOperation.Users.Get(id.Value);
             if (user == null)
             {
                 throw new ValidationException("Категория не найден", "");
             }
-            _dbOperation.Users.Delete(user);
-            _dbOperation.Save();
+            await _dbOperation.Users.Delete(user);
+            await _dbOperation.Save();
         }
 
-        public void UpdateUser(UserDTO userDTO)
+        public async Task UpdateUser(UserDTO userDTO)
         {
-            _dbOperation.Users.Update(_mapper.Map<UserDTO, User>(userDTO));
+            var updatingUser = _mapper.Map<UserDTO, User>(userDTO);
+            await _dbOperation.Users.Update(updatingUser);
         }
 
-        public IEnumerable<UserDTO> GetUsers()
+        public async Task<IEnumerable<UserDTO>> GetUsers()
         {
-            return _mapper.Map<List<User>, List<UserDTO>>(_dbOperation.Users.GetAll().ToList());
+            var user = await _dbOperation.Users.GetAll();
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(user);
         }
 
-        public UserDTO GetUser(int? id)
+        public async Task<UserDTO> GetUser(int? id)
         {
             if (id == null)
             {
                 throw new ValidationException("Не установлено id пользователя", "");
             }
-            var user = _dbOperation.Users.Get(id.Value);
+            var user = await _dbOperation.Users.Get(id.Value);
             if (user == null)
             {
                 throw new ValidationException("Пользователь не найден", "");

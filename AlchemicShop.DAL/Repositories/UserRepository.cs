@@ -4,6 +4,7 @@ using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,55 +23,46 @@ namespace AlchemicShop.DAL.Repositories
         {
             if (item != null)
             {
-                _dbContext.Users.Add(item);
-                _dbContext.SaveChanges();
+                await Task.Run(() => _dbContext.Users.Add(item));
+                await Task.Run(() => _dbContext.SaveChanges());
             }
+            else throw new ArgumentNullException();
         }
 
-        public void Delete(User item)
+        public async Task Delete(User item)
         {
-            var deleteItem = Get(item.Id);
+            var deleteItem = await Get(item.Id);
             if (deleteItem != null)
             {
-                _dbContext.Users.Remove(deleteItem);
-            //    _dbContext.SaveChanges();
+                await Task.Run(() => _dbContext.Users.Remove(deleteItem));
+                await _dbContext.SaveChangesAsync();
             }
+            else throw new ArgumentNullException();
         }
 
-        public User Get(int? id)
+        public async Task<User> Get(int? id)
         {
             if (id != null)
             {
-                return _dbContext.Users.Find(id);
+                return await Task.Run(() => _dbContext.Users.Find(id));
             }
-            throw new ValidationException();
+            else throw new ArgumentNullException();
         }
 
-        public IEnumerable<User> Find(Func<User, bool> predicate)
+        public async Task<IEnumerable<User>> Find(Func<User, bool> predicate)
         {
-            return _dbContext.Users.Where(predicate).ToList();
+            return await Task.Run(() => _dbContext.Users.Where(predicate).ToList());
         }
 
-        public IEnumerable<User> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            return _dbContext.Users.ToList();
+            return await Task.Run(() => _dbContext.Users.ToList());
         }
 
-        public void Update(User item)
+        public async Task Update(User item)
         {
-            if (item != null)
-            {
-                var updateItem = _dbContext.Users.Find(item.Id);
-
-                if (updateItem != null)
-                {
-                    updateItem.IsAdmin = item.IsAdmin;
-                    updateItem.Login = item.Login;
-                    updateItem.Name = item.Name;
-                    _dbContext.SaveChanges();
-                }
-
-            }
+            _dbContext.Entry(item).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

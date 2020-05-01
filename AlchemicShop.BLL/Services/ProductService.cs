@@ -40,54 +40,55 @@ namespace AlchemicShop.BLL.Services
                 Description = productDTO.Description,
                 Price = productDTO.Price
             };
-            await Task.Run(() => _dbOperation.Products.Create(product));
-           await Task.Run(()=> _dbOperation.Save());
+            await _dbOperation.Products.Create(product);
+            await _dbOperation.Save();
         }
 
-        public void EditProduct(ProductDTO productDTO)
+        public async Task EditProduct(ProductDTO productDTO)
         {
             var product = _mapper.Map<ProductDTO, Product>(productDTO);
-            _dbOperation.Products.Update(product);
-            _dbOperation.Save();
+            await _dbOperation.Products.Update(product);
+            await _dbOperation.Save();
         }
 
-        public IEnumerable<ProductDTO> GetProducts()
+        public async Task<IEnumerable<ProductDTO>> GetProducts()
         {
-            var products = _mapper.Map<List<Product>, List<ProductDTO>>(_dbOperation.Products.GetAll().ToList());
-            return products;
+            var products = await _dbOperation.Products.GetAll();
+            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
         }
 
-        public void Delete(int? id)
+        public async Task Delete(int? id)
         {
             if (id == null)
             {
                 throw new ValidationException("Не установлено id продукта", "");
             }
 
-            var product = _dbOperation.Products.Get(id.Value);
+            var product = await _dbOperation.Products.Get(id.Value);
             if (product == null)
             {
                 throw new ValidationException("Продукт не найден", "");
             }
-            _dbOperation.Products.Delete(product);
-            _dbOperation.Save();
+            await _dbOperation.Products.Delete(product);
+            await _dbOperation.Save();
 
         }
 
-        public ProductDTO GetProduct(int? id)
+        public async Task<ProductDTO> GetProduct(int? id)
         {
             if (id == null)
             {
                 throw new ValidationException("Не установлено id продукта", "");
             }
 
-            var product = _dbOperation.Products.Get(id.Value);
+            var product = await _dbOperation.Products.Get(id.Value);
             if (product == null)
             {
                 throw new ValidationException("Продукт не найден", "");
             }
 
             var productDto = _mapper.Map<Product, ProductDTO>(product);
+
             return productDto;
         }
 

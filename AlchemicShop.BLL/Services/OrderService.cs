@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AlchemicShop.BLL.Helpers;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
 {
@@ -22,33 +23,40 @@ namespace AlchemicShop.BLL.Services
             _mapper = mapper;
         }
 
-        public void AddOrder(OrderDTO orderDTO)
+        public async Task AddOrder(OrderDTO orderDTO)
         {
-            _dbOperation.Orders.Create(_mapper.Map<OrderDTO, Order>(orderDTO));
+            var orders = _mapper.Map<OrderDTO, Order>(orderDTO);
+            await _dbOperation.Orders.Create(orders);
+            await _dbOperation.Save();
         }
 
-        public void DeleteOrder(OrderDTO orderDTO)
+        public async Task DeleteOrder(OrderDTO orderDTO)
         {
-            _dbOperation.Orders.Delete(_mapper.Map<OrderDTO, Order>(orderDTO));
+            var deletingOrder = _mapper.Map<OrderDTO, Order>(orderDTO);
+            await _dbOperation.Orders.Delete(deletingOrder);
+            await _dbOperation.Save();
         }
 
-        public void UpdateOrder(OrderDTO orderDTO)
+        public async Task UpdateOrder(OrderDTO orderDTO)
         {
-            _dbOperation.Orders.Update(_mapper.Map<OrderDTO, Order>(orderDTO));
+            var updatingOrder = _mapper.Map<OrderDTO, Order>(orderDTO);
+            await _dbOperation.Orders.Update(updatingOrder);
+            await _dbOperation.Save();
         }
 
-        public IEnumerable<OrderDTO> GetOrders()
+        public async Task<IEnumerable<OrderDTO>> GetOrders()
         {
-            return _mapper.Map<List<Order>, List<OrderDTO>>(_dbOperation.Orders.GetAll().ToList());
+            var ordersList = await _dbOperation.Orders.GetAll();
+            return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(ordersList);
         }
 
-        public OrderDTO GetOrder(int? id)
+        public async Task<OrderDTO> GetOrder(int? id)
         {
             if (id == null)
             {
                 throw new ValidationException("Не установлено id заказа", "");
             }
-            var order = _dbOperation.Orders.Get(id.Value);
+            var order = await _dbOperation.Orders.Get(id.Value);
             if (order == null)
             {
                 throw new ValidationException("Заказ не найден", "");

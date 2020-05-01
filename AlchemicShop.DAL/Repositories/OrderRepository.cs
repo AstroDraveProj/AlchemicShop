@@ -4,6 +4,7 @@ using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,49 +21,48 @@ namespace AlchemicShop.DAL.Repositories
 
         public async Task  Create(Order item)
         {
-            _dbContext.Orders.Add(item);
-        }
-
-        public void Delete(Order item)
-        {
             if (item != null)
             {
-                _dbContext.Orders.Remove(item);
+                await Task.Run(() => _dbContext.Orders.Add(item));
+                await _dbContext.SaveChangesAsync();
             }
+            else throw new ArgumentNullException();
         }
 
-        public Order Get(int? id)
+        public async Task Delete(Order item)
+        {
+            var deleteItem = await Get(item.Id);
+            if (deleteItem != null)
+            {
+                await Task.Run(() => _dbContext.Orders.Remove(deleteItem));
+                await _dbContext.SaveChangesAsync();
+            }
+            else throw new ArgumentNullException();
+        }
+
+        public async Task<Order> Get(int? id)
         {
             if (id != null)
             {
-                return _dbContext.Orders.Find(id);
+                return await Task.Run(() => _dbContext.Orders.Find(id));
             }
-            throw new ValidationException();
+            else throw new ArgumentNullException();
         }
 
-        public IEnumerable<Order> Find(Func<Order, bool> predicate)
+        public async Task<IEnumerable<Order>> Find(Func<Order, bool> predicate)
         {
-            return _dbContext.Orders.Where(predicate).ToList();
+            return await Task.Run(() => _dbContext.Orders.Where(predicate).ToList());
         }
 
-        public IEnumerable<Order> GetAll()
+        public async Task<IEnumerable<Order>> GetAll()
         {
-            return _dbContext.Orders.ToList();
+            return await Task.Run(() => _dbContext.Orders.ToList());
         }
 
-        public void Update(Order item)
+        public async Task Update(Order item)
         {
-            if (item != null)
-            {
-                var updateItem = _dbContext.Orders.Find(item.Id);
-
-                if (updateItem != null)
-                {
-                    updateItem.SheduledDate = item.SheduledDate;
-                    updateItem.ClosedDate = item.ClosedDate;
-                    updateItem.Status = item.Status;
-                }
-            }
+            _dbContext.Entry(item).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

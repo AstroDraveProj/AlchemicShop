@@ -3,6 +3,7 @@ using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace AlchemicShop.WEB.Controllers
@@ -23,13 +24,13 @@ namespace AlchemicShop.WEB.Controllers
             _orderService = orderService;
         }
 
-        public ActionResult GetOrderList()
+        public async Task<ActionResult> GetOrderList()
         {
-            var orders = _orderService.GetOrders();
-            var users = _userService.GetUsers().ToList();
-            ViewBag.Users = _mapper.Map<List<UserViewModel>>(users);
+            var orders = await _orderService.GetOrders();
+            var users = await _userService.GetUsers();
+            ViewBag.Users = _mapper.Map<List<UserViewModel>>(users.ToList());
 
-            return View(_mapper.Map<List<OrderViewModel>>(orders));
+            return View(_mapper.Map<List<OrderViewModel>>(orders.ToList()));
         }
     }
 }
