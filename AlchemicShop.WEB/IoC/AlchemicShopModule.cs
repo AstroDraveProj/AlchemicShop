@@ -11,11 +11,11 @@ namespace AlchemicShop.WEB.IoC
         public override void Load()
         {
             Bind<ICategoryService>().To<CategoryService>();
-            //Bind<IProductService>().To<ProductService>();
-            //Bind<IOrderService>().To<OrderService>();
-            //Bind<IOrderProductService>().To<OrderProductService>();
-            //Bind<IUserService>().To<UserService>();
-            //Bind<IAccountService>().To<AccountService>();
+            Bind<IProductService>().To<ProductService>();
+            Bind<IOrderService>().To<OrderService>();
+            Bind<IOrderProductService>().To<OrderProductService>();
+            Bind<IUserService>().To<UserService>();
+            Bind<IAccountService>().To<AccountService>();
             Bind<IMapper>().ToConstant(WebMapper.Configure().CreateMapper());
            
         }

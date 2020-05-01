@@ -1,6 +1,7 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Infrastructure;
 using AlchemicShop.BLL.Interfaces;
+using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using AutoMapper;
 using System.Collections.Generic;
@@ -23,24 +24,22 @@ namespace AlchemicShop.BLL.Services
             _mapper = mapper;
         }
 
-        public  AddCategory(CategoryDTO categoryDTO)
+        public void AddCategory(CategoryDTO categoryDTO)
         {
-            //var category = Mapper.Mapping<CategoryDTO, Category>(categoryDTO);
-            //// Category category = new Category { Name = categoryDTO.Name };
-            //_dbOperation.Categories.Create(category);
-             _dbOperation.Save();
+            var category = _mapper.Map<CategoryDTO, Category>(categoryDTO);          
+            _dbOperation.Categories.Create(category);
+            _dbOperation.Save();
         }
 
         public void EditCategory(CategoryDTO categoryDTO)
         {
-            //var category = Mapper.Mapping<CategoryDTO, Category>(categoryDTO);
-            //_dbOperation.Categories.Update(category);
+            var category = _mapper.Map<CategoryDTO, Category>(categoryDTO);
+            _dbOperation.Categories.Update(category);
             _dbOperation.Save();
         }
 
         public IEnumerable<CategoryDTO> GetCategories()
         {
-            // return Mapper.Mapping<Category, CategoryDTO>(_dbOperation.Categories.GetAll().ToList());
             var res =  _mapper.Map<List<CategoryDTO>>(_dbOperation.Categories.GetAll());
            return res;
         }
@@ -72,13 +71,10 @@ namespace AlchemicShop.BLL.Services
             var category = _dbOperation.Categories.Get(id.Value);
             if (category == null)
             {
-
+                throw new ValidationException("Категория не найдена", "");
             }
-
-            //var categoryDto = null /* = Mapper.Mapping<Category, CategoryDTO>(category)*/;
-            //return categoryDto; 
-            throw new ValidationException("Категория не найдена", "");
-            //new CategoryDTO { Id = category.Id, Name = category.Name };
+            var categoryDto = _mapper.Map<Category, CategoryDTO>(category);
+            return categoryDto;
         }
         public void Dispose()
         {
