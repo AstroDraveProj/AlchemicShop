@@ -9,86 +9,86 @@ using AlchemicShop.BLL.Helpers;
 
 namespace AlchemicShop.BLL.Services
 {
-    public class ProductService : IProductService
-    {
-        private IUnitOfWork _dbOperation;
+    //public class ProductService : IProductService
+    //{
+    //    private IUnitOfWork _dbOperation;
 
-        public ProductService(IUnitOfWork uow)
-        {
-            _dbOperation = uow;
-        }
+    //    public ProductService(IUnitOfWork uow)
+    //    {
+    //        _dbOperation = uow;
+    //    }
 
-        public void AddProduct(ProductDTO productDTO)
-        {
-            var category = _dbOperation.Categories.Get(productDTO.CategoryId);
+    //    public void AddProduct(ProductDTO productDTO)
+    //    {
+    //        var category = _dbOperation.Categories.Get(productDTO.CategoryId);
 
-            // валидация
-            if (category == null)
-            {
-                throw new ValidationException("Категория не найдена", "");
-            }
-            Product product = new Product
-            {
-                Name = productDTO.Name,
-                Amount = productDTO.Amount,
-                CategoryId = category.Id,
-                Description = productDTO.Description,
-                Price = productDTO.Price
-            };
-            _dbOperation.Products.Create(product);
-            _dbOperation.Save();
-        }
+    //        // валидация
+    //        if (category == null)
+    //        {
+    //            throw new ValidationException("Категория не найдена", "");
+    //        }
+    //        Product product = new Product
+    //        {
+    //            Name = productDTO.Name,
+    //            Amount = productDTO.Amount,
+    //            CategoryId = category.Id,
+    //            Description = productDTO.Description,
+    //            Price = productDTO.Price
+    //        };
+    //        _dbOperation.Products.Create(product);
+    //        _dbOperation.Save();
+    //    }
 
-        public void EditProduct(ProductDTO productDTO)
-        {
-            var product = Mapper.Mapping<ProductDTO, Product>(productDTO);
-            _dbOperation.Products.Update(product);
-            _dbOperation.Save();
-        }
+    //    public void EditProduct(ProductDTO productDTO)
+    //    {
+    //        var product = Mapper.Mapping<ProductDTO, Product>(productDTO);
+    //        _dbOperation.Products.Update(product);
+    //        _dbOperation.Save();
+    //    }
 
-        public IEnumerable<ProductDTO> GetProducts()
-        {
-            var products = Mapper.Mapping<Product, ProductDTO>(_dbOperation.Products.GetAll().ToList());
-            return products;
-        }
+    //    public IEnumerable<ProductDTO> GetProducts()
+    //    {
+    //        var products = Mapper.Mapping<Product, ProductDTO>(_dbOperation.Products.GetAll().ToList());
+    //        return products;
+    //    }
 
-        public void Delete(int? id)
-        {
-            if (id == null)
-            {
-                throw new ValidationException("Не установлено id продукта", "");
-            }
+    //    public void Delete(int? id)
+    //    {
+    //        if (id == null)
+    //        {
+    //            throw new ValidationException("Не установлено id продукта", "");
+    //        }
 
-            var product = _dbOperation.Products.Get(id.Value);
-            if (product == null)
-            {
-                throw new ValidationException("Продукт не найден", "");
-            }
-            _dbOperation.Products.Delete(product);
-            _dbOperation.Save();
+    //        var product = _dbOperation.Products.Get(id.Value);
+    //        if (product == null)
+    //        {
+    //            throw new ValidationException("Продукт не найден", "");
+    //        }
+    //        _dbOperation.Products.Delete(product);
+    //        _dbOperation.Save();
 
-        }
+    //    }
 
-        public ProductDTO GetProduct(int? id)
-        {
-            if (id == null)
-            {
-                throw new ValidationException("Не установлено id продукта", "");
-            }
+    //    public ProductDTO GetProduct(int? id)
+    //    {
+    //        if (id == null)
+    //        {
+    //            throw new ValidationException("Не установлено id продукта", "");
+    //        }
 
-            var product = _dbOperation.Products.Get(id.Value);
-            if (product == null)
-            {
-                throw new ValidationException("Продукт не найден", "");
-            }
+    //        var product = _dbOperation.Products.Get(id.Value);
+    //        if (product == null)
+    //        {
+    //            throw new ValidationException("Продукт не найден", "");
+    //        }
 
-            var productDto = Mapper.Mapping<Product, ProductDTO>(product);
-            return productDto;
-        }
+    //        var productDto = Mapper.Mapping<Product, ProductDTO>(product);
+    //        return productDto;
+    //    }
 
-        public void Dispose()
-        {
-            _dbOperation.Dispose();
-        }
-    }
+    //    public void Dispose()
+    //    {
+    //        _dbOperation.Dispose();
+    //    }
+    //}
 }

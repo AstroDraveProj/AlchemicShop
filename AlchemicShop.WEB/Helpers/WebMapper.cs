@@ -1,4 +1,5 @@
 ﻿using AlchemicShop.BLL.DTO;
+using AlchemicShop.BLL.Helpers;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 
@@ -18,6 +19,7 @@ namespace AlchemicShop.WEB.Helpers
                 cfg.CreateMap<UserDTO, UserViewModel>();
                 cfg.CreateMap<OrderViewModel, OrderDTO>();
                 cfg.CreateMap<OrderDTO, OrderViewModel>();
+                cfg.AddProfile<BLLProfile>();
             });
 
             return config;

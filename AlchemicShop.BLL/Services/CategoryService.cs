@@ -1,40 +1,48 @@
 ﻿using AlchemicShop.BLL.DTO;
-using AlchemicShop.BLL.Helpers;
 using AlchemicShop.BLL.Infrastructure;
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.DAL.Interfaces;
-using AlchemicShop.DAL.Entities;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+
+
 
 namespace AlchemicShop.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        IUnitOfWork _dbOperation { get; set; }
-        public CategoryService(IUnitOfWork uow)
+        private readonly IUnitOfWork _dbOperation;
+        private readonly IMapper _mapper;
+        public CategoryService(
+            IMapper mapper,
+            IUnitOfWork uow)
         {
             _dbOperation = uow;
+            _mapper = mapper;
         }
 
-        public void AddCategory(CategoryDTO categoryDTO)
+        public  AddCategory(CategoryDTO categoryDTO)
         {
-            var category = Mapper.Mapping<CategoryDTO, Category>(categoryDTO);
-            // Category category = new Category { Name = categoryDTO.Name };
-            _dbOperation.Categories.Create(category);
-            _dbOperation.Save();
+            //var category = Mapper.Mapping<CategoryDTO, Category>(categoryDTO);
+            //// Category category = new Category { Name = categoryDTO.Name };
+            //_dbOperation.Categories.Create(category);
+             _dbOperation.Save();
         }
 
         public void EditCategory(CategoryDTO categoryDTO)
         {
-            var category = Mapper.Mapping<CategoryDTO, Category>(categoryDTO);
-            _dbOperation.Categories.Update(category);
+            //var category = Mapper.Mapping<CategoryDTO, Category>(categoryDTO);
+            //_dbOperation.Categories.Update(category);
             _dbOperation.Save();
         }
 
         public IEnumerable<CategoryDTO> GetCategories()
         {
-            return Mapper.Mapping<Category, CategoryDTO>(_dbOperation.Categories.GetAll().ToList());
+            // return Mapper.Mapping<Category, CategoryDTO>(_dbOperation.Categories.GetAll().ToList());
+            var res =  _mapper.Map<List<CategoryDTO>>(_dbOperation.Categories.GetAll());
+           return res;
         }
 
         public void DeleteCategory(int? id)
@@ -64,11 +72,12 @@ namespace AlchemicShop.BLL.Services
             var category = _dbOperation.Categories.Get(id.Value);
             if (category == null)
             {
-                throw new ValidationException("Категория не найдена", "");
+
             }
 
-            var categoryDto = Mapper.Mapping<Category, CategoryDTO>(category);
-            return categoryDto;
+            //var categoryDto = null /* = Mapper.Mapping<Category, CategoryDTO>(category)*/;
+            //return categoryDto; 
+            throw new ValidationException("Категория не найдена", "");
             //new CategoryDTO { Id = category.Id, Name = category.Name };
         }
         public void Dispose()
