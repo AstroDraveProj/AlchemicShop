@@ -25,26 +25,26 @@ namespace AlchemicShop.BLL.Services
 
         public async Task AddOrderProduct(OrderProductDTO orderProductDTO)
         {
-            var product = await _dbOperation.Products.Get(orderProductDTO.ProductId);
-            var order = await _dbOperation.Orders.Get(orderProductDTO.OrderId);
-            // валидация
-            if (product == null)
-            {
-                throw new ValidationException("Продукт не найден", "");
-            }
-            if (order == null)
-            {
-                throw new ValidationException("Заказ не найден", "");
-            }
-            OrderProduct orderProduct = new OrderProduct
-            {
-                ProductId = product.Id,
-                Product = product,
-                Amount = orderProductDTO.Amount,
-                OrderId = order.Id,
-                Order = order
-            };
-            await _dbOperation.OrderProducts.Create(orderProduct);
+            //var product = await _dbOperation.Products.Get(orderProductDTO.ProductId);
+            //var order = await _dbOperation.Orders.Get(orderProductDTO.OrderId);
+            //// валидация
+            //if (product == null)
+            //{
+            //    throw new ValidationException("Продукт не найден", "");
+            //}
+            //if (order == null)
+            //{
+            //    throw new ValidationException("Заказ не найден", "");
+            //}
+            //OrderProduct orderProduct = new OrderProduct
+            //{
+            //    ProductId = product.Id,
+            //    Product = product,
+            //    Amount = orderProductDTO.Amount,
+            //    OrderId = order.Id,
+            //    Order = order
+            //};
+            await _dbOperation.OrderProducts.Create(_mapper.Map<OrderProduct>(orderProductDTO));
             await _dbOperation.Save();
         }
         public async Task<IEnumerable<OrderProductDTO>> GetOrderProducts()

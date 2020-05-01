@@ -45,11 +45,12 @@
             </td>
         }
     }
-    <td>
-        @Html.ActionLink("Edit", "ProductEdit", new { id = item.Id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "ProductDelete", new { id = item.Id })
-    </td>
+<td>
+    @Html.ActionLink("Edit", "ProductEdit", new { id = item.Id }) |
+    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+    @Html.ActionLink("Delete", "ProductDelete", new { id = item.Id })
+    @Html.ActionLink("Add to Cart", "AddProduct", new { id = item.Id })
+</td>
 </tr>
     }
 

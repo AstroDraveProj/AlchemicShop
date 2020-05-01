@@ -161,6 +161,7 @@
     <Compile Include="Helpers\WebMapper.cs" />
     <Compile Include="Identity\IdentityUser.cs" />
     <Compile Include="IoC\AlchemicShopModule.cs" />
+    <Compile Include="Managers\SessionManager.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\OrderProductViewModel.cs" />
@@ -330,6 +331,7 @@
     <Content Include="Views\Category\CategoryEdit.cshtml" />
     <Content Include="Views\Product\ProductEdit.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Product\GetCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

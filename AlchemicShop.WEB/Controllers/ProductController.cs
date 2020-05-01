@@ -1,6 +1,7 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Filters;
+using AlchemicShop.WEB.Managers;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System;
@@ -108,6 +109,20 @@ namespace AlchemicShop.WEB.Controllers
         {
             ViewBag.Name = deletingProduct;
             return View();
+        }
+
+        public async Task <ActionResult> AddProduct(int? id)
+        {
+            var session = new SessionManager(HttpContext);
+            var product = await _productService.GetProduct(id);
+            session.AddProduct(_mapper.Map<ProductViewModel>(product));
+            return RedirectToAction(nameof(GetProductList));
+        }
+
+        public ActionResult GetCart()
+        {
+            var session = new SessionManager(HttpContext);
+            return View(session.GetOrCreateProductList());
         }
 
     }
