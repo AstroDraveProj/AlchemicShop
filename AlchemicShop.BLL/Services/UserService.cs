@@ -1,12 +1,11 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Infrastructure;
 using AlchemicShop.BLL.Interfaces;
-using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
+using AlchemicShop.DAL.Interfaces;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
-using AlchemicShop.BLL.Helpers;
-using AutoMapper;
 using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
@@ -70,6 +69,13 @@ namespace AlchemicShop.BLL.Services
             }
             var userDTO = _mapper.Map<User, UserDTO>(user);
             return userDTO;
+        }
+
+        public async Task<UserDTO> GetUser(string s)
+        {
+            var a = await _dbOperation.Users.Find(x => x.Login == s);
+           return _mapper.Map<UserDTO>(a);
+             //_mapper.Map<UserDTO>(await _dbOperation.Users.Find(x => x.Login == login));
         }
 
         public void Dispose()

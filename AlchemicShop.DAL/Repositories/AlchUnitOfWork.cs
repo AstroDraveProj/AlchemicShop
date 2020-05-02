@@ -72,7 +72,7 @@ namespace AlchemicShop.DAL.Repositories
             }
         }
 
-        public IAccount<User> Accounts
+        public IUserAccount<User> Accounts
         {
             get
             {

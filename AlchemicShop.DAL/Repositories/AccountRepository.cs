@@ -1,23 +1,28 @@
 ﻿using AlchemicShop.DAL.AlchemicDbContext;
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
-using System.Linq;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Repositories
 {
-    public class AccountRepository : IAccount<User>
+    public class AccountRepository : IUserAccount<User>
     {
-        private AlchemicShopContext dbContext;
+        private readonly AlchemicShopContext _dbContext;
 
         public AccountRepository(AlchemicShopContext context)
         {
-            dbContext = context;
+            _dbContext = context;
         }
 
-        public async Task<User> GetUserAccount(string login, string password)
+        public async Task<User> GetUserAsync(string s)
         {
-            return await Task.Run(() => dbContext.Users.FirstOrDefault(x => x.Login == login && x.Password == password));
+            return await _dbContext.Users.FirstOrDefaultAsync(x => x.Login == s);
+        }
+
+        public async Task<User> GetUserAsync(User item)
+        {
+            return await _dbContext.Users.FirstOrDefaultAsync(x => x.Login == item.Login && x.Password == item.Password);
         }
     }
 }

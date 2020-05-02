@@ -46,9 +46,9 @@ namespace AlchemicShop.DAL.Repositories
             else throw new ArgumentNullException();
         }
 
-        public async Task<IEnumerable<User>> Find(Func<User, bool> predicate)
+        public async Task<User> Find(Func<User, bool> predicate)
         {
-            return await Task.Run(() => _dbContext.Users.Where(predicate).ToList());
+            return await Task.Run(() => _dbContext.Users.Where(predicate).FirstOrDefault());
         }
 
         public async Task<IEnumerable<User>> GetAll()

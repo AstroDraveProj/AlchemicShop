@@ -1,5 +1,4 @@
 ﻿using AlchemicShop.BLL.DTO;
-using AlchemicShop.BLL.Helpers;
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
 {
-    public class AccountService : IAccountService
+    public class AccountService : IUserAccountService
     {
         private readonly IUnitOfWork _dbOperation;
         private readonly IMapper _mapper;
@@ -20,12 +19,9 @@ namespace AlchemicShop.BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<UserDTO> GetAccount(string login, string password)
+        public async Task<UserDTO> GetUserAsync(UserDTO item)
         {
-            var userAccount = await _dbOperation.Accounts.GetUserAccount(login, password);
-
-            return  _mapper.Map<User, UserDTO>(userAccount);
-
+            return _mapper.Map<UserDTO>(await _dbOperation.Accounts.GetUserAsync(_mapper.Map<User>(item)));
         }
     }
 }

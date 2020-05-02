@@ -58,7 +58,7 @@
     <Compile Include="Helpers\BLLProfile.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
-    <Compile Include="Interfaces\IAccountService.cs" />
+    <Compile Include="Interfaces\IUserAccountService.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IOrderProductService.cs" />
     <Compile Include="Interfaces\IOrderService.cs" />

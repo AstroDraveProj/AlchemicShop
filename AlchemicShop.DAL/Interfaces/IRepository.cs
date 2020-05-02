@@ -14,7 +14,7 @@ namespace AlchemicShop.DAL.Interfaces
 
         Task<IEnumerable<T>> GetAll();
 
-        Task<IEnumerable<T>> Find(Func<T, bool> predicate);
+        Task<T> Find(Func<T, bool> predicate);
 
         Task<T> Get(int? id);
     }

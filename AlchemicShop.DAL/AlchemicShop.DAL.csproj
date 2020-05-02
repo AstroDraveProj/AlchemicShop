@@ -59,7 +59,7 @@
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Interfaces\IAccount.cs" />
+    <Compile Include="Interfaces\IUserAccount.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IShoppingCart.cs" />

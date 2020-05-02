@@ -47,9 +47,9 @@ namespace AlchemicShop.DAL.Repositories
             else throw new ArgumentNullException();
         }
 
-        public async Task<IEnumerable<Order>> Find(Func<Order, bool> predicate)
+        public async Task<Order> Find(Func<Order, bool> predicate)
         {
-            return await Task.Run(() => _dbContext.Orders.Where(predicate).ToList());
+            return await Task.Run(() => _dbContext.Orders.Where(predicate).FirstOrDefault());
         }
 
         public async Task<IEnumerable<Order>> GetAll()

@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Interfaces
 {
-    public interface IAccountService
+    public interface IUserAccountService
     {
-        Task<UserDTO> GetAccount(string login,string password);
+        Task<UserDTO> GetUserAsync(UserDTO item);
     }
 }
