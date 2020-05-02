@@ -44,7 +44,7 @@ namespace AlchemicShop.WEB.Controllers
 
         public async Task<ActionResult> CreateOrder()
         {
-            OrderViewModel order = new OrderViewModel()
+            var order = new OrderViewModel()
             {
                 UserId = _scService.GetOrderId(HttpContext.User.Identity.Name),
                 Status = Status.Canseled,
@@ -60,8 +60,6 @@ namespace AlchemicShop.WEB.Controllers
 
             foreach (var item in list)
             {
-                //ошибка если нет товаров еще в ордерпродукте (легко фиксится)
-                // в принципе ок работает
                 var x = new OrderProductViewModel { OrderId = _scService.GetMax(), ProductId = item.Id, Amount = 3 };
                 await _orderProductService.AddOrderProduct(
                    _mapper.Map<OrderProductDTO>(x));
