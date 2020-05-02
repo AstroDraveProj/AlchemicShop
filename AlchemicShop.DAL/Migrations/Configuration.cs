@@ -2,9 +2,7 @@
 {
     using AlchemicShop.DAL.Entities;
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<AlchemicShop.DAL.AlchemicDbContext.AlchemicShopContext>
     {
@@ -23,12 +21,19 @@
             dbContext.Products.Add(product);
             dbContext.SaveChanges();
 
+            var userRole = new UserRole
+            {
+                Name = "Admin",
+            };
+            dbContext.UserRoles.Add(userRole);
+            dbContext.SaveChanges();
+
             var user = new User
             {
                 Name = "Lelouch",
                 Login = "BritainKing",
                 Password = "qwerty",
-                IsAdmin = false
+                UserRoleId = 1
             };
 
             dbContext.Users.Add(user);

@@ -52,13 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlchemicDbContext\AlchemicShopContext.cs" />
-    <Compile Include="AlchemicDbContext\AlchemicShopInitializer.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderProduct.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserRole.cs" />
     <Compile Include="Interfaces\IUserAccount.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
@@ -66,6 +66,10 @@
     <Compile Include="Migrations\202004261245294_InitialDb.cs" />
     <Compile Include="Migrations\202004261245294_InitialDb.designer.cs">
       <DependentUpon>202004261245294_InitialDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005021730275_add_UserRole_tbl.cs" />
+    <Compile Include="Migrations\202005021730275_add_UserRole_tbl.designer.cs">
+      <DependentUpon>202005021730275_add_UserRole_tbl.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +89,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202004261245294_InitialDb.resx">
       <DependentUpon>202004261245294_InitialDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005021730275_add_UserRole_tbl.resx">
+      <DependentUpon>202005021730275_add_UserRole_tbl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

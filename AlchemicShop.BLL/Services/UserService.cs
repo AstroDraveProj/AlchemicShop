@@ -71,11 +71,14 @@ namespace AlchemicShop.BLL.Services
             return userDTO;
         }
 
-        public async Task<UserDTO> GetUser(string s)
+        public async Task<UserDTO> GetUser(string login)
         {
-            var a = await _dbOperation.Users.Find(x => x.Login == s);
-           return _mapper.Map<UserDTO>(a);
-             //_mapper.Map<UserDTO>(await _dbOperation.Users.Find(x => x.Login == login));
+            return _mapper.Map<UserDTO>(await _dbOperation.Users.Find(x => x.Login == login));
+        }
+
+        public async Task<UserDTO> GetUser(string login, string password)
+        {
+            return _mapper.Map<UserDTO>(await _dbOperation.Users.Find(x => x.Login == login && x.Password == password));
         }
 
         public void Dispose()

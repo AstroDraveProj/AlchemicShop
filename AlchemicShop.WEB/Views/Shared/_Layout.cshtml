@@ -22,7 +22,15 @@
                         <p class="nav-link">@Html.ActionLink("Product", "GetProductList", "Product")</p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#"> sign in</a>
+                        @if (@HttpContext.Current.User.Identity.Name == "qwe")
+                        {
+
+                            <p class="nav-link">@Html.ActionLink("Log out", "Login", "Account")</p>
+                        }
+                        else
+                        {
+                            <p class="nav-link">@Html.ActionLink("Log in", "Login", "Account")</p>
+                        }
                     </li>
                 </ul>
                 @RenderBody()

@@ -28,6 +28,7 @@ namespace AlchemicShop.WEB.Controllers
             _productService = productService;
         }
 
+       // [Authorize(Roles = "qwe")]
 
         public async Task<ActionResult> GetProductList()
         {
