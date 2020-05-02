@@ -17,17 +17,20 @@ namespace AlchemicShop.WEB.Controllers
         private readonly IUserService _userService;
         private readonly IOrderService _orderService;
         private readonly IOrderProductService _orderProductService;
+        private readonly IShoppingCartService _scService;
 
         public OrderController(
             IMapper mapper,
             IUserService userService,
             IOrderService orderService,
-            IOrderProductService orderProductService)
+            IOrderProductService orderProductService,
+            IShoppingCartService scService)
         {
             _mapper = mapper;
             _userService = userService;
             _orderService = orderService;
             _orderProductService = orderProductService;
+            _scService = scService;
         }
 
         public async Task<ActionResult> GetOrderList()
@@ -48,7 +51,8 @@ namespace AlchemicShop.WEB.Controllers
                 Status = Status.Canseled,
                 SheduledDate = DateTime.Today
             };
-
+            
+            
             await _orderService.AddOrder(_mapper.Map<OrderDTO>(order));
             
             var session = new SessionManager(HttpContext);
@@ -57,7 +61,7 @@ namespace AlchemicShop.WEB.Controllers
             
             foreach (var item in list)
             {
-                var x = new OrderProductViewModel { OrderId=8, ProductId = item.Id, Amount=3 };
+                var x = new OrderProductViewModel { OrderId=_scService.GetMax() , ProductId = item.Id, Amount=3 };
                 await _orderProductService.AddOrderProduct(
                     _mapper.Map<OrderProductDTO>(x));
             }

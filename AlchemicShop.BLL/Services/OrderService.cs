@@ -1,12 +1,10 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Infrastructure;
 using AlchemicShop.BLL.Interfaces;
-using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
-using System.Collections.Generic;
-using System.Linq;
-using AlchemicShop.BLL.Helpers;
+using AlchemicShop.DAL.Interfaces;
 using AutoMapper;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services

@@ -18,6 +18,8 @@ namespace AlchemicShop.DAL.Interfaces
 
         IAccount<User> Accounts { get; }
 
+        IShoppingCart<Order> MaxOrder { get; }
+
         Task Save();
     }
 }

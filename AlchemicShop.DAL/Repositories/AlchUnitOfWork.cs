@@ -15,6 +15,7 @@ namespace AlchemicShop.DAL.Repositories
         private OrderProductRepository orderProductRepository;
         private UserRepository userRepository;
         private AccountRepository accountRepository;
+        private ShoppingCartRepository scRepository;
 
         public AlchUnitOfWork(string connection)
         {
@@ -97,6 +98,16 @@ namespace AlchemicShop.DAL.Repositories
                     dbContext.Dispose();
                 }
                 this.disposed = true;
+            }
+        }
+
+        public IShoppingCart<Order> MaxOrder
+        {
+            get
+            {
+                if (scRepository == null)
+                    scRepository = new ShoppingCartRepository(dbContext);
+                return scRepository;
             }
         }
 

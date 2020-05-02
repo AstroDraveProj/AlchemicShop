@@ -19,7 +19,7 @@ namespace AlchemicShop.DAL.Repositories
             _dbContext = context;
         }
 
-        public async Task  Create(Order item)
+        public async Task Create(Order item)
         {
             if (item != null)
             {
@@ -59,7 +59,7 @@ namespace AlchemicShop.DAL.Repositories
 
         public async Task Update(Order item)
         {
-            _dbContext.Entry(item).State = EntityState.Modified;
+            await Task.Run(() => _dbContext.Entry(item).State = EntityState.Modified);
         }
     }
 }
