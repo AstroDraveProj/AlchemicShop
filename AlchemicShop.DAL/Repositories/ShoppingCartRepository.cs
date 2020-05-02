@@ -19,5 +19,12 @@ namespace AlchemicShop.DAL.Repositories
             return _dbContext.Orders.Max(w => w.Id);
 
         }
+
+        public int GetMaxId(string s)
+        {
+            var res = _dbContext.Users.Where(x => x.Login == s).FirstOrDefault();
+            return res.Id;
+
+        }
     }
 }

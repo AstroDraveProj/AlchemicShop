@@ -12,18 +12,21 @@ namespace AlchemicShop.BLL.Services
     public class ShoppingCartService : IShoppingCartService
     {
         private readonly IUnitOfWork _dbOperation;
-        private readonly IMapper _mapper;
         public ShoppingCartService(
             IMapper mapper,
             IUnitOfWork uow)
         {
             _dbOperation = uow;
-            _mapper = mapper;
         }
 
         public int GetMax()
         {
             return _dbOperation.MaxOrder.GetMax();
+        }
+
+        public int GetOrderId(string s)
+        {
+            return _dbOperation.MaxOrder.GetMaxId(s);
         }
     }
 }
