@@ -5,9 +5,7 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using AutoMapper;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-
 
 
 namespace AlchemicShop.BLL.Services
@@ -26,7 +24,7 @@ namespace AlchemicShop.BLL.Services
 
         public async Task AddCategory(CategoryDTO categoryDTO)
         {
-            var category =  _mapper.Map<CategoryDTO, Category>(categoryDTO);
+            var category = _mapper.Map<CategoryDTO, Category>(categoryDTO);
             await _dbOperation.Categories.Create(category);
             await _dbOperation.Save();
         }

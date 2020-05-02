@@ -1,8 +1,10 @@
 ﻿using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.BLL.Services;
 using AlchemicShop.WEB.Helpers;
+using AlchemicShop.WEB.Providers;
 using AutoMapper;
 using Ninject.Modules;
+using System.Web.Security;
 
 namespace AlchemicShop.WEB.IoC
 {

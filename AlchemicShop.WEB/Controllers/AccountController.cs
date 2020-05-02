@@ -10,17 +10,14 @@ namespace AlchemicShop.WEB.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserAccountService _accountService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         public AccountController(
-            IUserAccountService accountService,
             IUserService userService,
             IMapper mapper
            )
         {
-            _accountService = accountService;
             _userService = userService;
             _mapper = mapper;
         }

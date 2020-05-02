@@ -1,10 +1,8 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Interfaces;
-using AlchemicShop.WEB.Filters;
 using AlchemicShop.WEB.Managers;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,7 +26,8 @@ namespace AlchemicShop.WEB.Controllers
             _productService = productService;
         }
 
-       // [Authorize(Roles = "qwe")]
+
+        [Authorize(Roles = "Admin")]
 
         public async Task<ActionResult> GetProductList()
         {
@@ -36,7 +35,7 @@ namespace AlchemicShop.WEB.Controllers
             var categories = await _categoryService.GetCategories();
             ViewBag.Categories = _mapper.Map<List<CategoryViewModel>>(categories.ToList());
 
-            return View( _mapper.Map<List<ProductViewModel>>(products.ToList()));
+            return View(_mapper.Map<List<ProductViewModel>>(products.ToList()));
         }
 
 
@@ -71,7 +70,7 @@ namespace AlchemicShop.WEB.Controllers
             var categoryList = await _categoryService.GetCategories();
             SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(categoryList), "Id", "Name");
             ViewBag.Categories = categories;
-            return View( _mapper.Map<ProductViewModel>(product));
+            return View(_mapper.Map<ProductViewModel>(product));
         }
 
         [HttpPost]
@@ -112,7 +111,7 @@ namespace AlchemicShop.WEB.Controllers
             return View();
         }
 
-        public async Task <ActionResult> AddProduct(int? id)
+        public async Task<ActionResult> AddProduct(int? id)
         {
             var session = new SessionManager(HttpContext);
             var product = await _productService.GetProduct(id);

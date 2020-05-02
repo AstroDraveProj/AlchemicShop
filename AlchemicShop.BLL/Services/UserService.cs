@@ -5,7 +5,6 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using AutoMapper;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
@@ -80,6 +79,12 @@ namespace AlchemicShop.BLL.Services
         {
             return _mapper.Map<UserDTO>(await _dbOperation.Users.Find(x => x.Login == login && x.Password == password));
         }
+
+        public async Task<UserDTO> GetUserRole(string role)
+        {
+            return _mapper.Map<UserDTO>(await _dbOperation.Users.Find(x => x.Name == role));
+        }
+
 
         public void Dispose()
         {

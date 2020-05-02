@@ -55,6 +55,7 @@
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\Status.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="DTO\UserRoleDTO.cs" />
     <Compile Include="Helpers\BLLProfile.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
