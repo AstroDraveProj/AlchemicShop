@@ -72,10 +72,10 @@ namespace AlchemicShop.BLL.Services
             return userDTO;
         }
 
-        public int GetUser(string name)
+        public int GetUser1(string name)
         {
-            var user = _dbOperation.Users.Find(u => u.Name == name);
-            return user.Id;
+            var x = _dbOperation.Users.Find(u => u.Login == name);
+            return x.Id;
         }
 
         public void Dispose()

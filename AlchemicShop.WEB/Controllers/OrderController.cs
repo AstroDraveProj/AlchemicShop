@@ -42,30 +42,34 @@ namespace AlchemicShop.WEB.Controllers
             return View(_mapper.Map<List<OrderViewModel>>(orders.ToList()));
         }
 
-        public ActionResult CreateOrder()
+        public async Task<ActionResult> CreateOrder()
         {
 
             //var user = await _userService.GetUser(1);
-            var user = _userService.GetUser(HttpContext.User.Identity.Name);
-            OrderViewModel order = new OrderViewModel()
-            {
-                UserId = user,
-                Status = Status.Canseled,
-                SheduledDate = DateTime.Today
-            };
+            // var user = _userService.GetUser(HttpContext.User.Identity.Name);
+            
+            //var user = _userService.GetUser1("Ken");
+            //OrderViewModel order = new OrderViewModel()
+            //{
+            //    UserId = 3002,
+            //    Status = Status.Canseled,
+            //    SheduledDate = DateTime.Today
+            //};
             
             
-             _orderService.AddOrder(_mapper.Map<OrderDTO>(order));
-            
+            //await  _orderService.AddOrder(_mapper.Map<OrderDTO>(order));
+
             var session = new SessionManager(HttpContext);
             var list = session.GetOrCreateProductList();
 
-            
+
             foreach (var item in list)
             {
-                var x = new OrderProductViewModel { OrderId=_scService.GetMax() , ProductId = item.Id, Amount=3 };
-                 _orderProductService.AddOrderProduct(
-                    _mapper.Map<OrderProductDTO>(x));
+                //ошибка если нет товаров еще в ордерпродукте (легко фиксится)
+                // в принципе ок работает
+                var x = new OrderProductViewModel { OrderId = _scService.GetMax(), ProductId = item.Id, Amount = 3 };
+                await _orderProductService.AddOrderProduct(
+                   _mapper.Map<OrderProductDTO>(x));
             }
 
             return RedirectToAction(nameof(GetOrderList));
