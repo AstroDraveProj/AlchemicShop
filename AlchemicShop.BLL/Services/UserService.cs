@@ -25,8 +25,8 @@ namespace AlchemicShop.BLL.Services
 
         public async Task AddUser(UserDTO userDTO)
         {
-            var user = _mapper.Map<UserDTO, User>(userDTO);
-            await _dbOperation.Users.Create(user);
+            await _dbOperation.Users.Create(_mapper.Map<User>(userDTO));
+            await _dbOperation.Save();
         }
 
         public async Task DeleteUser(int? id)
