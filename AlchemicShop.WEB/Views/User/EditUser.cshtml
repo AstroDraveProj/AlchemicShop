@@ -1,17 +1,14 @@
 ﻿@model AlchemicShop.WEB.Models.UserViewModel
 
 @{
-    ViewBag.Title = "Update User";
+    ViewBag.Title = "Edit User";
 }
-
-<h2>UpdateUser</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>UserViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)

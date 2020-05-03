@@ -16,7 +16,9 @@ namespace AlchemicShop.WEB.Models
         [Required, MaxLength(40)]
         public string Password { get; set; }
 
-        public bool IsAdmin { get; set; }
+        public int UserRoleId { get; set; }
+
+        public UserRoleViewModel UserRole { get; set; }
 
         public ICollection<OrderViewModel> OrdersViewModel { get; set; }
 

@@ -14,7 +14,6 @@ namespace AlchemicShop.DAL.Repositories
         private OrderRepository orderRepository;
         private OrderProductRepository orderProductRepository;
         private UserRepository userRepository;
-        private AccountRepository accountRepository;
         private ShoppingCartRepository scRepository;
 
         public AlchUnitOfWork(string connection)
@@ -69,16 +68,6 @@ namespace AlchemicShop.DAL.Repositories
                 if (orderRepository == null)
                     orderRepository = new OrderRepository(dbContext);
                 return orderRepository;
-            }
-        }
-
-        public IUserAccount<User> Accounts
-        {
-            get
-            {
-                if (accountRepository == null)
-                    accountRepository = new AccountRepository(dbContext);
-                return accountRepository;
             }
         }
 

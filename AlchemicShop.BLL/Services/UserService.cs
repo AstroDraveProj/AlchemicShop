@@ -13,6 +13,7 @@ namespace AlchemicShop.BLL.Services
     {
         private readonly IUnitOfWork _dbOperation;
         private readonly IMapper _mapper;
+
         public UserService(
             IMapper mapper,
             IUnitOfWork uow)
@@ -31,13 +32,13 @@ namespace AlchemicShop.BLL.Services
         {
             if (id == null)
             {
-                throw new ValidationException("Не установлено id категории", "");
+                throw new ValidationException("User not found", "");
             }
 
             var user = await _dbOperation.Users.Get(id.Value);
             if (user == null)
             {
-                throw new ValidationException("Категория не найден", "");
+                throw new ValidationException("User not found", "");
             }
             await _dbOperation.Users.Delete(user);
             await _dbOperation.Save();
@@ -45,51 +46,52 @@ namespace AlchemicShop.BLL.Services
 
         public async Task UpdateUser(UserDTO userDTO)
         {
-            var updatingUser = _mapper.Map<UserDTO, User>(userDTO);
-            await _dbOperation.Users.Update(updatingUser);
+            await _dbOperation.Users.Update(_mapper.Map<User>(userDTO));
+            await _dbOperation.Save();
         }
 
         public async Task<IEnumerable<UserDTO>> GetUsers()
         {
-            var user = await _dbOperation.Users.GetAll();
-            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(user);
+            return _mapper.Map<IEnumerable<UserDTO>>
+                (await _dbOperation.Users.GetAll());
         }
 
         public async Task<UserDTO> GetUser(int? id)
         {
             if (id == null)
             {
-                throw new ValidationException("Не установлено id пользователя", "");
+                throw new ValidationException("User not found", "");
             }
             var user = await _dbOperation.Users.Get(id.Value);
             if (user == null)
             {
-                throw new ValidationException("Пользователь не найден", "");
+                throw new ValidationException("User not found", "");
             }
-            var userDTO = _mapper.Map<User, UserDTO>(user);
-            return userDTO;
+            return _mapper.Map<UserDTO>(user);
         }
 
         public async Task<UserDTO> GetUser(string login)
         {
-            return _mapper.Map<UserDTO>(await _dbOperation.Users.Find(x => x.Login == login));
+            return _mapper.Map<UserDTO>(
+                await _dbOperation.Users.Find(x => x.Login == login));
         }
 
         public async Task<UserDTO> GetUser(string login, string password)
         {
-            return _mapper.Map<UserDTO>(await _dbOperation.Users.Find(x => x.Login == login && x.Password == password));
+            return _mapper.Map<UserDTO>(
+                await _dbOperation.Users
+                .Find(x => x.Login == login && x.Password == password));
         }
 
         public async Task<UserDTO> GetUserRole(string role)
         {
-            return _mapper.Map<UserDTO>(await _dbOperation.Users.Find(x => x.Name == role));
+            return _mapper.Map<UserDTO>(
+                await _dbOperation.Users.Find(x => x.Name == role));
         }
-
 
         public void Dispose()
         {
             _dbOperation.Dispose();
         }
-
     }
 }

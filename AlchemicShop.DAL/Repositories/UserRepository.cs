@@ -41,7 +41,7 @@ namespace AlchemicShop.DAL.Repositories
         {
             if (id != null)
             {
-                return await Task.Run(() => _dbContext.Users.Find(id));
+                return await _dbContext.Users.FindAsync(id);
             }
             else throw new ArgumentNullException();
         }
@@ -54,13 +54,12 @@ namespace AlchemicShop.DAL.Repositories
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            return await Task.Run(() => _dbContext.Users.ToList());
+            return await _dbContext.Users.ToListAsync();
         }
 
         public async Task Update(User item)
         {
             _dbContext.Entry(item).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
         }
     }
 }
