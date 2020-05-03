@@ -1,5 +1,7 @@
 ﻿using AlchemicShop.WEB.Models;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Linq;
 using System.Web;
 
 namespace AlchemicShop.WEB.Managers
@@ -24,11 +26,18 @@ namespace AlchemicShop.WEB.Managers
             return products;
         }
 
-        public List<ProductViewModel> AddProduct(ProductViewModel product)
+        public void AddProduct(ProductViewModel product)
         {
             var products = GetOrCreateProductList();
             products.Add(product);
-            return products;
+           // return products;
+        }
+
+        public void DeleteProduct(int? id)
+        {
+            var products = GetOrCreateProductList();
+             var deleteItem = products.Where(x => x.Id == id).FirstOrDefault();
+            products.Remove(deleteItem);
         }
     }
 }

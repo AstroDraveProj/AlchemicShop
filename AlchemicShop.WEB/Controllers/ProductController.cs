@@ -124,6 +124,13 @@ namespace AlchemicShop.WEB.Controllers
             return RedirectToAction(nameof(GetProductList));
         }
 
+        public ActionResult DeleteCartItem(int? id)
+        {
+            var session = new SessionManager(HttpContext);
+            session.DeleteProduct(id);
+            return RedirectToAction(nameof(GetCart));
+        }
+
         public ActionResult GetCart()
         {
             var session = new SessionManager(HttpContext);

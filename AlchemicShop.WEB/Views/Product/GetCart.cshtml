@@ -1,44 +1,29 @@
 ﻿@model IEnumerable<AlchemicShop.WEB.Models.ProductViewModel>
 
 @Html.ActionLink("Create order", "CreateOrder", "Order") |
+
+<h2>Product List</h2>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </th>
+        <th scope="col">Amount</th>
+        <th scope="col">Name</th>
+        <th scope="col">Delete</th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
-        </tr>
+        @Html.HiddenFor(x=>item.Id)
+<tr>
+    <td>
+        @item.Amount
+    </td>
+    <td>
+        @item.Name
+    </td>
+    <td>
+        @Html.ActionLink("Delete", "DeleteCartItem", new { id = item.Id })
+    </td>
+</tr>
     }
 
 </table>
