@@ -10,14 +10,17 @@ namespace AlchemicShop.WEB.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IUserRoleService _userRoleService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         public AccountController(
+            IUserRoleService userRoleService,
             IUserService userService,
             IMapper mapper
            )
         {
+            _userRoleService = userRoleService;
             _userService = userService;
             _mapper = mapper;
         }
@@ -33,17 +36,24 @@ namespace AlchemicShop.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userAccount = await _userService.GetUser(account.Login, account.Password);
-                if (userAccount != null)
-                {
-                    FormsAuthentication.SetAuthCookie(userAccount.Login, true);
-                    return RedirectToAction("GetProductList", "Product");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
-                }
+                // var userAccount = await _userService.GetUser(account.Login, account.Password);
+                var getUser = await _userService.GetUser(1); ;
+                var a = getUser.UserRoleIdDTO;
+                //           var a = getUser.UserRoleIdDTO;
+
             }
+            //var userRole = await _userRoleService.GetUserRole(getUser.UserRoleIdDTO);
+
+            //if (userRole != null)
+            //{
+            //    FormsAuthentication.SetAuthCookie(userRole.Name, true);
+            //    return RedirectToAction("GetProductList", "Product");
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
+            //}
+            //}
             return View(account);
         }
 
@@ -66,9 +76,9 @@ namespace AlchemicShop.WEB.Controllers
                 else
                 {
 
-                    await _userService.AddUser(_mapper.Map<UserDTO>(
-                        new UserViewModel { Login = model.Login, Name = model.Name, Password = model.Password }));
-                    FormsAuthentication.SetAuthCookie(model.Login, true);
+                    //await _userService.AddUser(_mapper.Map<UserDTO>(
+                    //    new UserViewModel { Login = model.Login, Name = model.Name, Password = model.Password, UserRoleId=1 }));
+                    //FormsAuthentication.SetAuthCookie(model.Login, true);
                     return RedirectToAction("GetProductList", "Product");
                 }
             }

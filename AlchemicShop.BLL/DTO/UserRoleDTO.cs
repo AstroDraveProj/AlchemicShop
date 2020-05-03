@@ -8,6 +8,6 @@ namespace AlchemicShop.BLL.DTO
 
         public string Name { get; set; }
 
-        public virtual ICollection<UserDTO> Users { get; set; }
+        public virtual ICollection<UserDTO> UsersDTO { get; set; }
     }
 }

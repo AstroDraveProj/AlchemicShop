@@ -43,7 +43,7 @@ namespace AlchemicShop.BLL.Services
         {
             if (id == null)
             {
-                throw new ValidationException("Не установлено id категории", "");
+                throw new ValidationException("Category not found", "");
             }
 
             var category = await _dbOperation.Categories.Get(id.Value);
@@ -54,7 +54,7 @@ namespace AlchemicShop.BLL.Services
             }
             else
             {
-                throw new ValidationException("Категория не найден", "");
+                throw new ValidationException("Category not found", "");
             }
         }
 
@@ -62,13 +62,13 @@ namespace AlchemicShop.BLL.Services
         {
             if (id == null)
             {
-                throw new ValidationException("Не установлено id категории", "");
+                throw new ValidationException("Category not found", "");
             }
 
             var category = await _dbOperation.Categories.Get(id.Value);
             if (category == null)
             {
-                throw new ValidationException("Категория не найдена", "");
+                throw new ValidationException("Category not found", "");
             }
             return _mapper.Map<CategoryDTO>(category);
         }

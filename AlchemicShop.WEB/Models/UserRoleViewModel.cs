@@ -8,6 +8,6 @@ namespace AlchemicShop.WEB.Models
 
         public string Name { get; set; }
 
-        public virtual ICollection<UserViewModel> Users { get; set; }
+        public virtual ICollection<UserViewModel> UserViewModel { get; set; }
     }
 }

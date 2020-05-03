@@ -16,8 +16,6 @@ namespace AlchemicShop.BLL.Interfaces
 
         Task<UserDTO> GetUser(string login);
 
-        Task<UserDTO> GetUserRole(string login);
-
         Task<UserDTO> GetUser(string login, string password);
 
         Task<IEnumerable<UserDTO>> GetUsers();

@@ -1,9 +1,8 @@
 ﻿using AlchemicShop.BLL.Interfaces;
+using AlchemicShop.WEB.Models;
 using AutoMapper;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace AlchemicShop.WEB.Controllers
@@ -20,9 +19,11 @@ namespace AlchemicShop.WEB.Controllers
             _userRoleService = userRoleservice;
             _mapper = mapper;
         }
-        public ActionResult Index()
+
+        public async Task<ActionResult> GetUserRoleList()
         {
-            return View();
+            return View(_mapper.Map<List<UserRoleViewModel>>(
+                await _userRoleService.GetUserRoles()));
         }
     }
 }

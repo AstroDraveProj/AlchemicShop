@@ -3,6 +3,8 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Repositories
@@ -31,14 +33,14 @@ namespace AlchemicShop.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<UserRole> Get(int? id)
+        public async Task<UserRole> Get(int? id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.UserRoles.FindAsync(id);
         }
 
-        public Task<IEnumerable<UserRole>> GetAll()
+        public async Task<IEnumerable<UserRole>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _dbContext.UserRoles.ToListAsync();
         }
 
         public Task Update(UserRole item)

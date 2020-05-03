@@ -52,21 +52,20 @@ namespace AlchemicShop.BLL.Services
 
         public async Task<IEnumerable<UserDTO>> GetUsers()
         {
-            return _mapper.Map<IEnumerable<UserDTO>>
-                (await _dbOperation.Users.GetAll());
+            return _mapper.Map<IEnumerable<UserDTO>>(await _dbOperation.Users.GetAll());
         }
 
         public async Task<UserDTO> GetUser(int? id)
         {
-            if (id == null)
-            {
-                throw new ValidationException("User not found", "");
-            }
-            var user = await _dbOperation.Users.Get(id.Value);
-            if (user == null)
-            {
-                throw new ValidationException("User not found", "");
-            }
+            //if (id == null)
+            //{
+            //    throw new ValidationException("User not found", "");
+            //}
+            var user = await _dbOperation.Users.Get(id);
+            //if (user == null)
+            //{
+            //    throw new ValidationException("User not found", "");
+            //}
             return _mapper.Map<UserDTO>(user);
         }
 
@@ -80,13 +79,7 @@ namespace AlchemicShop.BLL.Services
         {
             return _mapper.Map<UserDTO>(
                 await _dbOperation.Users
-                .Find(x => x.Login == login && x.Password == password));
-        }
-
-        public async Task<UserDTO> GetUserRole(string role)
-        {
-            return _mapper.Map<UserDTO>(
-                await _dbOperation.Users.Find(x => x.Name == role));
+                .Find(x => x.Login == login && x.Password == password ));
         }
 
         public void Dispose()

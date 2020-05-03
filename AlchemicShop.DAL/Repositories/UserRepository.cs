@@ -3,6 +3,7 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,12 +50,13 @@ namespace AlchemicShop.DAL.Repositories
         public async Task<User> Find(Func<User, bool> predicate)
         {
             return await Task.Run(() => _dbContext.Users
-            .Where(predicate).FirstOrDefault());
+            .Where(predicate).FirstOrDefault());;
         }
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            return await _dbContext.Users.ToListAsync();
+            return await Task.Run(() => _dbContext.Users
+                 .Include(x => x.UserRole));
         }
 
         public async Task Update(User item)

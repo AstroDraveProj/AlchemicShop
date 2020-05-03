@@ -36,6 +36,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
+            @Html.DisplayFor(modelItem=>item.CategoryId)
             @foreach (var category in ViewBag.Categories)
             {
                 if (category.Id == item.CategoryId)

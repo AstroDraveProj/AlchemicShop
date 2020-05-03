@@ -2,7 +2,9 @@
 {
     using AlchemicShop.DAL.Entities;
     using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<AlchemicShop.DAL.AlchemicDbContext.AlchemicShopContext>
     {
@@ -11,7 +13,7 @@
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(AlchemicDbContext.AlchemicShopContext dbContext)
+        protected override void Seed(AlchemicShop.DAL.AlchemicDbContext.AlchemicShopContext dbContext)
         {
             var category = new Category { Name = "Poison" };
             dbContext.Categories.Add(category);
@@ -25,6 +27,7 @@
             {
                 Name = "Admin",
             };
+
             dbContext.UserRoles.Add(userRole);
             dbContext.SaveChanges();
 
@@ -62,3 +65,4 @@
         }
     }
 }
+

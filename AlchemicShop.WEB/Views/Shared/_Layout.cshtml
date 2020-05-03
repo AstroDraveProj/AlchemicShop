@@ -18,6 +18,7 @@
                     <li class="nav-item">
                         <p class="nav-link">@Html.ActionLink("About", "About", "Home")</p>
                     </li>
+
                     <li class="nav-item">
                         <p class="nav-link">@Html.ActionLink("Product", "GetProductList", "Product")</p>
                     </li>
@@ -31,8 +32,19 @@
                         <p class="nav-link">@Html.ActionLink("Order", "GetOrderList", "Order")</p>
                     </li>
                     <li class="nav-item">
-                        <p class="nav-link">@Html.ActionLink("Cart", "#", "#")</p>
+                        <p class="nav-link">@Html.ActionLink("Cart", "GetCart", "Product")</p>
                     </li>
+            
+
+                    @if (@HttpContext.Current.User.Identity.Name == "BritainKing")
+                    {
+
+                        <p class="nav-link">@Html.ActionLink("Log out", "Logoff", "Account")</p>
+                    }
+                    else
+                    {
+                        <p class="nav-link">@Html.ActionLink("Log in", "Login", "Account")</p>
+                    }
                 </ul>
                 @RenderBody()
                 <hr />

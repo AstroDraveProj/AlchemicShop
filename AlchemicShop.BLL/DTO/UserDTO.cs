@@ -16,9 +16,9 @@ namespace AlchemicShop.BLL.DTO
         [Required, MaxLength(40)]
         public string Password { get; set; }
 
-        public int UserRoleId { get; set; }
+        public int UserRoleIdDTO { get; set; }
 
-        public UserRoleDTO UserRoleDTO { get; set; }
+        public  UserRoleDTO UserRoleDTO { get; set; }
        
         public virtual ICollection<OrderDTO> OrdersDTO { get; set; }
     }

@@ -7,13 +7,13 @@ namespace AlchemicShop.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class add_UserRole_tbl : IMigrationMetadata
+    public sealed partial class initiaDb_migr : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(add_UserRole_tbl));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initiaDb_migr));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005021730275_add_UserRole_tbl"; }
+            get { return "202005031443052_initiaDb_migr"; }
         }
         
         string IMigrationMetadata.Source

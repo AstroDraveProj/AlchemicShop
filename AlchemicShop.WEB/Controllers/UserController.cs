@@ -3,6 +3,7 @@ using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -11,20 +12,26 @@ namespace AlchemicShop.WEB.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IUserRoleService _userRoleService;
         private readonly IMapper _mapper;
 
         public UserController(
             IMapper mapper,
-            IUserService userService)
+            IUserService userService,
+            IUserRoleService userRoleService)
         {
             _mapper = mapper;
             _userService = userService;
+            _userRoleService = userRoleService;
         }
 
         public async Task<ActionResult> GetUserList()
         {
-            return View(_mapper.Map<List<UserViewModel>>(
-                await _userService.GetUsers()));
+            ViewBag.Categories = _mapper.Map<List<UserRoleViewModel>>(
+                  (await _userRoleService.GetUserRoles()).ToList());
+
+            return View(_mapper.Map<List<UserViewModel>>
+                (await _userService.GetUsers()).ToList());
         }
 
         public ActionResult CreateUser()

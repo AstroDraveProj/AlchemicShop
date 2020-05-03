@@ -10,14 +10,19 @@ namespace AlchemicShop.BLL.Helpers
         {
             CreateMap<User, UserDTO>();
             CreateMap<UserDTO, User>();
+
             CreateMap<UserRole, UserRoleDTO>();
             CreateMap<UserRoleDTO, UserRole>();
+
             CreateMap<Order, OrderDTO>();
             CreateMap<OrderDTO, Order>();
+
             CreateMap<OrderProduct, OrderProductDTO>();
             CreateMap<OrderProductDTO, OrderProduct>();
+            
             CreateMap<Product, ProductDTO>();
             CreateMap<ProductDTO, Product>();
+           
             CreateMap<Category, CategoryDTO>();
             CreateMap<CategoryDTO, Category>();
         }

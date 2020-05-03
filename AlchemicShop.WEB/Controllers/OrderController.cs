@@ -42,15 +42,21 @@ namespace AlchemicShop.WEB.Controllers
             return View(_mapper.Map<List<OrderViewModel>>(orders.ToList()));
         }
 
-        public async Task<ActionResult> CreateOrder()
+        public ActionResult CreateOrder()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateOrder(OrderViewModel orderViewModel)
         {
             var order = new OrderViewModel()
             {
                 UserId = _scService.GetOrderId(HttpContext.User.Identity.Name),
-                Status = Status.Canseled,
+                Status = Status.Sheduled,
                 SheduledDate = DateTime.Today
             };
-
 
             await _orderService.AddOrder(_mapper.Map<OrderDTO>(order));
 
@@ -60,7 +66,7 @@ namespace AlchemicShop.WEB.Controllers
 
             foreach (var item in list)
             {
-                var x = new OrderProductViewModel { OrderId = _scService.GetMax(), ProductId = item.Id, Amount = 3 };
+                var x = new OrderProductViewModel { OrderId = _scService.GetMax(), ProductId = item.Id, Amount = 1 };
                 await _orderProductService.AddOrderProduct(
                    _mapper.Map<OrderProductDTO>(x));
             }

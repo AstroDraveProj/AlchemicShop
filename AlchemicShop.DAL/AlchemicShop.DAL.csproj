@@ -63,13 +63,9 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IShoppingCart.cs" />
-    <Compile Include="Migrations\202004261245294_InitialDb.cs" />
-    <Compile Include="Migrations\202004261245294_InitialDb.designer.cs">
-      <DependentUpon>202004261245294_InitialDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005021730275_add_UserRole_tbl.cs" />
-    <Compile Include="Migrations\202005021730275_add_UserRole_tbl.designer.cs">
-      <DependentUpon>202005021730275_add_UserRole_tbl.cs</DependentUpon>
+    <Compile Include="Migrations\202005031443052_initiaDb_migr.cs" />
+    <Compile Include="Migrations\202005031443052_initiaDb_migr.designer.cs">
+      <DependentUpon>202005031443052_initiaDb_migr.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,11 +83,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004261245294_InitialDb.resx">
-      <DependentUpon>202004261245294_InitialDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005021730275_add_UserRole_tbl.resx">
-      <DependentUpon>202005021730275_add_UserRole_tbl.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005031443052_initiaDb_migr.resx">
+      <DependentUpon>202005031443052_initiaDb_migr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
