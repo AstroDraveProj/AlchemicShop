@@ -1,5 +1,4 @@
-﻿using AlchemicShop.BLL.DTO;
-using AlchemicShop.BLL.Interfaces;
+﻿using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System.Threading.Tasks;
@@ -10,17 +9,14 @@ namespace AlchemicShop.WEB.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserRoleService _userRoleService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         public AccountController(
-            IUserRoleService userRoleService,
             IUserService userService,
             IMapper mapper
            )
         {
-            _userRoleService = userRoleService;
             _userService = userService;
             _mapper = mapper;
         }
@@ -37,8 +33,7 @@ namespace AlchemicShop.WEB.Controllers
             if (ModelState.IsValid)
             {
                 // var userAccount = await _userService.GetUser(account.Login, account.Password);
-                var getUser = await _userService.GetUser(1); ;
-                var a = getUser.UserRoleIdDTO;
+                var getUser = await _userService.GetUser(1); 
                 //           var a = getUser.UserRoleIdDTO;
 
             }

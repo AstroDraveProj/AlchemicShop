@@ -55,8 +55,7 @@ namespace AlchemicShop.DAL.Repositories
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            return await Task.Run(() => _dbContext.Users
-                 .Include(x => x.UserRole));
+            return await Task.Run(() => _dbContext.Users);
         }
 
         public async Task Update(User item)

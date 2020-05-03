@@ -12,24 +12,18 @@ namespace AlchemicShop.WEB.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        private readonly IUserRoleService _userRoleService;
         private readonly IMapper _mapper;
 
         public UserController(
             IMapper mapper,
-            IUserService userService,
-            IUserRoleService userRoleService)
+            IUserService userService)
         {
             _mapper = mapper;
             _userService = userService;
-            _userRoleService = userRoleService;
         }
 
         public async Task<ActionResult> GetUserList()
         {
-            ViewBag.Categories = _mapper.Map<List<UserRoleViewModel>>(
-                  (await _userRoleService.GetUserRoles()).ToList());
-
             return View(_mapper.Map<List<UserViewModel>>
                 (await _userService.GetUsers()).ToList());
         }

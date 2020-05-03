@@ -54,7 +54,7 @@ namespace AlchemicShop.WEB.Controllers
             var order = new OrderViewModel()
             {
                 UserId = _scService.GetOrderId(HttpContext.User.Identity.Name),
-                Status = Status.Sheduled,
+                //Status = Status.Sheduled,
                 SheduledDate = DateTime.Today
             };
 

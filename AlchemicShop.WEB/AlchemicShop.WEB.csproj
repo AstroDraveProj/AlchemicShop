@@ -154,7 +154,6 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\UserRoleController.cs" />
     <Compile Include="Filters\FilterException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -168,7 +167,8 @@
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
-    <Compile Include="Models\UserRoleViewModel.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Status.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -182,6 +182,10 @@
     <Content Include="Content\Images\About\img_about1.png" />
     <Content Include="Content\Images\About\img_about3.png" />
     <Content Include="Content\Images\About\img_about2.png" />
+    <Content Include="Content\Images\Index\jumbotron_index.jpg" />
+    <Content Include="Content\Images\Index\potion1.png" />
+    <Content Include="Content\Images\Index\potion2.png" />
+    <Content Include="Content\Images\Index\potion3.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -340,7 +344,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\Index\" />
     <Folder Include="Exceptions\" />
   </ItemGroup>
   <ItemGroup>

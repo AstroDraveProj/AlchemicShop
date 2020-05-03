@@ -52,20 +52,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlchemicDbContext\AlchemicShopContext.cs" />
+    <Compile Include="AlchemicDbContext\AlchemicShopInitializer.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderProduct.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\UserRole.cs" />
     <Compile Include="Interfaces\IUserAccount.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IShoppingCart.cs" />
-    <Compile Include="Migrations\202005031443052_initiaDb_migr.cs" />
-    <Compile Include="Migrations\202005031443052_initiaDb_migr.designer.cs">
-      <DependentUpon>202005031443052_initiaDb_migr.cs</DependentUpon>
+    <Compile Include="Migrations\202005032007486_initial.cs" />
+    <Compile Include="Migrations\202005032007486_initial.designer.cs">
+      <DependentUpon>202005032007486_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,15 +77,14 @@
     <Compile Include="Repositories\AlchUnitOfWork.cs" />
     <Compile Include="Repositories\ShoppingCartRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Repositories\UserRoleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202005031443052_initiaDb_migr.resx">
-      <DependentUpon>202005031443052_initiaDb_migr.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005032007486_initial.resx">
+      <DependentUpon>202005032007486_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

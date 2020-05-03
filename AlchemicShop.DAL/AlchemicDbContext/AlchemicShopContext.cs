@@ -9,8 +9,6 @@ namespace AlchemicShop.DAL.AlchemicDbContext
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<UserRole> UserRoles { get; set; }
-
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<Category> Categories { get; set; }
@@ -18,7 +16,8 @@ namespace AlchemicShop.DAL.AlchemicDbContext
         public DbSet<OrderProduct> OrderProducts { get; set; }
 
         public AlchemicShopContext() : base("AlchemicShopConnection")
-        { }
+        {
+        }
 
         public AlchemicShopContext(string connectionString)
            : base(connectionString)

@@ -18,10 +18,7 @@ namespace AlchemicShop.WEB.Helpers
                 cfg.CreateMap<ProductDTO, ProductViewModel>();
                 
                 cfg.CreateMap<UserViewModel, UserDTO>();
-                cfg.CreateMap<UserDTO, UserViewModel>();
-                
-                cfg.CreateMap<UserRoleViewModel, UserRoleDTO>();
-                cfg.CreateMap<UserRoleDTO, UserRoleViewModel>();
+                cfg.CreateMap<UserDTO, UserViewModel>();            
                 
                 cfg.CreateMap<RegisterViewModel, UserDTO>();
                 cfg.CreateMap<UserDTO, RegisterViewModel>();
