@@ -18,6 +18,7 @@ namespace AlchemicShop.WEB.Models
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Please, enter price of product")]
+        [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "Invalid Target Price; Maximum Two Decimal Points.")]
         public float Price { get; set; }
 
         public int CategoryId { get; set; }

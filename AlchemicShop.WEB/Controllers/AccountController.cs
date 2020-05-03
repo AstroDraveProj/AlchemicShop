@@ -75,7 +75,6 @@ namespace AlchemicShop.WEB.Controllers
             return View(model);
         }
 
-
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();

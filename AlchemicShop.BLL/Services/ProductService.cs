@@ -4,8 +4,6 @@ using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using AlchemicShop.BLL.Helpers;
 using AutoMapper;
 using System.Threading.Tasks;
 
@@ -26,35 +24,19 @@ namespace AlchemicShop.BLL.Services
 
         public async Task AddProduct(ProductDTO productDTO)
         {
-            var category = _dbOperation.Categories.Get(productDTO.CategoryId);
-
-            if (category == null)
-            {
-                throw new ValidationException("Категория не найдена", "");
-            }
-            var product = new Product
-            {
-                Name = productDTO.Name,
-                Amount = productDTO.Amount,
-                CategoryId = productDTO.CategoryId,
-                Description = productDTO.Description,
-                Price = productDTO.Price
-            };
-            await _dbOperation.Products.Create(product);
+            await _dbOperation.Products.Create(_mapper.Map<Product>(productDTO));
             await _dbOperation.Save();
         }
 
         public async Task EditProduct(ProductDTO productDTO)
         {
-            var product = _mapper.Map<ProductDTO, Product>(productDTO);
-            await _dbOperation.Products.Update(product);
+            await _dbOperation.Products.Update(_mapper.Map<Product>(productDTO));
             await _dbOperation.Save();
         }
 
         public async Task<IEnumerable<ProductDTO>> GetProducts()
         {
-            var products = await _dbOperation.Products.GetAll();
-            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+            return _mapper.Map<IEnumerable<ProductDTO>>(await _dbOperation.Products.GetAll());
         }
 
         public async Task Delete(int? id)
@@ -65,13 +47,15 @@ namespace AlchemicShop.BLL.Services
             }
 
             var product = await _dbOperation.Products.Get(id.Value);
-            if (product == null)
+            if (product != null)
+            {
+                await _dbOperation.Products.Delete(product);
+                await _dbOperation.Save();
+            }
+            else
             {
                 throw new ValidationException("Продукт не найден", "");
             }
-            await _dbOperation.Products.Delete(product);
-            await _dbOperation.Save();
-
         }
 
         public async Task<ProductDTO> GetProduct(int? id)
@@ -86,10 +70,7 @@ namespace AlchemicShop.BLL.Services
             {
                 throw new ValidationException("Продукт не найден", "");
             }
-
-            var productDto = _mapper.Map<Product, ProductDTO>(product);
-
-            return productDto;
+            return _mapper.Map<ProductDTO>(product);
         }
 
         public void Dispose()

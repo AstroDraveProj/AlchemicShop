@@ -26,23 +26,17 @@ namespace AlchemicShop.WEB.Controllers
             _productService = productService;
         }
 
-
-        [Authorize(Roles = "Admin")]
-
         public async Task<ActionResult> GetProductList()
         {
-            var products = await _productService.GetProducts();
-            var categories = await _categoryService.GetCategories();
-            ViewBag.Categories = _mapper.Map<List<CategoryViewModel>>(categories.ToList());
-
-            return View(_mapper.Map<List<ProductViewModel>>(products.ToList()));
+            ViewBag.Categories = _mapper.Map<List<CategoryViewModel>>((await _categoryService.GetCategories()).ToList());
+            return View(_mapper.Map<List<ProductViewModel>>(await _productService.GetProducts()).ToList());
         }
-
 
         public async Task<ActionResult> CreateProduct()
         {
-            SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(await _categoryService.GetCategories()), "Id", "Name");
-            ViewBag.Categories = categories;
+            ViewBag.Categories = new SelectList(
+                _mapper.Map<IEnumerable<CategoryViewModel>>
+                (await _categoryService.GetCategories()), "Id", "Name");
             return View();
         }
 
@@ -51,26 +45,24 @@ namespace AlchemicShop.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var productDto = _mapper.Map<ProductDTO>(product);
-                await _productService.AddProduct(productDto);
-
+                await _productService.AddProduct(_mapper.Map<ProductDTO>(product));
                 return RedirectToAction(nameof(GetProductList));
             }
             else
             {
-                SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(await _categoryService.GetCategories()), "Id", "Name");
-                ViewBag.Categories = categories;
+                ViewBag.Categories = new SelectList(
+                    _mapper.Map<IEnumerable<CategoryViewModel>>
+                    (await _categoryService.GetCategories()), "Id", "Name");
                 return View(product);
             }
         }
 
         public async Task<ActionResult> ProductEdit(int? id)
         {
-            var product = await _productService.GetProduct(id);
-            var categoryList = await _categoryService.GetCategories();
-            SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(categoryList), "Id", "Name");
-            ViewBag.Categories = categories;
-            return View(_mapper.Map<ProductViewModel>(product));
+            ViewBag.Categories = new SelectList(
+                _mapper.Map<IEnumerable<CategoryViewModel>>
+                (await _categoryService.GetCategories()), "Id", "Name");
+            return View(_mapper.Map<ProductViewModel>(await _productService.GetProduct(id)));
         }
 
         [HttpPost]
@@ -78,30 +70,35 @@ namespace AlchemicShop.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var productDTO = _mapper.Map<ProductDTO>(productView);
-                await _productService.EditProduct(productDTO);
-
+                await _productService.EditProduct(_mapper.Map<ProductDTO>(productView));
                 return RedirectToAction(nameof(GetProductList));
             }
             else
             {
-                SelectList categories = new SelectList(_mapper.Map<IEnumerable<CategoryViewModel>>(await _categoryService.GetCategories()), "Id", "Name");
-                ViewBag.Categories = categories;
+                ViewBag.Categories = new SelectList(
+                    _mapper.Map<IEnumerable<CategoryViewModel>>
+                    (await _categoryService.GetCategories()), "Id", "Name");
                 return View(productView);
             }
         }
 
+        public async Task<ActionResult> ProductDetails(int? id)
+        {
+            ViewBag.Categories = new SelectList(
+                    _mapper.Map<IEnumerable<CategoryViewModel>>
+                    (await _categoryService.GetCategories()), "Id", "Name");
+            return View(_mapper.Map<ProductViewModel>(await _productService.GetProduct(id)));
+        }
+
         public async Task<ActionResult> ProductDelete(int? id)
         {
-            var product = await _productService.GetProduct(id);
-            return View(_mapper.Map<ProductViewModel>(product));
+            return View(_mapper.Map<ProductViewModel>(await _productService.GetProduct(id)));
         }
 
         [HttpPost]
         public async Task<ActionResult> ProductDelete(int? id, string name)
         {
             await _productService.Delete(id);
-
             return RedirectToAction(nameof(DeleteSuccess), new { deletingProduct = name });
         }
 
@@ -124,6 +121,5 @@ namespace AlchemicShop.WEB.Controllers
             var session = new SessionManager(HttpContext);
             return View(session.GetOrCreateProductList());
         }
-
     }
 }

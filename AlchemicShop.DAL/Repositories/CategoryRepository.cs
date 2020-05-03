@@ -56,7 +56,7 @@ namespace AlchemicShop.DAL.Repositories
 
         public async Task Update(Category item)
         {
-            _dbContext.Entry(item).State = EntityState.Modified;
+           _dbContext.Entry(item).State = EntityState.Modified;
         }
 
     }
