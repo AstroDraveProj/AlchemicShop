@@ -6,7 +6,7 @@ namespace AlchemicShop.BLL.Interfaces
 {
     public interface ICategoryService
     {
-        Task AddCategory(CategoryDTO categoryDto);
+        Task AddCategory(CategoryDTO categoryDTO);
 
         Task<CategoryDTO> GetCategory(int? id);
 

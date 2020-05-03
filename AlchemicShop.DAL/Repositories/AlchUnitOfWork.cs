@@ -8,17 +8,19 @@ namespace AlchemicShop.DAL.Repositories
 {
     public class AlchUnitOfWork : IUnitOfWork
     {
-        private AlchemicShopContext dbContext;
+        private readonly AlchemicShopContext _dbContext;
+
         private ProductRepository productRepository;
         private CategoryRepository categoryRepository;
         private OrderRepository orderRepository;
         private OrderProductRepository orderProductRepository;
         private UserRepository userRepository;
+        private UserRoleRepository userRoleRepository;
         private ShoppingCartRepository scRepository;
 
         public AlchUnitOfWork(string connection)
         {
-            dbContext = new AlchemicShopContext(connection);
+            _dbContext = new AlchemicShopContext(connection);
         }
 
         public IRepository<Product> Products
@@ -26,7 +28,7 @@ namespace AlchemicShop.DAL.Repositories
             get
             {
                 if (productRepository == null)
-                    productRepository = new ProductRepository(dbContext);
+                    productRepository = new ProductRepository(_dbContext);
                 return productRepository;
             }
         }
@@ -36,7 +38,7 @@ namespace AlchemicShop.DAL.Repositories
             get
             {
                 if (categoryRepository == null)
-                    categoryRepository = new CategoryRepository(dbContext);
+                    categoryRepository = new CategoryRepository(_dbContext);
                 return categoryRepository;
             }
         }
@@ -46,8 +48,18 @@ namespace AlchemicShop.DAL.Repositories
             get
             {
                 if (userRepository == null)
-                    userRepository = new UserRepository(dbContext);
+                    userRepository = new UserRepository(_dbContext);
                 return userRepository;
+            }
+        }
+
+        public IRepository<UserRole> UserRoles
+        {
+            get
+            {
+                if (userRoleRepository == null)
+                    userRoleRepository = new UserRoleRepository(_dbContext);
+                return userRoleRepository;
             }
         }
 
@@ -56,7 +68,7 @@ namespace AlchemicShop.DAL.Repositories
             get
             {
                 if (orderProductRepository == null)
-                    orderProductRepository = new OrderProductRepository(dbContext);
+                    orderProductRepository = new OrderProductRepository(_dbContext);
                 return orderProductRepository;
             }
         }
@@ -66,14 +78,14 @@ namespace AlchemicShop.DAL.Repositories
             get
             {
                 if (orderRepository == null)
-                    orderRepository = new OrderRepository(dbContext);
+                    orderRepository = new OrderRepository(_dbContext);
                 return orderRepository;
             }
         }
 
         public async Task Save()
         {
-            await dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
         private bool disposed = false;
@@ -84,7 +96,7 @@ namespace AlchemicShop.DAL.Repositories
             {
                 if (disposing)
                 {
-                    dbContext.Dispose();
+                    _dbContext.Dispose();
                 }
                 this.disposed = true;
             }
@@ -95,7 +107,7 @@ namespace AlchemicShop.DAL.Repositories
             get
             {
                 if (scRepository == null)
-                    scRepository = new ShoppingCartRepository(dbContext);
+                    scRepository = new ShoppingCartRepository(_dbContext);
                 return scRepository;
             }
         }

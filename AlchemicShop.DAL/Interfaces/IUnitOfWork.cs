@@ -12,6 +12,8 @@ namespace AlchemicShop.DAL.Interfaces
 
         IRepository<User> Users { get; }
 
+        IRepository<UserRole> UserRoles { get; }
+
         IRepository<Order> Orders { get; }
 
         IRepository<OrderProduct> OrderProducts { get; }

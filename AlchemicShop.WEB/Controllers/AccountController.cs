@@ -67,7 +67,7 @@ namespace AlchemicShop.WEB.Controllers
                 {
 
                     await _userService.AddUser(_mapper.Map<UserDTO>(
-                        new UserViewModel { Login = model.Login, Name = model.Name, Password = model.Password, IsAdmin = false }));
+                        new UserViewModel { Login = model.Login, Name = model.Name, Password = model.Password }));
                     FormsAuthentication.SetAuthCookie(model.Login, true);
                     return RedirectToAction("GetProductList", "Product");
                 }

@@ -15,10 +15,10 @@ namespace AlchemicShop.WEB.Controllers
         private readonly IMapper _mapper;
 
         public CategoryController(
-            ICategoryService service,
+            ICategoryService categoryService,
             IMapper mapper)
         {
-            _categoryService = service;
+            _categoryService = categoryService;
             _mapper = mapper;
         }
 

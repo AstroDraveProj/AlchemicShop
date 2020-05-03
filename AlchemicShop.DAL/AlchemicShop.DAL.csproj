@@ -80,6 +80,7 @@
     <Compile Include="Repositories\AlchUnitOfWork.cs" />
     <Compile Include="Repositories\ShoppingCartRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\UserRoleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
