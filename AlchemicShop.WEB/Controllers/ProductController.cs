@@ -65,18 +65,14 @@ namespace AlchemicShop.WEB.Controllers
             }
         }
 
+        [Authorize(Users ="Admin")]
         public async Task<ActionResult> ProductEdit(int? id)
         {
-            if (HttpContext.User.Identity.Name == "BritainKing")
-            {
                 ViewBag.Categories = new SelectList(
                 _mapper.Map<IEnumerable<CategoryViewModel>>
                 (await _categoryService.GetCategories()), "Id", "Name");
                 return View(_mapper.Map<ProductViewModel>
                     (await _productService.GetProduct(id)));
-            }
-            else
-                return RedirectToAction(nameof(GetProductList));
 
         }
 
@@ -97,6 +93,7 @@ namespace AlchemicShop.WEB.Controllers
             }
         }
 
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult> ProductDelete(int? id)
         {
             return View(_mapper.Map<ProductViewModel>

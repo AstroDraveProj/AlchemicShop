@@ -37,7 +37,7 @@
                     </li>
 
 
-                    @if (@HttpContext.Current.User.Identity.Name == "BritainKing")
+                    @if (@HttpContext.Current.User.Identity.Name == "Admin")
                     {
 
                         <p class="nav-link">@Html.ActionLink("Log out", "Logoff", "Account")</p>
