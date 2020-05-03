@@ -7,13 +7,13 @@ using AutoMapper;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-
 namespace AlchemicShop.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
         private readonly IUnitOfWork _dbOperation;
         private readonly IMapper _mapper;
+
         public CategoryService(
             IMapper mapper,
             IUnitOfWork uow)
@@ -24,23 +24,19 @@ namespace AlchemicShop.BLL.Services
 
         public async Task AddCategory(CategoryDTO categoryDTO)
         {
-            var category = _mapper.Map<CategoryDTO, Category>(categoryDTO);
-            await _dbOperation.Categories.Create(category);
+            await _dbOperation.Categories.Create(_mapper.Map<Category>(categoryDTO));
             await _dbOperation.Save();
         }
 
         public async Task EditCategory(CategoryDTO categoryDTO)
         {
-            var category = _mapper.Map<CategoryDTO, Category>(categoryDTO);
-            await _dbOperation.Categories.Update(category);
+            await _dbOperation.Categories.Update(_mapper.Map<Category>(categoryDTO));
             await _dbOperation.Save();
         }
 
         public async Task<IEnumerable<CategoryDTO>> GetCategories()
         {
-            var categories = await _dbOperation.Categories.GetAll();
-            var res = _mapper.Map<List<CategoryDTO>>(categories);
-            return res;
+            return _mapper.Map<List<CategoryDTO>>(await _dbOperation.Categories.GetAll());
         }
 
         public async Task DeleteCategory(int? id)
@@ -51,13 +47,15 @@ namespace AlchemicShop.BLL.Services
             }
 
             var category = await _dbOperation.Categories.Get(id.Value);
-            if (category == null)
+            if (category != null)
+            {
+                await _dbOperation.Categories.Delete(category);
+                await _dbOperation.Save();
+            }
+            else
             {
                 throw new ValidationException("Категория не найден", "");
             }
-            await _dbOperation.Categories.Delete(category);
-            await _dbOperation.Save();
-
         }
 
         public async Task<CategoryDTO> GetCategory(int? id)
@@ -72,9 +70,9 @@ namespace AlchemicShop.BLL.Services
             {
                 throw new ValidationException("Категория не найдена", "");
             }
-            var categoryDto = _mapper.Map<Category, CategoryDTO>(category);
-            return categoryDto;
+            return _mapper.Map<CategoryDTO>(category);
         }
+
         public void Dispose()
         {
             _dbOperation.Dispose();

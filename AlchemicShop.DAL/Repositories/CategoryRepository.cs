@@ -40,7 +40,7 @@ namespace AlchemicShop.DAL.Repositories
         {
             if (id != null)
             {
-                return await Task.Run(() => _dbContext.Categories.Find(id));
+                return await _dbContext.Categories.FindAsync(id);
             }
             else throw new ArgumentNullException();
         }
@@ -51,13 +51,12 @@ namespace AlchemicShop.DAL.Repositories
 
         public async Task<IEnumerable<Category>> GetAll()
         {
-            return await Task.Run(() => _dbContext.Categories.ToList());
+            return await _dbContext.Categories.ToListAsync();
         }
 
         public async Task Update(Category item)
         {
-           _dbContext.Entry(item).State = EntityState.Modified;
+             _dbContext.Entry(item).State = EntityState.Modified;
         }
-
     }
 }
