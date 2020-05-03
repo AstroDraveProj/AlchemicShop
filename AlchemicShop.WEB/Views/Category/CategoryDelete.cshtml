@@ -1,14 +1,11 @@
 ﻿@model AlchemicShop.WEB.Models.CategoryViewModel
 
 @{
-    ViewBag.Title = "CategoryDelete";
+    ViewBag.Title = "Delete Category";
 }
-
-<h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>CategoryViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -20,7 +17,7 @@
         </dd>
     </dl>
 
-    @using (Html.BeginForm("CategoryDelete", "Category", new  { id = Model.Id , name = Model.Name}, FormMethod.Post))
+    @using (Html.BeginForm("CategoryDelete", "Category", new { id = Model.Id, name = Model.Name }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 

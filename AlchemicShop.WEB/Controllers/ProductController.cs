@@ -28,8 +28,10 @@ namespace AlchemicShop.WEB.Controllers
 
         public async Task<ActionResult> GetProductList()
         {
-            ViewBag.Categories = _mapper.Map<List<CategoryViewModel>>((await _categoryService.GetCategories()).ToList());
-            return View(_mapper.Map<List<ProductViewModel>>(await _productService.GetProducts()).ToList());
+            ViewBag.Categories = _mapper.Map<List<CategoryViewModel>>(
+                (await _categoryService.GetCategories()).ToList());
+            return View(_mapper.Map<List<ProductViewModel>>
+                (await _productService.GetProducts()).ToList());
         }
 
         public async Task<ActionResult> CreateProduct()
@@ -62,7 +64,8 @@ namespace AlchemicShop.WEB.Controllers
             ViewBag.Categories = new SelectList(
                 _mapper.Map<IEnumerable<CategoryViewModel>>
                 (await _categoryService.GetCategories()), "Id", "Name");
-            return View(_mapper.Map<ProductViewModel>(await _productService.GetProduct(id)));
+            return View(_mapper.Map<ProductViewModel>
+                (await _productService.GetProduct(id)));
         }
 
         [HttpPost]
@@ -84,7 +87,8 @@ namespace AlchemicShop.WEB.Controllers
 
         public async Task<ActionResult> ProductDelete(int? id)
         {
-            return View(_mapper.Map<ProductViewModel>(await _productService.GetProduct(id)));
+            return View(_mapper.Map<ProductViewModel>
+                (await _productService.GetProduct(id)));
         }
 
         [HttpPost]

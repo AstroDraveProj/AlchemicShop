@@ -41,10 +41,9 @@ namespace AlchemicShop.DAL.Repositories
         {
             if (id != null)
             {
-                return await Task.Run(() => _dbContext.Products.Find(id));
+                return await _dbContext.Products.FindAsync(id);
             }
             else throw new ArgumentNullException();
-
         }
 
         public async Task<Product> Find(Func<Product, bool> predicate)
@@ -61,7 +60,6 @@ namespace AlchemicShop.DAL.Repositories
         public async Task Update(Product item)
         {
             _dbContext.Entry(item).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
         }
     }
 }
