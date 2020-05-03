@@ -7,8 +7,11 @@ namespace AlchemicShop.BLL.Interfaces
     public interface IOrderProductService
     {
         Task AddOrderProduct(OrderProductDTO orderProductDto);
+
         Task<OrderProductDTO> GetOrderProduct(int? id);
+
         Task<IEnumerable<OrderProductDTO>> GetOrderProducts();
+
         void Dispose();
     }
 }
