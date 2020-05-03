@@ -65,15 +65,14 @@ namespace AlchemicShop.WEB.Controllers
             }
         }
 
-        [Authorize(Users ="Admin")]
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> ProductEdit(int? id)
         {
-                ViewBag.Categories = new SelectList(
-                _mapper.Map<IEnumerable<CategoryViewModel>>
-                (await _categoryService.GetCategories()), "Id", "Name");
-                return View(_mapper.Map<ProductViewModel>
-                    (await _productService.GetProduct(id)));
-
+            ViewBag.Categories = new SelectList(
+            _mapper.Map<IEnumerable<CategoryViewModel>>
+            (await _categoryService.GetCategories()), "Id", "Name");
+            return View(_mapper.Map<ProductViewModel>
+                (await _productService.GetProduct(id)));
         }
 
         [HttpPost]
@@ -93,7 +92,7 @@ namespace AlchemicShop.WEB.Controllers
             }
         }
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Users = "User")]
         public async Task<ActionResult> ProductDelete(int? id)
         {
             return View(_mapper.Map<ProductViewModel>
