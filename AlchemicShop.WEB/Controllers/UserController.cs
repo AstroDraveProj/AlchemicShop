@@ -39,6 +39,7 @@ namespace AlchemicShop.WEB.Controllers
             if (ModelState.IsValid)
             {
                 await _userService.AddUser(_mapper.Map<UserDTO>(user));
+                return RedirectToAction(nameof(GetUserList));
             }
             return View(user);
         }
@@ -75,6 +76,7 @@ namespace AlchemicShop.WEB.Controllers
             {
                 await _userService.UpdateUser
                     (_mapper.Map<UserDTO>(user));
+                return RedirectToAction(nameof(GetUserList));
             }
             return View(user);
         }
