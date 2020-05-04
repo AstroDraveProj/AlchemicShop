@@ -19,10 +19,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "CategoryEdit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "CategoryDelete", new { id = item.Id })
-            </td>
+            @if (@HttpContext.Current.User.Identity.Name == "Admin")
+            {
+                <td>
+                    @Html.ActionLink("Edit", "CategoryEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "CategoryDelete", new { id = item.Id })
+                </td>
+            }
+            else
+            {
+                <td></td>
+            }
         </tr>
     }
 

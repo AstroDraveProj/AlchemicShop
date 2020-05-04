@@ -34,6 +34,7 @@ namespace AlchemicShop.WEB.Controllers
 
         }
 
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> CreateProduct()
         {
             if (HttpContext.User.Identity.Name == "Admin")
@@ -47,7 +48,9 @@ namespace AlchemicShop.WEB.Controllers
                 return RedirectToAction(nameof(GetProductList));
         }
 
+
         [HttpPost]
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> CreateProduct(ProductViewModel product)
         {
             if (ModelState.IsValid)
@@ -75,6 +78,7 @@ namespace AlchemicShop.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> ProductEdit(ProductViewModel productView)
         {
             if (ModelState.IsValid)
@@ -91,7 +95,7 @@ namespace AlchemicShop.WEB.Controllers
             }
         }
 
-        [Authorize(Users = "User")]
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> ProductDelete(int? id)
         {
             return View(_mapper.Map<ProductViewModel>
@@ -99,12 +103,14 @@ namespace AlchemicShop.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> ProductDelete(int? id, string name)
         {
             await _productService.Delete(id);
             return RedirectToAction(nameof(DeleteSuccess), new { deletingProduct = name });
         }
 
+        [Authorize(Users = "Admin")]
         public ActionResult DeleteSuccess(string deletingProduct)
         {
             ViewBag.Name = deletingProduct;
