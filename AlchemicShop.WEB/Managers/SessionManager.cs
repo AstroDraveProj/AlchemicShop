@@ -37,7 +37,6 @@ namespace AlchemicShop.WEB.Managers
                     count++;
                 }
             }
-
             if (count == 0)
             {
 

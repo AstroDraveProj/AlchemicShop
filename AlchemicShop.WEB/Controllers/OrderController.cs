@@ -54,10 +54,11 @@ namespace AlchemicShop.WEB.Controllers
         [Authorize(Users = "User")]
         public async Task<ActionResult> CreateOrder(OrderViewModel orderViewModel)
         {
+            
             var order = new OrderViewModel()
             {
-                UserId = _scService.GetOrderId(HttpContext.User.Identity.Name),
-             //   Status = Status.Sheduled,
+                //UserId = _scService.GetOrderId(HttpContext.User.Identity.Name),
+                Status = Models.Status.Sheduled,
                 SheduledDate = DateTime.Today
             };
 
@@ -69,10 +70,12 @@ namespace AlchemicShop.WEB.Controllers
 
             foreach (var item in list)
             {
-                var x = new OrderProductViewModel { OrderId = _scService.GetMax(), ProductId = item.Id, Amount = 1 };
+                var x = new OrderProductViewModel { OrderId = _scService.GetMax(), ProductId = item.Id, Amount = item.Amount};
                 await _orderProductService.AddOrderProduct(
                    _mapper.Map<OrderProductDTO>(x));
             }
+
+            //+valid product amount
 
             return RedirectToAction(nameof(GetOrderList));
         }

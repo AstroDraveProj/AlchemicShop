@@ -20,6 +20,7 @@ namespace AlchemicShop.DAL.Repositories
 
         }
 
+        //fail
         public int GetMaxId(string s)
         {
             var res = _dbContext.Users.Where(x => x.Login == s).FirstOrDefault();
