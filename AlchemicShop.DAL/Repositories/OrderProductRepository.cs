@@ -18,46 +18,47 @@ namespace AlchemicShop.DAL.Repositories
             _dbContext = context;
         }
 
-        public async Task Create(OrderProduct item)
+        public void Create(OrderProduct item)
         {
             if (item != null)
             {
-                await Task.Run(() => _dbContext.OrderProducts.Add(item));
+                _dbContext.OrderProducts.Add(item);
             }
             else throw new ArgumentNullException();
         }
 
-        public async Task Delete(OrderProduct item)
+        public void Delete(OrderProduct item)
         {
-            var deleteItem = await Get(item.Id);
+            var deleteItem = _dbContext.OrderProducts.Find(item);
             if (deleteItem != null)
             {
-                await Task.Run(() => _dbContext.OrderProducts.Remove(deleteItem));
+                _dbContext.OrderProducts.Remove(deleteItem);
 
             }
             else throw new ArgumentNullException();
         }
 
-        public async Task<OrderProduct> Get(int? id)
+        public async Task<OrderProduct> GetIdAsync(int? id)
         {
             if (id != null)
             {
-                return await Task.Run(() => _dbContext.OrderProducts.Find(id));
+                return await _dbContext.OrderProducts.FindAsync(id);
             }
             else throw new ArgumentNullException();
         }
-        public async Task<OrderProduct> Find(Func<OrderProduct, bool> predicate)
+
+        public async Task<OrderProduct> FindItemAsync(Func<OrderProduct, bool> item)
         {
-            return await Task.Run(() => _dbContext.OrderProducts.Where(predicate).FirstOrDefault());
+            return await Task.Run(() => _dbContext.OrderProducts.Where(item).FirstOrDefault());
         }
 
-        public async Task<IEnumerable<OrderProduct>> GetAll()
+        public async Task<IEnumerable<OrderProduct>> GetAllAsync()
         {
-            return await Task.Run(() => _dbContext.OrderProducts
-               .Include(x => x.OrderId));
+            return await _dbContext.OrderProducts
+               .Include(x => x.OrderId).ToListAsync();
         }
 
-        public async Task Update(OrderProduct item)
+        public void Update(OrderProduct item)
         {
             _dbContext.Entry(item).State = EntityState.Modified;
         }

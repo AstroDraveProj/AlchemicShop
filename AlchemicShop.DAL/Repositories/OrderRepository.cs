@@ -3,7 +3,6 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,47 +18,47 @@ namespace AlchemicShop.DAL.Repositories
             _dbContext = context;
         }
 
-        public async Task Create(Order item)
+        public void Create(Order item)
         {
             if (item != null)
             {
-                await Task.Run(() => _dbContext.Orders.Add(item));
+                _dbContext.Orders.Add(item);
             }
             else throw new ArgumentNullException();
         }
 
-        public async Task Delete(Order item)
+        public void Delete(Order item)
         {
-            var deleteItem = await Get(item.Id);
+            var deleteItem = _dbContext.Orders.Find(item);
             if (deleteItem != null)
             {
-                await Task.Run(() => _dbContext.Orders.Remove(deleteItem));
+                _dbContext.Orders.Remove(deleteItem);
             }
             else throw new ArgumentNullException();
         }
 
-        public async Task<Order> Get(int? id)
+        public async Task<Order> GetIdAsync(int? id)
         {
             if (id != null)
             {
-                return await Task.Run(() => _dbContext.Orders.Find(id));
+                return await _dbContext.Orders.FindAsync(id);
             }
             else throw new ArgumentNullException();
         }
 
-        public async Task<Order> Find(Func<Order, bool> predicate)
+        public async Task<Order> FindItemAsync(Func<Order, bool> item)
         {
-            return await Task.Run(() => _dbContext.Orders.Where(predicate).FirstOrDefault());
+            return await Task.Run(() => _dbContext.Orders.Where(item).FirstOrDefault());
         }
 
-        public async Task<IEnumerable<Order>> GetAll()
+        public async Task<IEnumerable<Order>> GetAllAsync()
         {
-            return await Task.Run(() => _dbContext.Orders.ToList());
+            return await _dbContext.Orders.ToListAsync();
         }
 
-        public async Task Update(Order item)
+        public void Update(Order item)
         {
-            await Task.Run(() => _dbContext.Entry(item).State = EntityState.Modified);
+            _dbContext.Entry(item).State = EntityState.Modified;
         }
     }
 }

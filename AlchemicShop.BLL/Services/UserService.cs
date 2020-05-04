@@ -24,7 +24,7 @@ namespace AlchemicShop.BLL.Services
 
         public async Task AddUser(UserDTO userDTO)
         {
-            await _dbOperation.Users.Create(_mapper.Map<User>(userDTO));
+            _dbOperation.Users.Create(_mapper.Map<User>(userDTO));
             await _dbOperation.Save();
         }
 
@@ -35,24 +35,24 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("User not found", "");
             }
 
-            var user = await _dbOperation.Users.Get(id.Value);
+            var user = await _dbOperation.Users.GetIdAsync(id.Value);
             if (user == null)
             {
                 throw new ValidationException("User not found", "");
             }
-            await _dbOperation.Users.Delete(user);
+            _dbOperation.Users.Delete(user);
             await _dbOperation.Save();
         }
 
         public async Task UpdateUser(UserDTO userDTO)
         {
-            await _dbOperation.Users.Update(_mapper.Map<User>(userDTO));
+            _dbOperation.Users.Update(_mapper.Map<User>(userDTO));
             await _dbOperation.Save();
         }
 
         public async Task<IEnumerable<UserDTO>> GetUsers()
         {
-            return _mapper.Map<IEnumerable<UserDTO>>(await _dbOperation.Users.GetAll());
+            return _mapper.Map<IEnumerable<UserDTO>>(await _dbOperation.Users.GetAllAsync());
         }
 
         public async Task<UserDTO> GetUser(int? id)
@@ -61,7 +61,7 @@ namespace AlchemicShop.BLL.Services
             //{
             //    throw new ValidationException("User not found", "");
             //}
-            var user = await _dbOperation.Users.Get(id);
+            var user = await _dbOperation.Users.GetIdAsync(id);
             //if (user == null)
             //{
             //    throw new ValidationException("User not found", "");
@@ -72,14 +72,14 @@ namespace AlchemicShop.BLL.Services
         public async Task<UserDTO> GetUser(string login)
         {
             return _mapper.Map<UserDTO>(
-                await _dbOperation.Users.Find(x => x.Login == login));
+                await _dbOperation.Users.FindItemAsync(x => x.Login == login));
         }
 
         public async Task<UserDTO> GetUser(string login, string password)
         {
             return _mapper.Map<UserDTO>(
                 await _dbOperation.Users
-                .Find(x => x.Login == login && x.Password == password ));
+                .FindItemAsync(x => x.Login == login && x.Password == password));
         }
 
         public void Dispose()

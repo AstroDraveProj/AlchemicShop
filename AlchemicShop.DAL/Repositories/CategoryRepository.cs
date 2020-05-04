@@ -17,26 +17,26 @@ namespace AlchemicShop.DAL.Repositories
         {
             _dbContext = context;
         }
-        public async Task Create(Category item)
+        public void Create(Category item)
         {
             if (item != null)
             {
-                await Task.Run(() => _dbContext.Categories.Add(item));
+                _dbContext.Categories.Add(item);
             }
             else throw new ArgumentNullException();
         }
 
-        public async Task Delete(Category item)
+        public void Delete(Category item)
         {
-            var deleteItem = await Get(item.Id);
+            var deleteItem = _dbContext.Categories.Find(item);
             if (deleteItem != null)
             {
-                await Task.Run(() => _dbContext.Categories.Remove(deleteItem));
+                _dbContext.Categories.Remove(deleteItem);
             }
             else throw new ArgumentNullException();
         }
 
-        public async Task<Category> Get(int? id)
+        public async Task<Category> GetIdAsync(int? id)
         {
             if (id != null)
             {
@@ -44,19 +44,20 @@ namespace AlchemicShop.DAL.Repositories
             }
             else throw new ArgumentNullException();
         }
-        public async Task<Category> Find(Func<Category, bool> predicate)
+
+        public async Task<Category> FindItemAsync(Func<Category, bool> item)
         {
-            return await Task.Run(() => _dbContext.Categories.Where(predicate).FirstOrDefault());
+            return await Task.Run(() => _dbContext.Categories.Where(item).FirstOrDefault());
         }
 
-        public async Task<IEnumerable<Category>> GetAll()
+        public async Task<IEnumerable<Category>> GetAllAsync()
         {
             return await _dbContext.Categories.ToListAsync();
         }
 
-        public async Task Update(Category item)
+        public void Update(Category item)
         {
-             _dbContext.Entry(item).State = EntityState.Modified;
+            _dbContext.Entry(item).State = EntityState.Modified;
         }
     }
 }

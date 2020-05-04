@@ -24,27 +24,27 @@ namespace AlchemicShop.BLL.Services
         public async Task AddOrder(OrderDTO orderDTO)
         {
             var orders = _mapper.Map<OrderDTO, Order>(orderDTO);
-            await _dbOperation.Orders.Create(orders);
+            _dbOperation.Orders.Create(orders);
             await _dbOperation.Save();
         }
 
         public async Task DeleteOrder(OrderDTO orderDTO)
         {
             var deletingOrder = _mapper.Map<OrderDTO, Order>(orderDTO);
-            await _dbOperation.Orders.Delete(deletingOrder);
+            _dbOperation.Orders.Delete(deletingOrder);
             await _dbOperation.Save();
         }
 
         public async Task UpdateOrder(OrderDTO orderDTO)
         {
             var updatingOrder = _mapper.Map<OrderDTO, Order>(orderDTO);
-            await _dbOperation.Orders.Update(updatingOrder);
+            _dbOperation.Orders.Update(updatingOrder);
             await _dbOperation.Save();
         }
 
         public async Task<IEnumerable<OrderDTO>> GetOrders()
         {
-            var ordersList = await _dbOperation.Orders.GetAll();
+            var ordersList = await _dbOperation.Orders.GetAllAsync();
             return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(ordersList);
         }
 
@@ -54,7 +54,7 @@ namespace AlchemicShop.BLL.Services
             {
                 throw new ValidationException("Не установлено id заказа", "");
             }
-            var order = await _dbOperation.Orders.Get(id.Value);
+            var order = await _dbOperation.Orders.GetIdAsync(id.Value);
             if (order == null)
             {
                 throw new ValidationException("Заказ не найден", "");

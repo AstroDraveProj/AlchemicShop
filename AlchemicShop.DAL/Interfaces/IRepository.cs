@@ -6,16 +6,16 @@ namespace AlchemicShop.DAL.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        Task Create(T item);
+        void Create(T item);
 
-        Task Delete(T item);
+        void Delete(T item);
 
-        Task Update(T item);
+        void Update(T item);
 
-        Task<IEnumerable<T>> GetAll();
+        Task<IEnumerable<T>> GetAllAsync();
 
-        Task<T> Find(Func<T, bool> predicate);
+        Task<T> FindItemAsync(Func<T, bool> item);
 
-        Task<T> Get(int? id);
+        Task<T> GetIdAsync(int? id);
     }
 }

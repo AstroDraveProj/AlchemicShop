@@ -18,26 +18,26 @@ namespace AlchemicShop.DAL.Repositories
             _dbContext = context;
         }
 
-        public async Task Create(Product item)
+        public void Create(Product item)
         {
             if (item != null)
             {
-                await Task.Run(() => _dbContext.Products.Add(item));
+                _dbContext.Products.Add(item);
             }
             else throw new ArgumentNullException();
         }
 
-        public async Task Delete(Product item)
+        public void Delete(Product item)
         {
-            var deleteItem = await Get(item.Id);
+            var deleteItem = _dbContext.Products.Find(item);
             if (deleteItem != null)
             {
-                await Task.Run(() => _dbContext.Products.Remove(deleteItem));
+                _dbContext.Products.Remove(deleteItem);
             }
             else throw new ArgumentNullException();
         }
 
-        public async Task<Product> Get(int? id)
+        public async Task<Product> GetIdAsync(int? id)
         {
             if (id != null)
             {
@@ -46,18 +46,18 @@ namespace AlchemicShop.DAL.Repositories
             else throw new ArgumentNullException();
         }
 
-        public async Task<Product> Find(Func<Product, bool> predicate)
+        public async Task<Product> FindItemAsync(Func<Product, bool> item)
         {
-            return await Task.Run(() => _dbContext.Products.Where(predicate).FirstOrDefault());
+            return await Task.Run(() => _dbContext.Products.Where(item).FirstOrDefault());
         }
 
-        public async Task<IEnumerable<Product>> GetAll()
+        public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return await Task.Run(() => _dbContext.Products
-                .Include(x => x.Category));
+            return await _dbContext.Products
+                .Include(x => x.Category).ToListAsync();
         }
 
-        public async Task Update(Product item)
+        public void Update(Product item)
         {
             _dbContext.Entry(item).State = EntityState.Modified;
         }

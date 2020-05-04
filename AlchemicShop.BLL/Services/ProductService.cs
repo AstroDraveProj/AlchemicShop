@@ -24,19 +24,19 @@ namespace AlchemicShop.BLL.Services
 
         public async Task AddProduct(ProductDTO productDTO)
         {
-            await _dbOperation.Products.Create(_mapper.Map<Product>(productDTO));
+            _dbOperation.Products.Create(_mapper.Map<Product>(productDTO));
             await _dbOperation.Save();
         }
 
         public async Task EditProduct(ProductDTO productDTO)
         {
-            await _dbOperation.Products.Update(_mapper.Map<Product>(productDTO));
+            _dbOperation.Products.Update(_mapper.Map<Product>(productDTO));
             await _dbOperation.Save();
         }
 
         public async Task<IEnumerable<ProductDTO>> GetProducts()
         {
-            return _mapper.Map<IEnumerable<ProductDTO>>(await _dbOperation.Products.GetAll());
+            return _mapper.Map<IEnumerable<ProductDTO>>(await _dbOperation.Products.GetAllAsync());
         }
 
         public async Task Delete(int? id)
@@ -46,10 +46,10 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Не установлено id продукта", "");
             }
 
-            var product = await _dbOperation.Products.Get(id.Value);
+            var product = await _dbOperation.Products.GetIdAsync(id.Value);
             if (product != null)
             {
-                await _dbOperation.Products.Delete(product);
+                _dbOperation.Products.Delete(product);
                 await _dbOperation.Save();
             }
             else
@@ -65,7 +65,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Не установлено id продукта", "");
             }
 
-            var product = await _dbOperation.Products.Get(id.Value);
+            var product = await _dbOperation.Products.GetIdAsync(id.Value);
             if (product == null)
             {
                 throw new ValidationException("Продукт не найден", "");

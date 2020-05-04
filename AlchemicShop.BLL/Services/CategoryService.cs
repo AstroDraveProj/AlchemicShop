@@ -24,19 +24,19 @@ namespace AlchemicShop.BLL.Services
 
         public async Task AddCategory(CategoryDTO categoryDTO)
         {
-            await _dbOperation.Categories.Create(_mapper.Map<Category>(categoryDTO));
+            _dbOperation.Categories.Create(_mapper.Map<Category>(categoryDTO));
             await _dbOperation.Save();
         }
 
         public async Task EditCategory(CategoryDTO categoryDTO)
         {
-            await _dbOperation.Categories.Update(_mapper.Map<Category>(categoryDTO));
+            _dbOperation.Categories.Update(_mapper.Map<Category>(categoryDTO));
             await _dbOperation.Save();
         }
 
         public async Task<IEnumerable<CategoryDTO>> GetCategories()
         {
-            return _mapper.Map<List<CategoryDTO>>(await _dbOperation.Categories.GetAll());
+            return _mapper.Map<List<CategoryDTO>>(await _dbOperation.Categories.GetAllAsync());
         }
 
         public async Task DeleteCategory(int? id)
@@ -46,10 +46,10 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Category not found", "");
             }
 
-            var category = await _dbOperation.Categories.Get(id.Value);
+            var category = await _dbOperation.Categories.GetIdAsync(id.Value);
             if (category != null)
             {
-                await _dbOperation.Categories.Delete(category);
+                _dbOperation.Categories.Delete(category);
                 await _dbOperation.Save();
             }
             else
@@ -65,7 +65,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Category not found", "");
             }
 
-            var category = await _dbOperation.Categories.Get(id.Value);
+            var category = await _dbOperation.Categories.GetIdAsync(id.Value);
             if (category == null)
             {
                 throw new ValidationException("Category not found", "");

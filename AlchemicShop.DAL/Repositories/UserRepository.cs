@@ -3,7 +3,6 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,26 +18,26 @@ namespace AlchemicShop.DAL.Repositories
             _dbContext = context;
         }
 
-        public async Task Create(User item)
+        public void Create(User item)
         {
             if (item != null)
             {
-                await Task.Run(() => _dbContext.Users.Add(item));
+                _dbContext.Users.Add(item);
             }
             else throw new ArgumentNullException();
         }
 
-        public async Task Delete(User item)
+        public void Delete(User item)
         {
-            var deleteItem = await Get(item.Id);
+            var deleteItem = _dbContext.Users.Find(item);
             if (deleteItem != null)
             {
-                await Task.Run(() => _dbContext.Users.Remove(deleteItem));
+                _dbContext.Users.Remove(deleteItem);
             }
             else throw new ArgumentNullException();
         }
 
-        public async Task<User> Get(int? id)
+        public async Task<User> GetIdAsync(int? id)
         {
             if (id != null)
             {
@@ -47,18 +46,18 @@ namespace AlchemicShop.DAL.Repositories
             else throw new ArgumentNullException();
         }
 
-        public async Task<User> Find(Func<User, bool> predicate)
+        public async Task<User> FindItemAsync(Func<User, bool> item)
         {
             return await Task.Run(() => _dbContext.Users
-            .Where(predicate).FirstOrDefault());;
+            .Where(item).FirstOrDefault()); ;
         }
 
-        public async Task<IEnumerable<User>> GetAll()
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
-            return await Task.Run(() => _dbContext.Users);
+            return await _dbContext.Users.ToListAsync();
         }
 
-        public async Task Update(User item)
+        public void Update(User item)
         {
             _dbContext.Entry(item).State = EntityState.Modified;
         }
