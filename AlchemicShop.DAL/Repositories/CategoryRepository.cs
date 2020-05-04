@@ -28,7 +28,7 @@ namespace AlchemicShop.DAL.Repositories
 
         public void Delete(Category item)
         {
-            var deleteItem = _dbContext.Categories.Find(item);
+            var deleteItem = _dbContext.Categories.Find(item.Id);
             if (deleteItem != null)
             {
                 _dbContext.Categories.Remove(deleteItem);

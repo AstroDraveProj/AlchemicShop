@@ -29,7 +29,7 @@ namespace AlchemicShop.DAL.Repositories
 
         public void Delete(Order item)
         {
-            var deleteItem = _dbContext.Orders.Find(item);
+            var deleteItem = _dbContext.Orders.Find(item.Id);
             if (deleteItem != null)
             {
                 _dbContext.Orders.Remove(deleteItem);
