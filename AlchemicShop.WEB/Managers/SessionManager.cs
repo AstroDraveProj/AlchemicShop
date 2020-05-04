@@ -37,5 +37,21 @@ namespace AlchemicShop.WEB.Managers
             var deleteItem = products.Where(x => x.Id == id).FirstOrDefault();
             products.Remove(deleteItem);
         }
+
+        public ProductViewModel EditProduct(ProductViewModel product)
+        {
+            var products = GetOrCreateProductList();
+            var editItem = products.Where(x => x.Id == product.Id).FirstOrDefault();
+            editItem.Amount = product.Amount;
+            return editItem;
+
+        }
+
+        public ProductViewModel GetIdProduct(int? id)
+        {
+            var products = GetOrCreateProductList();
+            return products.Where(x => x.Id == id).FirstOrDefault();
+
+        }
     }
 }

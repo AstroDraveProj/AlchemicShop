@@ -29,6 +29,7 @@ namespace AlchemicShop.WEB.Controllers
         {
             ViewBag.Categories = _mapper.Map<List<CategoryViewModel>>(
                 (await _categoryService.GetCategories()).ToList());
+
             return View(_mapper.Map<List<ProductViewModel>>
                 (await _productService.GetProducts()).ToList());
 
@@ -37,15 +38,11 @@ namespace AlchemicShop.WEB.Controllers
         [Authorize(Users = "Admin")]
         public async Task<ActionResult> CreateProduct()
         {
-            if (HttpContext.User.Identity.Name == "Admin")
-            {
-                ViewBag.Categories = new SelectList(
-                    _mapper.Map<IEnumerable<CategoryViewModel>>
-                    (await _categoryService.GetCategories()), "Id", "Name");
-                return View();
-            }
-            else
-                return RedirectToAction(nameof(GetProductList));
+            ViewBag.Categories = new SelectList(
+                _mapper.Map<IEnumerable<CategoryViewModel>>
+                (await _categoryService.GetCategories()), "Id", "Name");
+
+            return View();
         }
 
 
@@ -63,6 +60,7 @@ namespace AlchemicShop.WEB.Controllers
                 ViewBag.Categories = new SelectList(
                     _mapper.Map<IEnumerable<CategoryViewModel>>
                     (await _categoryService.GetCategories()), "Id", "Name");
+
                 return View(product);
             }
         }
@@ -73,6 +71,7 @@ namespace AlchemicShop.WEB.Controllers
             ViewBag.Categories = new SelectList(
             _mapper.Map<IEnumerable<CategoryViewModel>>
             (await _categoryService.GetCategories()), "Id", "Name");
+
             return View(_mapper.Map<ProductViewModel>
                 (await _productService.GetProduct(id)));
         }

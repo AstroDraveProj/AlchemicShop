@@ -25,17 +25,55 @@ namespace AlchemicShop.WEB.Controllers
 
         public async Task<ActionResult> AddProduct(int? id)
         {
-            var session = new SessionManager(HttpContext);
-            var product = await _productService.GetProduct(id);
-            session.AddProduct(_mapper.Map<ProductViewModel>(product));
+            if (id != null)
+            {
+                var session = new SessionManager(HttpContext);
+                var product = _mapper.Map<ProductViewModel>
+                    (await _productService.GetProduct(id));
+                product.Amount = 1;
+                session.AddProduct(product);
+                return RedirectToAction(nameof(GetCart));
+            }
             return RedirectToAction(nameof(GetCart));
         }
 
         public ActionResult DeleteCartItem(int? id)
         {
-            var session = new SessionManager(HttpContext);
-            session.DeleteProduct(id);
+            if (id != null)
+            {
+                var session = new SessionManager(HttpContext);
+                if (session != null)
+                {
+                    session.DeleteProduct(id);
+                    return RedirectToAction(nameof(GetCart));
+                }
+            }
             return RedirectToAction(nameof(GetCart));
+        }
+
+        public ActionResult EditCartAmount(int? id)
+        {
+            if (id != null)
+            {
+                var session = new SessionManager(HttpContext);
+                if (session != null)
+                {
+                    return View(session.GetIdProduct(id));
+                }
+            }
+            return RedirectToAction(nameof(GetCart));
+        }
+
+        [HttpPost]
+        public ActionResult EditCartAmount(ProductViewModel product)
+        {
+            if (ModelState.IsValid)
+            {
+                var session = new SessionManager(HttpContext);
+                session.EditProduct(product);
+                return RedirectToAction(nameof(GetCart));
+            }
+            return View(product);
         }
 
         public ActionResult GetCart()
