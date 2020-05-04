@@ -153,6 +153,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\FilterException.cs" />
     <Compile Include="Global.asax.cs">
@@ -335,7 +336,7 @@
     <Content Include="Views\Category\CategoryEdit.cshtml" />
     <Content Include="Views\Product\ProductEdit.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Product\GetCart.cshtml" />
+    <Content Include="Views\ShoppingCart\GetCart.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\User\GetUserList.cshtml" />
     <Content Include="Views\Order\CreateOrder.cshtml" />

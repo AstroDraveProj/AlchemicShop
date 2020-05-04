@@ -26,40 +26,40 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Amount)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Price)
-    </td>
-    @Html.DisplayFor(modelItem => item.CategoryId)
-    @foreach (var category in ViewBag.Categories)
-    {
-        if (category.Id == item.CategoryId)
-        {
+        <tr>
             <td>
-                @category.Name
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
-        }
-    }
-    @if (@HttpContext.Current.User.Identity.Name == "Admin")
-    {
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            @Html.DisplayFor(modelItem => item.CategoryId)
+            @foreach (var category in ViewBag.Categories)
+            {
+                if (category.Id == item.CategoryId)
+                {
+                    <td>
+                        @category.Name
+                    </td>
+                }
+            }
+            @if (@HttpContext.Current.User.Identity.Name == "Admin")
+            {
 
-        <td>
-            @Html.ActionLink("Edit", "ProductEdit", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "ProductDelete", new { id = item.Id }) |
-            @Html.ActionLink("Add to Cart", "AddProduct", new { id = item.Id })
-        </td>
-    }
-    else
-    {
-        <td></td>
-    }
+                <td>
+                    @Html.ActionLink("Edit", "ProductEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "ProductDelete", new { id = item.Id }) |
+                    @Html.ActionLink("Add to Cart", "AddProduct", "ShoppingCart", new { id = item.Id }, null)
+                </td>
+            }
+            else
+            {
+                <td></td>
+            }
 
-</tr>
+        </tr>
     }
 </table>

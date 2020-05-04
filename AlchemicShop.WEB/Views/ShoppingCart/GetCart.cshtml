@@ -1,0 +1,29 @@
+﻿@model IEnumerable<AlchemicShop.WEB.Models.ProductViewModel>
+
+@Html.ActionLink("Create order", "CreateOrder", "Order")
+
+<h2>Cart</h2>
+<table class="table">
+    <tr>
+        <th scope="col">Amount</th>
+        <th scope="col">Name</th>
+        <th scope="col">Delete</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        @Html.HiddenFor(x => item.Id)
+        <tr>
+            <td>
+                @item.Amount
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteCartItem", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
