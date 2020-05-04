@@ -22,12 +22,14 @@ namespace AlchemicShop.WEB.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Users = "Admin")]
         public ActionResult CreateCategories()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> CreateCategories(CategoryViewModel category)
         {
             if (ModelState.IsValid)
@@ -41,6 +43,7 @@ namespace AlchemicShop.WEB.Controllers
             }
         }
 
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> CategoryEdit(int? id)
         {
             return View(_mapper.Map<CategoryViewModel>
@@ -48,6 +51,7 @@ namespace AlchemicShop.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> CategoryEdit(CategoryViewModel categoryView)
         {
             if (ModelState.IsValid)
@@ -67,6 +71,7 @@ namespace AlchemicShop.WEB.Controllers
                 (await _categoryService.GetCategories()).ToList());
         }
 
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> CategoryDelete(int? id)
         {
             return View(_mapper.Map<CategoryViewModel>
@@ -74,12 +79,14 @@ namespace AlchemicShop.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> CategoryDelete(int? id, string name)
         {
             await _categoryService.DeleteCategory(id);
             return RedirectToAction(nameof(DeleteSuccess), new { deletingCategory = name });
         }
 
+        [Authorize(Users = "Admin")]
         public ActionResult DeleteSuccess(string deletingCategory)
         {
             ViewBag.Name = deletingCategory;

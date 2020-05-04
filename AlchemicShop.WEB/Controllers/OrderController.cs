@@ -33,6 +33,7 @@ namespace AlchemicShop.WEB.Controllers
             _scService = scService;
         }
 
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> GetOrderList()
         {
             var orders = await _orderService.GetOrders();
@@ -42,6 +43,7 @@ namespace AlchemicShop.WEB.Controllers
             return View(_mapper.Map<List<OrderViewModel>>(orders.ToList()));
         }
 
+        [Authorize(Users = "User")]
         public ActionResult CreateOrder()
         {
             return View();
@@ -49,12 +51,13 @@ namespace AlchemicShop.WEB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "User")]
         public async Task<ActionResult> CreateOrder(OrderViewModel orderViewModel)
         {
             var order = new OrderViewModel()
             {
                 UserId = _scService.GetOrderId(HttpContext.User.Identity.Name),
-                //Status = Status.Sheduled,
+             //   Status = Status.Sheduled,
                 SheduledDate = DateTime.Today
             };
 

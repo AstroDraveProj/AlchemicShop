@@ -22,18 +22,21 @@ namespace AlchemicShop.WEB.Controllers
             _userService = userService;
         }
 
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> GetUserList()
         {
             return View(_mapper.Map<List<UserViewModel>>
                 (await _userService.GetUsers()).ToList());
         }
 
+        [Authorize(Users = "Admin")]
         public ActionResult CreateUser()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> CreateUser(UserViewModel user)
         {
             if (ModelState.IsValid)
@@ -44,6 +47,7 @@ namespace AlchemicShop.WEB.Controllers
             return View(user);
         }
 
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> DeleteUser(int? id)
         {
             return View(_mapper.Map<UserViewModel>
@@ -51,18 +55,21 @@ namespace AlchemicShop.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> DeleteUser(int? id, string name)
         {
             await _userService.DeleteUser(id);
             return RedirectToAction(nameof(DeleteSuccess), new { deleteUser = name });
         }
 
+        [Authorize(Users = "Admin")]
         public ActionResult DeleteSuccess(string deleteUser)
         {
             ViewBag.Name = deleteUser;
             return View();
         }
 
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> EditUser(int? id)
         {
             return View(_mapper.Map<UserViewModel>
@@ -70,6 +77,7 @@ namespace AlchemicShop.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize(Users = "Admin")]
         public async Task<ActionResult> EditUser(UserViewModel user)
         {
             if (ModelState.IsValid)

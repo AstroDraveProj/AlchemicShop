@@ -8,22 +8,26 @@
         <th scope="col">Amount</th>
         <th scope="col">Name</th>
         <th scope="col">Delete</th>
+        <th scope="col">Edit</th>
     </tr>
 
     @foreach (var item in Model)
     {
         @Html.HiddenFor(x => item.Id)
-        <tr>
-            <td>
-                @item.Amount
-            </td>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "DeleteCartItem", new { id = item.Id })
-            </td>
-        </tr>
+<tr>
+    <td>
+        @item.Amount
+    </td>
+    <td>
+        @item.Name
+    </td>
+    <td>
+        @Html.ActionLink("Delete", "DeleteCartItem", new { id = item.Id })
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "EditCartItem", new { id = item.Id })
+    </td>
+</tr>
     }
 
 </table>

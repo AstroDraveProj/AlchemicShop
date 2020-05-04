@@ -1,4 +1,5 @@
-﻿using AlchemicShop.BLL.Interfaces;
+﻿using AlchemicShop.BLL.DTO;
+using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace AlchemicShop.WEB.Controllers
                 if (userAccount != null)
                 {
                     FormsAuthentication.SetAuthCookie(userAccount.Role.ToString(), true);
-                    return RedirectToAction("GetProductList", "Product");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -45,6 +46,7 @@ namespace AlchemicShop.WEB.Controllers
             }
             return View(account);
         }
+
         public ActionResult Register()
         {
             return View();
@@ -63,11 +65,10 @@ namespace AlchemicShop.WEB.Controllers
                 }
                 else
                 {
-
-                    //await _userService.AddUser(_mapper.Map<UserDTO>(
-                    //    new UserViewModel { Login = model.Login, Name = model.Name, Password = model.Password, UserRoleId=1 }));
-                    //FormsAuthentication.SetAuthCookie(model.Login, true);
-                    return RedirectToAction("GetProductList", "Product");
+                    await _userService.AddUser(_mapper.Map<UserDTO>(
+                    new UserViewModel { Login = model.Login, Name = model.Name, Password = model.Password, Role = Models.Role.User }));
+                    FormsAuthentication.SetAuthCookie(Models.Role.User.ToString(), true);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(model);
@@ -76,7 +77,7 @@ namespace AlchemicShop.WEB.Controllers
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("GetProductList", "Product");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
