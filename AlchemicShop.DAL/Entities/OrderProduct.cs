@@ -9,6 +9,7 @@ namespace AlchemicShop.DAL.Entities
 
         [Index("IX_OrderProduct", 1, IsUnique = true)]
         public int OrderId { get; set; }        
+
         public Order Order { get; set; }
 
         [Index("IX_OrderProduct", 2, IsUnique = true)]
