@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlchemicDbContext\AlchemicShopContext.cs" />
-    <Compile Include="AlchemicDbContext\AlchemicShopInitializer.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderProduct.cs" />
