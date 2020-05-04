@@ -28,7 +28,21 @@ namespace AlchemicShop.WEB.Managers
         public void AddProduct(ProductViewModel product)
         {
             var products = GetOrCreateProductList();
-            products.Add(product);
+            var count = 0;
+            foreach (var item in products)
+            {
+                if (item.Id == product.Id)
+                {
+                    item.Amount += product.Amount;
+                    count++;
+                }
+            }
+
+            if (count == 0)
+            {
+
+                products.Add(product);
+            }
         }
 
         public void DeleteProduct(int? id)
