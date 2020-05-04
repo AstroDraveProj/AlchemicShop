@@ -3,47 +3,62 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Repositories
 {
     public class OrderRepository : IRepository<Order>
     {
-        private AlchemicShopContext dbContext;
+        private AlchemicShopContext _dbContext;
 
         public OrderRepository(AlchemicShopContext context)
         {
-            dbContext = context;
+            _dbContext = context;
         }
 
         public void Create(Order item)
         {
-            throw new NotImplementedException();
+            if (item != null)
+            {
+                _dbContext.Orders.Add(item);
+            }
+            else throw new ArgumentNullException();
         }
 
         public void Delete(Order item)
         {
-            throw new NotImplementedException();
+            var deleteItem = _dbContext.Orders.Find(item.Id);
+            if (deleteItem != null)
+            {
+                _dbContext.Orders.Remove(deleteItem);
+            }
+            else throw new ArgumentNullException();
         }
 
-        public Order Get(int? id)
+        public async Task<Order> GetIdAsync(int? id)
         {
-            throw new NotImplementedException();
+            if (id != null)
+            {
+                return await _dbContext.Orders.FindAsync(id);
+            }
+            else throw new ArgumentNullException();
         }
 
-        public IEnumerable<Order> Find(Func<Order, bool> predicate)
+        public async Task<Order> FindItemAsync(Func<Order, bool> item)
         {
-            return dbContext.Orders.Where(predicate).ToList();
+            return await Task.Run(() => _dbContext.Orders.Where(item).FirstOrDefault());
         }
 
-        public IEnumerable<Order> GetAll()
+        public async Task<IEnumerable<Order>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Orders.ToListAsync();
         }
 
         public void Update(Order item)
         {
-            throw new NotImplementedException();
+            _dbContext.Entry(item).State = EntityState.Modified;
         }
     }
 }

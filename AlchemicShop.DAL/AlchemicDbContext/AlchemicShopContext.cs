@@ -15,11 +15,6 @@ namespace AlchemicShop.DAL.AlchemicDbContext
 
         public DbSet<OrderProduct> OrderProducts { get; set; }
 
-        static AlchemicShopContext()
-        {
-            //Database.SetInitializer(new AlchemicShopInitializer());
-        }
-
         public AlchemicShopContext() : base("AlchemicShopConnection")
         {
         }

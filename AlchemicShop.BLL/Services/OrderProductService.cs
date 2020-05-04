@@ -1,71 +1,55 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Infrastructure;
 using AlchemicShop.BLL.Interfaces;
-using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
-using System.Collections.Generic;
-using System.Linq;
+using AlchemicShop.DAL.Interfaces;
 using AutoMapper;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
 {
     public class OrderProductService : IOrderProductService
     {
-        private IUnitOfWork Database { get; set; }
+        private readonly IUnitOfWork _dbOperation;
         private readonly IMapper _mapper;
-        public OrderProductService(IUnitOfWork uow, IMapper mapper)
+        public OrderProductService(
+            IMapper mapper,
+            IUnitOfWork uow)
         {
+            _dbOperation = uow;
             _mapper = mapper;
-            Database = uow;
         }
 
-        public void AddOrderProduct(OrderProductDTO orderProductDTO)
+        public async Task AddOrderProduct(OrderProductDTO orderProductDTO)
         {
-            var product = Database.Products.Get(orderProductDTO.ProductId);
-            var order = Database.Orders.Get(orderProductDTO.OrderId);
-            // валидация
-            if (product == null)
-            {
-                throw new ValidationException("Продукт не найден", "");
-            }
-            if (order == null)
-            {
-                throw new ValidationException("Заказ не найден", "");
-            }
-            OrderProduct orderProduct = new OrderProduct
-            {
-                ProductId = product.Id,
-                Product = product,
-                Amount = orderProductDTO.Amount,
-                OrderId = order.Id,
-                Order = order
-            };
-            Database.OrderProducts.Create(orderProduct);
-            Database.Save();
+             _dbOperation.OrderProducts.Create(_mapper.Map<OrderProduct>(orderProductDTO));
+            await _dbOperation.Save();
         }
-        public IEnumerable<OrderProductDTO> GetOrderProducts()
+        public async Task<IEnumerable<OrderProductDTO>> GetOrderProducts()
         {
-            return _mapper.Map<IEnumerable<OrderProductDTO>>(Database.OrderProducts.GetAll().ToList());
+            var orderProducts = await _dbOperation.OrderProducts.GetAllAsync();
+            return _mapper.Map<IEnumerable<OrderProduct>, IEnumerable<OrderProductDTO>>(orderProducts);
         }
 
-        public OrderProductDTO GetOrderProduct(int? id)
+        public async Task<OrderProductDTO> GetOrderProduct(int? id)
         {
             if (id == null)
             {
                 throw new ValidationException("Не установлено id заказанного продукта", "");
             }
-            var orderProduct = Database.OrderProducts.Get(id.Value);
+            var orderProduct = await _dbOperation.OrderProducts.GetIdAsync(id.Value);
             if (orderProduct == null)
             {
                 throw new ValidationException("Заказаный продукт не найден", "");
             }
 
-            var orderProductDTO = _mapper.Map<OrderProductDTO>(orderProduct);
+            var orderProductDTO = _mapper.Map<OrderProduct, OrderProductDTO>(orderProduct);
             return orderProductDTO;
         }
         public void Dispose()
         {
-            Database.Dispose();
+            _dbOperation.Dispose();
         }
     }
 }

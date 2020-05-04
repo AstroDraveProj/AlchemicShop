@@ -8,6 +8,9 @@ namespace AlchemicShop.DAL.Entities
     {
         public int Id { get; set; }
 
+        [Required]
+        public Role Role { get; set; }
+
         [Required, MaxLength(40)]
         public string Name { get; set; }
 
@@ -18,8 +21,6 @@ namespace AlchemicShop.DAL.Entities
         [Required, MaxLength(40)]
         public string Password { get; set; }
 
-        public bool IsAdmin { get; set; }
-
-        public virtual ICollection<Order> Orders { get; set; }         
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

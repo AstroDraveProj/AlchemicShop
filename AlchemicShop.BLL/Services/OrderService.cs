@@ -1,51 +1,72 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Infrastructure;
 using AlchemicShop.BLL.Interfaces;
-using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
-using System.Collections.Generic;
-using System.Linq;
+using AlchemicShop.DAL.Interfaces;
 using AutoMapper;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
 {
     public class OrderService : IOrderService
     {
-        private IUnitOfWork Database { get; set; }
+        private readonly IUnitOfWork _dbOperation;
         private readonly IMapper _mapper;
-        public OrderService(IUnitOfWork uow, IMapper mapper)
+        public OrderService(
+            IMapper mapper,
+            IUnitOfWork uow)
         {
+            _dbOperation = uow;
             _mapper = mapper;
-            Database = uow;
         }
 
-        public void AddOrder(OrderDTO orderProductDTO)
+        public async Task AddOrder(OrderDTO orderDTO)
         {
-
+            var orders = _mapper.Map<OrderDTO, Order>(orderDTO);
+            _dbOperation.Orders.Create(orders);
+            await _dbOperation.Save();
         }
-        public IEnumerable<OrderDTO> GetOrders()
+
+        public async Task DeleteOrder(OrderDTO orderDTO)
         {
-            return _mapper.Map<IEnumerable<OrderDTO>>(Database.Orders.GetAll().ToList());
+            var deletingOrder = _mapper.Map<OrderDTO, Order>(orderDTO);
+            _dbOperation.Orders.Delete(deletingOrder);
+            await _dbOperation.Save();
         }
 
-        public OrderDTO GetOrder(int? id)
+        public async Task UpdateOrder(OrderDTO orderDTO)
+        {
+            var updatingOrder = _mapper.Map<OrderDTO, Order>(orderDTO);
+            _dbOperation.Orders.Update(updatingOrder);
+            await _dbOperation.Save();
+        }
+
+        public async Task<IEnumerable<OrderDTO>> GetOrders()
+        {
+            var ordersList = await _dbOperation.Orders.GetAllAsync();
+            return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(ordersList);
+        }
+
+        public async Task<OrderDTO> GetOrder(int? id)
         {
             if (id == null)
             {
                 throw new ValidationException("Не установлено id заказа", "");
             }
-            var order = Database.Orders.Get(id.Value);
+            var order = await _dbOperation.Orders.GetIdAsync(id.Value);
             if (order == null)
             {
                 throw new ValidationException("Заказ не найден", "");
             }
 
-            var orderDTO = _mapper.Map<OrderDTO>(order);
+            var orderDTO = _mapper.Map<Order, OrderDTO>(order);
             return orderDTO;
         }
+
         public void Dispose()
         {
-            Database.Dispose();
+            _dbOperation.Dispose();
         }
     }
 }

@@ -1,54 +1,81 @@
 ﻿using AlchemicShop.BLL.DTO;
-using AlchemicShop.BLL.Helpers;
 using AlchemicShop.BLL.Infrastructure;
 using AlchemicShop.BLL.Interfaces;
-using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
+using AlchemicShop.DAL.Interfaces;
+using AutoMapper;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        IUnitOfWork Database { get; set; }
-        public CategoryService(IUnitOfWork uow)
+        private readonly IUnitOfWork _dbOperation;
+        private readonly IMapper _mapper;
+
+        public CategoryService(
+            IMapper mapper,
+            IUnitOfWork uow)
         {
-            Database = uow;
+            _dbOperation = uow;
+            _mapper = mapper;
         }
 
-        public void AddCategory(CategoryDTO categoryDTO)
+        public async Task AddCategory(CategoryDTO categoryDTO)
         {
-            var category = Mapper.CategoryMap(categoryDTO);
-           // Category category = new Category { Name = categoryDTO.Name };
-            Database.Categories.Create(category);
-            Database.Save();
-        }
-        public IEnumerable<CategoryDTO> GetCategories()
-        {
-            return Mapper.CategoryMap(Database.Categories.GetAll().ToList());
+            _dbOperation.Categories.Create(_mapper.Map<Category>(categoryDTO));
+            await _dbOperation.Save();
         }
 
-        public CategoryDTO GetCategory(int? id)
+        public async Task EditCategory(CategoryDTO categoryDTO)
+        {
+            _dbOperation.Categories.Update(_mapper.Map<Category>(categoryDTO));
+            await _dbOperation.Save();
+        }
+
+        public async Task<IEnumerable<CategoryDTO>> GetCategories()
+        {
+            return _mapper.Map<List<CategoryDTO>>(await _dbOperation.Categories.GetAllAsync());
+        }
+
+        public async Task DeleteCategory(int? id)
         {
             if (id == null)
             {
-                throw new ValidationException("Не установлено id категории", "");
+                throw new ValidationException("Category not found", "");
             }
 
-            var category = Database.Categories.Get(id.Value);
+            var category = await _dbOperation.Categories.GetIdAsync(id.Value);
+            if (category != null)
+            {
+                _dbOperation.Categories.Delete(category);
+                await _dbOperation.Save();
+            }
+            else
+            {
+                throw new ValidationException("Category not found", "");
+            }
+        }
+
+        public async Task<CategoryDTO> GetCategory(int? id)
+        {
+            if (id == null)
+            {
+                throw new ValidationException("Category not found", "");
+            }
+
+            var category = await _dbOperation.Categories.GetIdAsync(id.Value);
             if (category == null)
             {
-                throw new ValidationException("Категория не найдена", "");
+                throw new ValidationException("Category not found", "");
             }
-
-            var categoryDto = Mapper.CategoryMap(category);
-            return categoryDto;
-            //new CategoryDTO { Id = category.Id, Name = category.Name };
+            return _mapper.Map<CategoryDTO>(category);
         }
+
         public void Dispose()
         {
-            Database.Dispose();
+            _dbOperation.Dispose();
         }
     }
 }

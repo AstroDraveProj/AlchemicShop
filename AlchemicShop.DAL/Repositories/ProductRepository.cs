@@ -2,65 +2,64 @@
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Repositories
 {
     public class ProductRepository : IRepository<Product>
     {
-        private AlchemicShopContext dbContext;
+        private AlchemicShopContext _dbContext;
 
         public ProductRepository(AlchemicShopContext context)
         {
-            dbContext = context;
+            _dbContext = context;
         }
 
         public void Create(Product item)
         {
             if (item != null)
             {
-                dbContext.Products.Add(item);
+                _dbContext.Products.Add(item);
             }
+            else throw new ArgumentNullException();
         }
 
         public void Delete(Product item)
         {
-            var deleteItem = Get(item.Id);
+            var deleteItem = _dbContext.Products.Find(item.Id);
             if (deleteItem != null)
             {
-                dbContext.Products.Remove(deleteItem);
+                _dbContext.Products.Remove(deleteItem);
             }
+            else throw new ArgumentNullException();
         }
 
-        public Product Get(int? id)
+        public async Task<Product> GetIdAsync(int? id)
         {
-            return dbContext.Products.Find(id);
+            if (id != null)
+            {
+                return await _dbContext.Products.FindAsync(id);
+            }
+            else throw new ArgumentNullException();
         }
 
-        public IEnumerable<Product> Find(Func<Product, bool> predicate)
+        public async Task<Product> FindItemAsync(Func<Product, bool> item)
         {
-            return dbContext.Products.Where(predicate).ToList();
+            return await Task.Run(() => _dbContext.Products.Where(item).FirstOrDefault());
         }
 
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return dbContext.Products
-                .Include(x => x.Category);
+            return await _dbContext.Products
+                .Include(x => x.Category).ToListAsync();
         }
 
         public void Update(Product item)
         {
-            var updateItem = dbContext.Products.Find(item.Id);
-            if (updateItem != null)
-            {
-                updateItem.Name = item.Name;
-                updateItem.Price = item.Price;
-                updateItem.Description = item.Description;
-                updateItem.Amount = item.Amount;
-                updateItem.CategoryId = item.CategoryId;
-            }
+            _dbContext.Entry(item).State = EntityState.Modified;
         }
     }
 }

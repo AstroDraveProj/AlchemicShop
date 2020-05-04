@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Interfaces
 {
@@ -11,8 +12,10 @@ namespace AlchemicShop.DAL.Interfaces
 
         void Update(T item);
 
-        IEnumerable<T> GetAll();
-        IEnumerable<T> Find(Func<T, bool> predicate);
-        T Get(int? id);
+        Task<IEnumerable<T>> GetAllAsync();
+
+        Task<T> FindItemAsync(Func<T, bool> item);
+
+        Task<T> GetIdAsync(int? id);
     }
 }

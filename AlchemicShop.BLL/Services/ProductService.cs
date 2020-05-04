@@ -4,65 +4,73 @@ using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.DAL.Interfaces;
 using AlchemicShop.DAL.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using AlchemicShop.BLL.Helpers;
+using AutoMapper;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
 {
     public class ProductService : IProductService
     {
-        private IUnitOfWork _dbOperation;
+        private readonly IUnitOfWork _dbOperation;
+        private readonly IMapper _mapper;
 
-        public ProductService(IUnitOfWork uow)
+        public ProductService(
+             IMapper mapper,
+             IUnitOfWork uow)
         {
             _dbOperation = uow;
+            _mapper = mapper;
         }
 
-        public void AddProduct(ProductDTO productDTO)
+        public async Task AddProduct(ProductDTO productDTO)
         {
-            //var category = _dbOperation.Categories.Get(productDTO.CategoryId);
-
-            //// валидация
-            //if (category == null)
-            //{
-            //    throw new ValidationException("Категория не найдена", "");
-            //}
-            //Product product = new Product
-            //{
-            //    Name = productDTO.Name,
-            //    Amount = productDTO.Amount,
-            //    CategoryId = category.Id,
-            //    Category = category,
-            //    Description = productDTO.Description,
-            //    Price = productDTO.Price,
-            //    OrderProducts = null // потому что как только мы добавили продукт его ещё не заказывали
-            //};
-            //_dbOperation.Products.Create(product);
-            _dbOperation.Save();
+            _dbOperation.Products.Create(_mapper.Map<Product>(productDTO));
+            await _dbOperation.Save();
         }
 
-        public IEnumerable<ProductDTO> GetProducts()
+        public async Task EditProduct(ProductDTO productDTO)
         {
-            var products = Mapper.ProductMap(_dbOperation.Products.GetAll().ToList());
-            return products;
+            _dbOperation.Products.Update(_mapper.Map<Product>(productDTO));
+            await _dbOperation.Save();
         }
 
-        public ProductDTO GetProduct(int? id)
+        public async Task<IEnumerable<ProductDTO>> GetProducts()
+        {
+            return _mapper.Map<IEnumerable<ProductDTO>>(await _dbOperation.Products.GetAllAsync());
+        }
+
+        public async Task Delete(int? id)
         {
             if (id == null)
             {
                 throw new ValidationException("Не установлено id продукта", "");
             }
 
-            var product = _dbOperation.Products.Get(id.Value);
+            var product = await _dbOperation.Products.GetIdAsync(id.Value);
+            if (product != null)
+            {
+                _dbOperation.Products.Delete(product);
+                await _dbOperation.Save();
+            }
+            else
+            {
+                throw new ValidationException("Продукт не найден", "");
+            }
+        }
+
+        public async Task<ProductDTO> GetProduct(int? id)
+        {
+            if (id == null)
+            {
+                throw new ValidationException("Не установлено id продукта", "");
+            }
+
+            var product = await _dbOperation.Products.GetIdAsync(id.Value);
             if (product == null)
             {
                 throw new ValidationException("Продукт не найден", "");
             }
-
-            var productDto = new ProductDTO();
-            //= Mapper.ProductMap(ProductDTO)(product);
-            return productDto;
+            return _mapper.Map<ProductDTO>(product);
         }
 
         public void Dispose()

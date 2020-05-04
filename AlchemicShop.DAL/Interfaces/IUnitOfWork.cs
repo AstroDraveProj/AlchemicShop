@@ -1,5 +1,6 @@
 ﻿using AlchemicShop.DAL.Entities;
 using System;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Interfaces
 {
@@ -15,6 +16,8 @@ namespace AlchemicShop.DAL.Interfaces
 
         IRepository<OrderProduct> OrderProducts { get; }
 
-        void Save();
+        IShoppingCart<Order> MaxOrder { get; }
+
+        Task Save();
     }
 }

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<AlchemicShop.WEB.Models.OrderViewModel>
+
+@{
+    ViewBag.Title = "Order List";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SheduledDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClosedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    @foreach (var user in ViewBag.Users)
+    {
+        if (user.Id == item.UserId)
+        {
+            <td>
+                @user.Name
+            </td>
+        }
+    }
+    <td>
+        @Html.DisplayFor(modelItem => item.SheduledDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ClosedDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+
+</tr>
+    }
+</table>

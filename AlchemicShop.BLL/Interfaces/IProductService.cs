@@ -1,13 +1,16 @@
 ﻿using AlchemicShop.BLL.DTO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Interfaces
 {
     public interface IProductService
     {
-        void AddProduct(ProductDTO productDto);
-        ProductDTO GetProduct(int? id);
-        IEnumerable<ProductDTO> GetProducts();
+        Task AddProduct(ProductDTO productDto);
+        Task EditProduct(ProductDTO productDTO);
+        Task<ProductDTO> GetProduct(int? id);
+        Task Delete(int? id);
+        Task<IEnumerable<ProductDTO>> GetProducts();
         void Dispose();
     }
 }

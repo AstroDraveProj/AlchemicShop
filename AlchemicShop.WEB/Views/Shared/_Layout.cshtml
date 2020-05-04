@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/Site.css")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -22,8 +23,33 @@
                         <p class="nav-link">@Html.ActionLink("Product", "GetProductList", "Product")</p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#"> sign in</a>
+                        <p class="nav-link">@Html.ActionLink("Category", "GetCategoryList", "Category")</p>
                     </li>
+                    <li class="nav-item">
+                        <p class="nav-link">@Html.ActionLink("Cart", "GetCart", "ShoppingCart")</p>
+                    </li>
+
+                    @if (@HttpContext.Current.User.Identity.Name == "Admin")
+                    {
+                        <li class="nav-item">
+                            <p class="nav-link">@Html.ActionLink("User", "GetUserList", "User")</p>
+                        </li>
+                        <li class="nav-item">
+                            <p class="nav-link">@Html.ActionLink("Order", "GetOrderList", "Order")</p>
+                        </li>
+                    }
+
+                    @if (@HttpContext.Current.User.Identity.Name != "Admin" &&
+                         @HttpContext.Current.User.Identity.Name != "User" &&
+                         @HttpContext.Current.User.Identity.Name != "Customer")
+                    {
+                        <li> <p class="nav-link">@Html.ActionLink("Log in", "Login", "Account")</p></li>
+                        <li> <p class="nav-link">@Html.ActionLink("Create account", "Register", "Account")</p></li>
+                    }
+                    else
+                    {
+                        <li><p class="nav-link">@Html.ActionLink("Log out", "Logoff", "Account")</p></li>
+                    }
                 </ul>
                 @RenderBody()
                 <hr />

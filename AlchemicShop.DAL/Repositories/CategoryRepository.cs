@@ -2,47 +2,62 @@
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Repositories
 {
     public class CategoryRepository : IRepository<Category>
     {
-        private AlchemicShopContext dbContext;
+        private AlchemicShopContext _dbContext;
 
         public CategoryRepository(AlchemicShopContext context)
         {
-            dbContext = context;
+            _dbContext = context;
         }
         public void Create(Category item)
         {
-            dbContext.Categories.Add(item);
+            if (item != null)
+            {
+                _dbContext.Categories.Add(item);
+            }
+            else throw new ArgumentNullException();
         }
 
         public void Delete(Category item)
         {
-            throw new NotImplementedException();
+            var deleteItem = _dbContext.Categories.Find(item.Id);
+            if (deleteItem != null)
+            {
+                _dbContext.Categories.Remove(deleteItem);
+            }
+            else throw new ArgumentNullException();
         }
 
-        public Category Get(int? id)
+        public async Task<Category> GetIdAsync(int? id)
         {
-            throw new NotImplementedException();
-        }
-        public IEnumerable<Category> Find(Func<Category, bool> predicate)
-        {
-            return dbContext.Categories.Where(predicate).ToList();
+            if (id != null)
+            {
+                return await _dbContext.Categories.FindAsync(id);
+            }
+            else throw new ArgumentNullException();
         }
 
-        public IEnumerable<Category> GetAll()
+        public async Task<Category> FindItemAsync(Func<Category, bool> item)
         {
-            return dbContext.Categories.ToList();
+            return await Task.Run(() => _dbContext.Categories.Where(item).FirstOrDefault());
+        }
+
+        public async Task<IEnumerable<Category>> GetAllAsync()
+        {
+            return await _dbContext.Categories.ToListAsync();
         }
 
         public void Update(Category item)
         {
-            throw new NotImplementedException();
+            _dbContext.Entry(item).State = EntityState.Modified;
         }
-
     }
 }
