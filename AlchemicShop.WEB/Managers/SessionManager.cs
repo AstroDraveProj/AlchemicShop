@@ -1,6 +1,5 @@
 ﻿using AlchemicShop.WEB.Models;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -30,13 +29,12 @@ namespace AlchemicShop.WEB.Managers
         {
             var products = GetOrCreateProductList();
             products.Add(product);
-           // return products;
         }
 
         public void DeleteProduct(int? id)
         {
             var products = GetOrCreateProductList();
-             var deleteItem = products.Where(x => x.Id == id).FirstOrDefault();
+            var deleteItem = products.Where(x => x.Id == id).FirstOrDefault();
             products.Remove(deleteItem);
         }
     }

@@ -26,6 +26,5 @@ namespace AlchemicShop.WEB.Models
         public CategoryViewModel CategoryViewModels { get; set; }
 
         public ICollection<OrderProductViewModel> OrderProductViewModel { get; set; }
-
     }
 }

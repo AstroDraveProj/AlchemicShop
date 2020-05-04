@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AlchemicShop.WEB.Filters
@@ -10,7 +7,6 @@ namespace AlchemicShop.WEB.Filters
     {
         public void OnException(ExceptionContext exceptionContext)
         {
-
             if (!exceptionContext.ExceptionHandled &&
                     exceptionContext.Exception is NotImplementedException)
             {
@@ -21,9 +17,7 @@ namespace AlchemicShop.WEB.Filters
                     ViewData = new ViewDataDictionary<string>(val)
                 };
                 exceptionContext.ExceptionHandled = true;
-            } 
-            
-
+            }
         }
     }
 }

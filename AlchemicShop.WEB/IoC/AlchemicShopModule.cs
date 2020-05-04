@@ -3,7 +3,6 @@ using AlchemicShop.BLL.Services;
 using AlchemicShop.WEB.Helpers;
 using AutoMapper;
 using Ninject.Modules;
-using System.Web.Security;
 
 namespace AlchemicShop.WEB.IoC
 {
@@ -17,7 +16,7 @@ namespace AlchemicShop.WEB.IoC
             Bind<IOrderProductService>().To<OrderProductService>();
             Bind<IUserService>().To<UserService>();
             Bind<IShoppingCartService>().To<ShoppingCartService>();
-            Bind<IMapper>().ToConstant(WebMapper.Configure().CreateMapper());         
+            Bind<IMapper>().ToConstant(WebMapper.Configure().CreateMapper());
         }
     }
 }
