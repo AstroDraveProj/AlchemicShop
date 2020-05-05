@@ -36,11 +36,11 @@ namespace AlchemicShop.WEB.Controllers
         [Authorize(Users = "Admin")]
         public async Task<ActionResult> GetOrderList()
         {
-            var orders = await _orderService.GetOrders();
-            var users = await _userService.GetUsers();
-            ViewBag.Users = _mapper.Map<List<UserViewModel>>(users.ToList());
+            ViewBag.Users = _mapper.Map<List<UserViewModel>>(
+                await _userService.GetUsers()).ToList();
 
-            return View(_mapper.Map<List<OrderViewModel>>(orders.ToList()));
+            return View(_mapper.Map<List<OrderViewModel>>(
+                await _orderService.GetOrders()).ToList());
         }
 
         [Authorize(Users = "User")]
@@ -52,33 +52,33 @@ namespace AlchemicShop.WEB.Controllers
         [HttpPost]
         [Authorize(Users = "User")]
         public async Task<ActionResult> CreateOrder(OrderViewModel orderViewModel)
-        {         
-            var order = new OrderViewModel()
-            {
-                CustomerId = 2, //(int)Session["userLogin"],
-                Status = Models.Status.Sheduled,
-                SheduledDate = orderViewModel.SheduledDate
-            };
+        {
+            await _orderService.AddOrder(
+                _mapper.Map<OrderDTO>(
+                    new OrderViewModel()
+                    {
+                        CustomerId = (int)Session["userLogin"],
+                        Status = Models.Status.InTransit,
+                        SheduledDate = orderViewModel.SheduledDate
+                    }
+                    ));
 
-            await _orderService.AddOrder(_mapper.Map<OrderDTO>(order));
-            
-    
             var session = new SessionManager(HttpContext);
-            var list = session.GetOrCreateProductList();
+            var products = session.GetOrCreateProductList();
 
-
-            foreach (var item in list)
+            foreach (var item in products)
             {
-                 var x = new OrderProductViewModel { OrderId = await _scService.GetMaxOrderIdAsync(), ProductId = item.Id, Amount = item.Amount};
-             //   var x = new OrderProductViewModel { OrderId = 14, ProductId = item.Id, Amount = item.Amount };
                 await _orderProductService.AddOrderProduct(
-                   _mapper.Map<OrderProductDTO>(x));
+                   _mapper.Map<OrderProductDTO>(
+                       new OrderProductViewModel
+                       {
+                           OrderId = await _scService.GetMaxOrderIdAsync(),
+                           ProductId = item.Id,
+                           Amount = item.Amount
+                       }
+                       ));
             }
             return RedirectToAction("Index", "Home");
-
-            //+valid product amount
-
-
         }
     }
 }
