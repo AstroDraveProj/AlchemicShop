@@ -63,9 +63,9 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IShoppingCart.cs" />
-    <Compile Include="Migrations\202005032007486_initial.cs" />
-    <Compile Include="Migrations\202005032007486_initial.designer.cs">
-      <DependentUpon>202005032007486_initial.cs</DependentUpon>
+    <Compile Include="Migrations\202005050954374_InitialDb.cs" />
+    <Compile Include="Migrations\202005050954374_InitialDb.designer.cs">
+      <DependentUpon>202005050954374_InitialDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,8 +82,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202005032007486_initial.resx">
-      <DependentUpon>202005032007486_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005050954374_InitialDb.resx">
+      <DependentUpon>202005050954374_InitialDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

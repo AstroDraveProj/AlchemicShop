@@ -7,13 +7,15 @@ namespace AlchemicShop.WEB.Models
     {
         public int Id { get; set; }
 
-        [Required, MaxLength(40)]
+        [Required(ErrorMessage = "Please, enter name of user")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Name is incorrect (a-zA-Z)")]
         public string Name { get; set; }
 
-        [Required, MaxLength(20)]
+        [Required(ErrorMessage = "Please, enter login of user")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Login is incorrect (a-zA-Z)")]
         public string Login { get; set; }
 
-        [Required, MaxLength(40)]
+        [Required(ErrorMessage = "Please, enter password")]
         public string Password { get; set; }
 
         public Role Role { get; set; }
