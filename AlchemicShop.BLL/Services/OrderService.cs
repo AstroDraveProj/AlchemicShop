@@ -23,29 +23,29 @@ namespace AlchemicShop.BLL.Services
 
         public async Task AddOrder(OrderDTO orderDTO)
         {
-            var orders = _mapper.Map<OrderDTO, Order>(orderDTO);
-            _dbOperation.Orders.Create(orders);
+            _dbOperation.Orders.Create(
+                _mapper.Map<Order>(orderDTO));
             await _dbOperation.Save();
         }
 
         public async Task DeleteOrder(OrderDTO orderDTO)
         {
-            var deletingOrder = _mapper.Map<OrderDTO, Order>(orderDTO);
-            _dbOperation.Orders.Delete(deletingOrder);
+            _dbOperation.Orders.Delete(
+                _mapper.Map<Order>(orderDTO));
             await _dbOperation.Save();
         }
 
         public async Task UpdateOrder(OrderDTO orderDTO)
         {
-            var updatingOrder = _mapper.Map<OrderDTO, Order>(orderDTO);
-            _dbOperation.Orders.Update(updatingOrder);
+            _dbOperation.Orders.Update(
+                _mapper.Map<Order>(orderDTO));
             await _dbOperation.Save();
         }
 
         public async Task<IEnumerable<OrderDTO>> GetOrders()
         {
-            var ordersList = await _dbOperation.Orders.GetAllAsync();
-            return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(ordersList);
+            return _mapper.Map<IEnumerable<OrderDTO>>(
+                await _dbOperation.Orders.GetAllAsync());
         }
 
         public async Task<OrderDTO> GetOrder(int? id)
@@ -60,8 +60,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Заказ не найден", "");
             }
 
-            var orderDTO = _mapper.Map<Order, OrderDTO>(order);
-            return orderDTO;
+            return _mapper.Map<OrderDTO>(order);
         }
 
         public void Dispose()
