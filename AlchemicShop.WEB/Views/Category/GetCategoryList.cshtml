@@ -5,7 +5,16 @@
 }
 
 <h2>Categories</h2>
-
+@if (@HttpContext.Current.User.Identity.Name == "Admin")
+{
+    <p>
+        @Html.ActionLink("Create New", "CreateCategories")
+    </p>
+}
+else
+{
+    <td></td>
+}
 <table class="table">
     <tr>
     </tr>
@@ -21,7 +30,7 @@
                 <td>
                     @Html.ActionLink("Edit", "CategoryEdit", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "CategoryDelete", new { id = item.Id })|
-                    @Html.ActionLink("Create New", "CreateCategories")
+
                 </td>
             }
             else

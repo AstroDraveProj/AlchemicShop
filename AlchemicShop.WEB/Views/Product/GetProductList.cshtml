@@ -23,6 +23,12 @@
         <th></th>
     </tr>
 
+    @if (@HttpContext.Current.User.Identity.Name == "Admin")
+    {
+        <p>
+            @Html.ActionLink("Create New", "CreateProduct")
+        </p>
+    }
     @foreach (var item in Model)
     {
         <tr>
@@ -44,16 +50,12 @@
                     </td>
                 }
             }
-        <td>
-            @Html.ActionLink("Add to Cart", "AddProduct", "ShoppingCart", new { id = item.Id }, null)
-        </td>
+            <td>
+                @Html.ActionLink("Add to Cart", "AddProduct", "ShoppingCart", new { id = item.Id }, null)
+            </td>
             @if (@HttpContext.Current.User.Identity.Name == "Admin")
             {
-        <td>
-            @Html.ActionLink("Create New", "CreateProduct")
-        </td>
                 <td>
-                    @Html.ActionLink("Create New", "CreateProduct")
                     @Html.ActionLink("Edit", "ProductEdit", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "ProductDelete", new { id = item.Id }) |
                 </td>
