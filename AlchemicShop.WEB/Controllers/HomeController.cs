@@ -13,5 +13,10 @@ namespace AlchemicShop.WEB.Controllers
         {
             return View();
         }
+
+        public ActionResult NotFound()
+        {
+            return View();
+        }
     }
 }
