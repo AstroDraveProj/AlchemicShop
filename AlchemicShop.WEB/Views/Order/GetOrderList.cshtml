@@ -7,41 +7,62 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.User.Name)
+            Customer
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SheduledDate)
+            Sheduled Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClosedDate)
+            Closed Date
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
+        <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-<tr>
-    @foreach (var user in ViewBag.Users)
-    {
-        if (user.Id == item.UserId)
-        {
+        <tr>
+            @foreach (var user in ViewBag.Users)
+            {
+                if (user.Id == item.CustomerId)
+                {
+                    <td>
+                        @user.Name
+                    </td>
+                }
+            }
             <td>
-                @user.Name
+                @Html.DisplayFor(modelItem => item.SheduledDate)
             </td>
-        }
-    }
-    <td>
-        @Html.DisplayFor(modelItem => item.SheduledDate)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ClosedDate)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Status)
-    </td>
+            @if (item.ClosedDate != null)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClosedDate)
+                </td>
+            }
+            else
+            {
+                <td>
+                    -
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            @if (@HttpContext.Current.User.Identity.Name == "Admin")
+            {
+                <td>
+                    @Html.ActionLink("Edit", "EditOrder", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteOrder", new { id = item.Id })
+                </td>
+            }
+            else
+            {
+                <td></td>
+            }
 
-</tr>
+        </tr>
     }
 </table>

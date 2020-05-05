@@ -52,16 +52,16 @@ namespace AlchemicShop.WEB.Controllers
 
         [HttpPost]
         [Authorize(Users = "Admin")]
-        public async Task<ActionResult> CategoryEdit(CategoryViewModel categoryView)
+        public async Task<ActionResult> CategoryEdit(CategoryViewModel category)
         {
             if (ModelState.IsValid)
             {
-                await _categoryService.EditCategory(_mapper.Map<CategoryDTO>(categoryView));
+                await _categoryService.EditCategory(_mapper.Map<CategoryDTO>(category));
                 return RedirectToAction(nameof(GetCategoryList));
             }
             else
             {
-                return View(categoryView);
+                return View(category);
             }
         }
 
