@@ -10,7 +10,9 @@ namespace AlchemicShop.WEB.Models
 
         public int UserId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please, enter date of delivery")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime SheduledDate { get; set; }
 
         public DateTime? ClosedDate { get; set; }
