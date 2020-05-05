@@ -51,6 +51,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
+
             @if (@HttpContext.Current.User.Identity.Name == "Admin")
             {
                 <td>

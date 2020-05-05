@@ -43,16 +43,22 @@ namespace AlchemicShop.WEB.Controllers
         }
 
         [Authorize(Users = "Admin")]
-        public async Task<ActionResult> DeleteOrder()
+        public async Task<ActionResult> DeleteOrder(int? id)
         {
-            return View();
+            ViewBag.Users = _mapper.Map<List<UserViewModel>>(
+                await _userService.GetUsers()).ToList();
+
+            return View(_mapper.Map<OrderViewModel>(
+                await _orderService.GetOrder(id)));
         }
 
         [HttpPost]
         [Authorize(Users = "Admin")]
-        public async Task<ActionResult> DeleteOrder(int? id)
+        public async Task<ActionResult> DeleteOrder(OrderViewModel order)
         {
-            return View();
+            await _orderService.DeleteOrder(
+                    _mapper.Map<OrderDTO>(order));
+            return RedirectToAction(nameof(GetOrderList));
         }
 
         [Authorize(Users = "Admin")]
