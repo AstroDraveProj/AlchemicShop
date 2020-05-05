@@ -1,7 +1,9 @@
 ﻿using AlchemicShop.DAL.AlchemicDbContext;
 using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Repositories
 {
@@ -14,18 +16,9 @@ namespace AlchemicShop.DAL.Repositories
             _dbContext = context;
         }
 
-        public int GetMax()
+        public async Task<int> GetMaxOrderIdAsync()
         {
-            return _dbContext.Orders.Max(w => w.Id);
-
-        }
-
-        //fail
-        public int GetMaxId(string s)
-        {
-            var res = _dbContext.Users.Where(x => x.Login == s).FirstOrDefault();
-            return res.Id;
-
+            return await _dbContext.Orders.MaxAsync(order => order.Id);
         }
     }
 }

@@ -57,15 +57,15 @@ namespace AlchemicShop.BLL.Services
 
         public async Task<UserDTO> GetUser(int? id)
         {
-            //if (id == null)
-            //{
-            //    throw new ValidationException("User not found", "");
-            //}
+            if (id == null)
+            {
+                throw new ValidationException("User not found", "");
+            }
             var user = await _dbOperation.Users.GetIdAsync(id);
-            //if (user == null)
-            //{
-            //    throw new ValidationException("User not found", "");
-            //}
+            if (user == null)
+            {
+                throw new ValidationException("User not found", "");
+            }
             return _mapper.Map<UserDTO>(user);
         }
 

@@ -1,5 +1,6 @@
 ﻿using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.DAL.Interfaces;
+using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
 {
@@ -13,15 +14,9 @@ namespace AlchemicShop.BLL.Services
             _dbOperation = uow;
         }
 
-        public int GetMax()
+        public async Task<int> GetMaxOrderIdAsync()
         {
-            return _dbOperation.MaxOrder.GetMax();
-        }
-
-        //fail
-        public int GetOrderId(string s)
-        {
-            return _dbOperation.MaxOrder.GetMaxId(s);
+            return await _dbOperation.ShoppingCart.GetMaxOrderIdAsync();
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using AlchemicShop.DAL.AlchemicDbContext;
-using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
-using System;
+using AlchemicShop.DAL.Entities;
 using System.Threading.Tasks;
+using System;
 
 namespace AlchemicShop.DAL.Repositories
 {
@@ -91,7 +91,7 @@ namespace AlchemicShop.DAL.Repositories
             }
         }
 
-        public IShoppingCart<Order> MaxOrder
+        public IShoppingCart<Order> ShoppingCart
         {
             get
             {

@@ -1,9 +1,9 @@
-﻿namespace AlchemicShop.DAL.Interfaces
-{
-    public interface IShoppingCart<T> where T:class
-    {
-        int GetMax();
+﻿using System.Threading.Tasks;
 
-        int GetMaxId(string s);
+namespace AlchemicShop.DAL.Interfaces
+{
+    public interface IShoppingCart<T> where T : class
+    {
+        Task<int> GetMaxOrderIdAsync();
     }
 }
