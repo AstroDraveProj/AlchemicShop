@@ -20,11 +20,9 @@ namespace AlchemicShop.DAL.Repositories
 
         public void Create(Order item)
         {
-            if (item != null)
-            {
+          
                 _dbContext.Orders.Add(item);
-            }
-            else throw new ArgumentNullException();
+           
         }
 
         public void Delete(Order item)

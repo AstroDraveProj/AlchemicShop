@@ -8,7 +8,7 @@ namespace AlchemicShop.WEB.Models
     {
         public int Id { get; set; }
 
-        public int UserId { get; set; }
+        public int CustomerId { get; set; }
 
         [Required(ErrorMessage = "Please, enter date of delivery")]
         [DataType(DataType.Date)]
@@ -20,7 +20,7 @@ namespace AlchemicShop.WEB.Models
         [Required]
         public Status Status { get; set; }
 
-        public UserViewModel User { get; set; }
+        public UserViewModel Customer { get; set; }
 
         public ICollection<OrderProductViewModel> OrderProductViewModel { get; set; }
     }

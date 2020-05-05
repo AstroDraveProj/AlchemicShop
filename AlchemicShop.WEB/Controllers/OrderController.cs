@@ -50,34 +50,35 @@ namespace AlchemicShop.WEB.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Authorize(Users = "User")]
         public async Task<ActionResult> CreateOrder(OrderViewModel orderViewModel)
-        {
-            
+        {         
             var order = new OrderViewModel()
             {
-                //UserId = _scService.GetOrderId(HttpContext.User.Identity.Name),
+                CustomerId = 2, //(int)Session["userLogin"],
                 Status = Models.Status.Sheduled,
-                SheduledDate = DateTime.Today
+                SheduledDate = orderViewModel.SheduledDate
             };
 
             await _orderService.AddOrder(_mapper.Map<OrderDTO>(order));
-
+            
+    
             var session = new SessionManager(HttpContext);
             var list = session.GetOrCreateProductList();
 
 
             foreach (var item in list)
             {
-                var x = new OrderProductViewModel { OrderId = _scService.GetMax(), ProductId = item.Id, Amount = item.Amount};
+                 var x = new OrderProductViewModel { OrderId = _scService.GetMax(), ProductId = item.Id, Amount = item.Amount};
+             //   var x = new OrderProductViewModel { OrderId = 14, ProductId = item.Id, Amount = item.Amount };
                 await _orderProductService.AddOrderProduct(
                    _mapper.Map<OrderProductDTO>(x));
             }
+            return RedirectToAction("Index", "Home");
 
             //+valid product amount
 
-            return RedirectToAction(nameof(GetOrderList));
+
         }
     }
 }

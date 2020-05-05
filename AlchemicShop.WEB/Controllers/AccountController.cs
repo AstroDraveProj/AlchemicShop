@@ -2,7 +2,6 @@
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -37,6 +36,7 @@ namespace AlchemicShop.WEB.Controllers
                 var userAccount = await _userService.GetUser(account.Login, account.Password);
                 if (userAccount != null)
                 {
+                    Session["userLogin"] = userAccount.Id;
                     FormsAuthentication.SetAuthCookie(userAccount.Role.ToString(), true);
                     return RedirectToAction("Index", "Home");
                 }
