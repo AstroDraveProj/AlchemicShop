@@ -69,7 +69,7 @@ namespace AlchemicShop.WEB.Controllers
 
             foreach (var item in list)
             {
-                 var x = new OrderProductViewModel { OrderId = _scService.GetMax(), ProductId = item.Id, Amount = item.Amount};
+                 var x = new OrderProductViewModel { OrderId = await _scService.GetMaxOrderIdAsync(), ProductId = item.Id, Amount = item.Amount};
              //   var x = new OrderProductViewModel { OrderId = 14, ProductId = item.Id, Amount = item.Amount };
                 await _orderProductService.AddOrderProduct(
                    _mapper.Map<OrderProductDTO>(x));
