@@ -3,5 +3,7 @@
 }
 
 <h2>Delete Success</h2>
-<p>You are successfully deleted @ViewBag.Name </p>
-
+<h8>You are successfully deleted @ViewBag.Name </h8>
+<div>
+    @Html.ActionLink("Back to List", "GetCategoryList", null, new { @class = "btn btn-primary" })
+</div>

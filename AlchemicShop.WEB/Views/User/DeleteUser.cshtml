@@ -32,14 +32,14 @@
             @Html.DisplayFor(model => model.Password)
         </dd>
 
-    </dl>
-    }
+    </dl>    
 </div>
 @using (Html.BeginForm("DeleteUser", "User", new { id = Model.Id, name = Model.Name }, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-    </div>
+<div class="form-actions no-color">
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    @Html.ActionLink("Back to List", "GetUserList", null, new { @class = "btn btn-primary" })
+</div>
 }
