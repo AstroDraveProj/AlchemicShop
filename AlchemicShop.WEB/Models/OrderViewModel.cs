@@ -11,14 +11,13 @@ namespace AlchemicShop.WEB.Models
 
         public int CustomerId { get; set; }
 
-        [Required(ErrorMessage = "Please, enter scheduled delivery date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd'/'mm'/'yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime SheduledDate { get; set; }
-
         [Required(ErrorMessage = "Please, enter date of delivery")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd'/'mm'/'yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime SheduledDate { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? ClosedDate { get; set; }
 
         [Required]
