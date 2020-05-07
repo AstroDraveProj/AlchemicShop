@@ -5,6 +5,7 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
@@ -29,7 +30,7 @@ namespace AlchemicShop.BLL.Services
         public async Task<IEnumerable<OrderProductDTO>> GetOrderProducts()
         {
             var orderProducts = await _dbOperation.OrderProducts.GetAllAsync();
-            return _mapper.Map<IEnumerable<OrderProduct>, IEnumerable<OrderProductDTO>>(orderProducts);
+            return _mapper.Map<IEnumerable<OrderProductDTO>>(orderProducts).ToList();
         }
 
         public async Task<OrderProductDTO> GetOrderProduct(int? id)
@@ -44,7 +45,7 @@ namespace AlchemicShop.BLL.Services
                 throw new ValidationException("Заказаный продукт не найден", "");
             }
 
-            var orderProductDTO = _mapper.Map<OrderProduct, OrderProductDTO>(orderProduct);
+            var orderProductDTO = _mapper.Map<OrderProductDTO>(orderProduct);
             return orderProductDTO;
         }
         public void Dispose()

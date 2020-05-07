@@ -91,7 +91,7 @@ namespace AlchemicShop.DAL.Repositories
             }
         }
 
-        public IShoppingCart<Order> ShoppingCart
+        public IShoppingCart ShoppingCart
         {
             get
             {

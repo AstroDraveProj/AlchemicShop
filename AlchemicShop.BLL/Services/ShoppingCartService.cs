@@ -18,5 +18,11 @@ namespace AlchemicShop.BLL.Services
         {
             return await _dbOperation.ShoppingCart.GetMaxOrderIdAsync();
         }
+
+        public async Task UpdateProductAmount(int amount, int id)
+        {
+            _dbOperation.ShoppingCart.UpdateAmountProduct(amount, id);
+            await _dbOperation.Save();
+        }
     }
 }

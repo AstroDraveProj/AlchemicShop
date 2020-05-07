@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace AlchemicShop.WEB.Controllers
 {
@@ -17,19 +18,22 @@ namespace AlchemicShop.WEB.Controllers
         private readonly IOrderService _orderService;
         private readonly IOrderProductService _orderProductService;
         private readonly IShoppingCartService _scService;
+        private readonly IProductService _productService;
 
         public OrderController(
             IMapper mapper,
             IUserService userService,
             IOrderService orderService,
             IOrderProductService orderProductService,
-            IShoppingCartService scService)
+            IShoppingCartService scService,
+            IProductService productService)
         {
             _mapper = mapper;
             _userService = userService;
             _orderService = orderService;
             _orderProductService = orderProductService;
             _scService = scService;
+            _productService = productService;
         }
 
         [Authorize(Users = "Admin")]
@@ -117,11 +121,10 @@ namespace AlchemicShop.WEB.Controllers
                                Amount = item.Amount
                            }
                            ));
+                    await _scService.UpdateProductAmount(item.Amount, item.Id);
                 }
-
                 return RedirectToAction("Index", "Home");
             }
-
             return View(orderViewModel);
         }
     }
