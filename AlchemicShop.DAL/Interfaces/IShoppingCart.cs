@@ -2,7 +2,7 @@
 
 namespace AlchemicShop.DAL.Interfaces
 {
-    public interface IShoppingCart//<T> where T : class
+    public interface IShoppingCart
     {
         Task<int> GetMaxOrderIdAsync();
 

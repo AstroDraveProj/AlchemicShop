@@ -1,13 +1,11 @@
 ﻿using AlchemicShop.DAL.AlchemicDbContext;
-using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Repositories
 {
-    class ShoppingCartRepository : IShoppingCart//<Order>
+    class ShoppingCartRepository : IShoppingCart
     {
         private AlchemicShopContext _dbContext;
 
@@ -26,7 +24,6 @@ namespace AlchemicShop.DAL.Repositories
             var product = _dbContext.Products.Find(id);
             product.Amount -= amount;
             _dbContext.Entry(product).State = EntityState.Modified;
-
         }
     }
 }
