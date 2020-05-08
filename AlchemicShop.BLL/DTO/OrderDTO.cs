@@ -8,7 +8,9 @@ namespace AlchemicShop.BLL.DTO
     {
         public int Id { get; set; }
 
-        public int CustomerId { get; set; }
+        public int UserId { get; set; }
+
+        public UserDTO UserDTO { get; set; }
 
         [Required]
         public DateTime SheduledDate { get; set; }
@@ -17,8 +19,6 @@ namespace AlchemicShop.BLL.DTO
 
         [Required]
         public Status StatusDTO { get; set; }
-
-        public UserDTO Customer { get; set; }
 
         public virtual ICollection<OrderProductDTO> OrderProductsDTO { get; set; }
     }
