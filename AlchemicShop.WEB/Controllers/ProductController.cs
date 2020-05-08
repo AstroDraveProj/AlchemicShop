@@ -114,6 +114,5 @@ namespace AlchemicShop.WEB.Controllers
             ViewBag.Name = deletingProduct;
             return View();
         }
-
     }
 }
