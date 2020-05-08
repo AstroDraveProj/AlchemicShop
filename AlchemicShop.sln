@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemicShop.DAL", "Alchemi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemicShop.BLL", "AlchemicShop.BLL\AlchemicShop.BLL.csproj", "{8B8037C1-A326-4F23-9651-0AF8009F2B8D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{E98EBB5E-96B4-4CA1-9621-8BF6B1F1D014}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
