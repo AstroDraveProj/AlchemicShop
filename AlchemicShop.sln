@@ -9,7 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemicShop.DAL", "Alchemi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemicShop.BLL", "AlchemicShop.BLL\AlchemicShop.BLL.csproj", "{8B8037C1-A326-4F23-9651-0AF8009F2B8D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{E98EBB5E-96B4-4CA1-9621-8BF6B1F1D014}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AlchemicShop.SQL", "AlchemicShop.SQL", "{E98EBB5E-96B4-4CA1-9621-8BF6B1F1D014}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Triggers", "Triggers", "{A17BC23A-FB4A-4AC1-9305-6E3C7C3A9F5F}"
+	ProjectSection(SolutionItems) = preProject
+		TR_Products_AFTER_INSERT_Discount.sql = TR_Products_AFTER_INSERT_Discount.sql
+		TR_Products_AFTER_UPDATE_Discount.sql = TR_Products_AFTER_UPDATE_Discount.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +38,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A17BC23A-FB4A-4AC1-9305-6E3C7C3A9F5F} = {E98EBB5E-96B4-4CA1-9621-8BF6B1F1D014}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E668333D-1A25-4FE7-96DE-28B911247053}
