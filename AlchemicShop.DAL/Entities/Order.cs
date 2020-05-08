@@ -8,7 +8,9 @@ namespace AlchemicShop.DAL.Entities
     {
         public int Id { get; set; }
        
-        public int CustomerId { get; set; }
+        public int UserId { get; set; }
+
+        public User User { get; set; }
 
         [Required]
         public DateTime SheduledDate { get; set; }
@@ -17,8 +19,6 @@ namespace AlchemicShop.DAL.Entities
 
         [Required]
         public Status Status { get; set; }
-
-        public User Customer { get; set; }
        
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }

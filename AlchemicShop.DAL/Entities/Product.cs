@@ -18,6 +18,7 @@ namespace AlchemicShop.DAL.Entities
         public string Description { get; set; }
 
         [Required]
+        [RegularExpression(@"^\d+.?\d{0,2}$")]
         public float Price { get; set; }
 
         public Category Category { get; set; }

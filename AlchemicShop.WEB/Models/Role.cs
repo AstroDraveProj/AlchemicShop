@@ -6,6 +6,6 @@
 
         User = 1,
 
-        Customer = 2
+        //Customer = 2
     }
 }
