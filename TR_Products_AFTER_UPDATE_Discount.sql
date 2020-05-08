@@ -1,6 +1,6 @@
-﻿CREATE TRIGGER [Products.TR_Product_AFTER_INSERT_Discount]
+﻿CREATE TRIGGER [Products.TR_Product_AFTER_UPDATE_Discount]
   ON [AlchemicShopDb].[dbo].[Products]
-  AFTER INSERT
+  AFTER UPDATE
   AS
   IF EXISTS (SELECT * 
         FROM [AlchemicShopDb].[dbo].[Products]
