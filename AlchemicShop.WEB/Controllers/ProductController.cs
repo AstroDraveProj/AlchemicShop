@@ -32,7 +32,6 @@ namespace AlchemicShop.WEB.Controllers
 
             return View(_mapper.Map<List<ProductViewModel>>
                 (await _productService.GetProducts()).ToList());
-
         }
 
         [Authorize(Users = "Admin")]
@@ -41,7 +40,7 @@ namespace AlchemicShop.WEB.Controllers
             ViewBag.Categories = new SelectList(
                 _mapper.Map<IEnumerable<CategoryViewModel>>
                 (await _categoryService.GetCategories()), "Id", "Name");
-
+            
             return View();
         }
 
