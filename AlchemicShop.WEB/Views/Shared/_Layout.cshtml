@@ -28,7 +28,6 @@
                     <li class="nav-item">
                         <p class="nav-link">@Html.ActionLink("Cart", "GetCart", "ShoppingCart")</p>
                     </li>
-
                     @if (@HttpContext.Current.User.Identity.Name == "Admin")
                     {
                         <li class="nav-item">
@@ -40,8 +39,7 @@
                     }
 
                     @if (@HttpContext.Current.User.Identity.Name != "Admin" &&
-                         @HttpContext.Current.User.Identity.Name != "User" &&
-                         @HttpContext.Current.User.Identity.Name != "Customer")
+                         @HttpContext.Current.User.Identity.Name != "User")
                     {
                         <li> <p class="nav-link">@Html.ActionLink("Log in", "Login", "Account")</p></li>
                         <li> <p class="nav-link">@Html.ActionLink("Create account", "Register", "Account")</p></li>

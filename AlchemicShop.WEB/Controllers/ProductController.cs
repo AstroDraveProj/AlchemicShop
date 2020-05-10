@@ -2,6 +2,7 @@
 using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,13 +26,28 @@ namespace AlchemicShop.WEB.Controllers
             _productService = productService;
         }
 
-        public async Task<ActionResult> GetProductList()
+        public async Task<ActionResult> GetProductList(string sortOrder)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            var product = _mapper.Map<List<ProductViewModel>>
+                (await _productService.GetProducts()).ToList();
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    product = product.OrderByDescending(x => x.Name).ToList();
+                    break;
+                default:
+                    product = product.OrderBy(x => x.Name).ToList();
+                    break;
+            }
+
             ViewBag.Categories = _mapper.Map<List<CategoryViewModel>>(
                 (await _categoryService.GetCategories()).ToList());
 
-            return View(_mapper.Map<List<ProductViewModel>>
-                (await _productService.GetProducts()).ToList());
+            return View(product);
         }
 
         [Authorize(Users = "Admin")]
