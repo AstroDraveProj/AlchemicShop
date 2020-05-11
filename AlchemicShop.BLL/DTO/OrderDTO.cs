@@ -10,7 +10,7 @@ namespace AlchemicShop.BLL.DTO
 
         public int UserId { get; set; }
 
-        public UserDTO UserDTO { get; set; }
+        public UserDTO User { get; set; }
 
         [Required]
         public DateTime SheduledDate { get; set; }

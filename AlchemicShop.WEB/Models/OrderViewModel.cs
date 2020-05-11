@@ -19,6 +19,7 @@ namespace AlchemicShop.WEB.Models
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        [DateValidation]
         public DateTime? ClosedDate { get; set; }
 
         public Status Status { get; set; }
