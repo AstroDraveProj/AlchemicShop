@@ -7,13 +7,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Product Name", "GetProductList", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Amount)
+            @Html.ActionLink("Amount", "GetProductList", new { sortOrder = ViewBag.SortAmount })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.ActionLink("Price", "GetProductList", new { sortOrder = ViewBag.SortPrice })
         </th>
         <th>
             Category
@@ -31,40 +31,40 @@
     }
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            @foreach (var category in ViewBag.Categories)
-            {
-                if (category.Id == item.CategoryId)
-                {
-                    <td>
-                        @category.Name
-                    </td>
-                }
-            }
-            <td>
-                @Html.ActionLink("Add to Cart", "AddProduct", "ShoppingCart", new { id = item.Id }, null)
-            </td>
-            @if (@HttpContext.Current.User.Identity.Name == "Admin")
-            {
-                <td>
-                    @Html.ActionLink("Edit", "ProductEdit", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "ProductDelete", new { id = item.Id }) 
-                </td>
-            }
-            else
-            {
-                <td></td>
-            }
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Amount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
 
-        </tr>
+    @if (@HttpContext.Current.User.Identity.Name == "Admin")
+    {
+        <td>
+            @Html.ActionLink("Edit", "ProductEdit", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "ProductDelete", new { id = item.Id })
+        </td>
+    }
+    else
+    {
+        <td>
+            @Html.ActionLink("Add to Cart", "AddProduct", "ShoppingCart", new { id = item.Id }, null)
+        </td>
+    }
+
+    @foreach (var category in ViewBag.Categories)
+    {
+        if (category.Id == item.CategoryId)
+        {
+            <td>
+                @category.Name
+            </td>
+        }
+    }
+</tr>
     }
 </table>

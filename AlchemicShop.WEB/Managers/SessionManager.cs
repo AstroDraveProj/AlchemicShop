@@ -39,7 +39,6 @@ namespace AlchemicShop.WEB.Managers
             }
             if (count == 0)
             {
-
                 products.Add(product);
             }
         }
@@ -57,14 +56,18 @@ namespace AlchemicShop.WEB.Managers
             var editItem = products.Where(x => x.Id == product.Id).FirstOrDefault();
             editItem.Amount = product.Amount;
             return editItem;
-
         }
 
         public ProductViewModel GetIdProduct(int? id)
         {
             var products = GetOrCreateProductList();
             return products.Where(x => x.Id == id).FirstOrDefault();
+        }
 
+        public void RemoveAllProduct()
+        {
+            var products = GetOrCreateProductList();
+            products.Clear();
         }
     }
 }

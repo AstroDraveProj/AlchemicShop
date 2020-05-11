@@ -25,9 +25,12 @@
                     <li class="nav-item">
                         <p class="nav-link">@Html.ActionLink("Category", "GetCategoryList", "Category")</p>
                     </li>
-                    <li class="nav-item">
-                        <p class="nav-link">@Html.ActionLink("Cart", "GetCart", "ShoppingCart")</p>
-                    </li>
+                    @if (@HttpContext.Current.User.Identity.Name == "User")
+                    {
+                        <li class="nav-item">
+                            <p class="nav-link">@Html.ActionLink("Cart", "GetCart", "ShoppingCart")</p>
+                        </li>
+                    }
                     @if (@HttpContext.Current.User.Identity.Name == "Admin")
                     {
                         <li class="nav-item">
@@ -37,7 +40,6 @@
                             <p class="nav-link">@Html.ActionLink("Order", "GetOrderList", "Order")</p>
                         </li>
                     }
-
                     @if (@HttpContext.Current.User.Identity.Name != "Admin" &&
                          @HttpContext.Current.User.Identity.Name != "User")
                     {

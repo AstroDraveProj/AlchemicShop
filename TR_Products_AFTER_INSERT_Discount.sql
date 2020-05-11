@@ -5,7 +5,8 @@
   IF EXISTS (SELECT * 
         FROM [AlchemicShopDb].[dbo].[Products]
           WHERE
-          [AlchemicShopDb].[dbo].[Products].[Amount]>100)
+          [AlchemicShopDb].[dbo].[Products].[Amount]>100
+          and [AlchemicShopDb].[dbo].[Products].[Id]=(SELECT [id] FROM [inserted]))
   BEGIN
   UPDATE [AlchemicShopDb].[dbo].[Products]
     SET [Price]=[inserted].[Price] *0.8

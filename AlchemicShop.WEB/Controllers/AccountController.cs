@@ -1,5 +1,6 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Interfaces;
+using AlchemicShop.WEB.Managers;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System.Threading.Tasks;
@@ -77,6 +78,8 @@ namespace AlchemicShop.WEB.Controllers
 
         public ActionResult Logoff()
         {
+            var session = new SessionManager(HttpContext);
+            session.RemoveAllProduct();
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }

@@ -15,34 +15,28 @@ namespace AlchemicShop.WEB.Controllers
         private readonly IMapper _mapper;
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly ISortService _sortService;
 
         public ProductController(
             IMapper mapper,
             ICategoryService categoryService,
-            IProductService productService)
+            IProductService productService,
+            ISortService sortService)
         {
             _mapper = mapper;
             _categoryService = categoryService;
             _productService = productService;
+            _sortService = sortService;
         }
 
         public async Task<ActionResult> GetProductList(string sortOrder)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.SortPrice = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
+
+            ViewBag.SortAmount = String.IsNullOrEmpty(sortOrder) ? "amount_desc" : "";
 
             var product = _mapper.Map<List<ProductViewModel>>
-                (await _productService.GetProducts()).ToList();
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    product = product.OrderByDescending(x => x.Name).ToList();
-                    break;
-                default:
-                    product = product.OrderBy(x => x.Name).ToList();
-                    break;
-            }
+              (await _sortService.SortProductPrice(sortOrder));
 
             ViewBag.Categories = _mapper.Map<List<CategoryViewModel>>(
                 (await _categoryService.GetCategories()).ToList());
@@ -56,7 +50,7 @@ namespace AlchemicShop.WEB.Controllers
             ViewBag.Categories = new SelectList(
                 _mapper.Map<IEnumerable<CategoryViewModel>>
                 (await _categoryService.GetCategories()), "Id", "Name");
-            
+
             return View();
         }
 

@@ -1,6 +1,12 @@
 ﻿@model IEnumerable<AlchemicShop.WEB.Models.ProductViewModel>
 
 <h2>Cart</h2>
+@if (Model.Count() != 0)
+{
+    <p> @Html.ActionLink("Create order", "CreateOrder", "Order")</p>
+    <p> @Html.ActionLink("Delete all", "RemoveCart", "ShoppingCart")</p>
+}
+
 <table class="table">
     <tr>
         <th scope="col">Amount</th>
@@ -8,11 +14,6 @@
         <th scope="col">Delete</th>
         <th scope="col">Edit</th>
     </tr>
-
-    @if (Model.Count() != 0)
-    {
-        @Html.ActionLink("Create order", "CreateOrder", "Order")
-    }
 
     @foreach (var item in Model)
     {

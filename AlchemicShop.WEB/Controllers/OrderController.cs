@@ -3,6 +3,7 @@ using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Managers;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -101,7 +102,7 @@ namespace AlchemicShop.WEB.Controllers
                     _mapper.Map<OrderDTO>(
                         new OrderViewModel()
                         {
-                            CustomerId = (int)Session["userLogin"],
+                            UserId = (int)Session["userLogin"],
                             Status = Models.Status.InTransit,
                             SheduledDate = orderViewModel.SheduledDate
                         }
@@ -123,6 +124,7 @@ namespace AlchemicShop.WEB.Controllers
                            ));
                     await _scService.UpdateProductAmount(item.Amount, item.Id);
                 }
+                session.RemoveAllProduct();
                 return RedirectToAction("Index", "Home");
             }
             return View(orderViewModel);

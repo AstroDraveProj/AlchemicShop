@@ -81,5 +81,12 @@ namespace AlchemicShop.WEB.Controllers
             var session = new SessionManager(HttpContext);
             return View(session.GetOrCreateProductList());
         }
+
+        public ActionResult RemoveCart()
+        {
+            var session = new SessionManager(HttpContext);
+            session.RemoveAllProduct();
+            return RedirectToAction(nameof(GetCart));
+        }
     }
 }

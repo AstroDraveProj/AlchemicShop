@@ -1,6 +1,6 @@
-﻿using System;
+﻿using AlchemicShop.WEB.Validation;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace AlchemicShop.WEB.Models
@@ -9,10 +9,11 @@ namespace AlchemicShop.WEB.Models
     {
         public int Id { get; set; }
 
-        public int CustomerId { get; set; }
+        public int UserId { get; set; }
 
         [Required(ErrorMessage = "Please, enter date of delivery")]
         [DataType(DataType.Date)]
+        [DateValidation]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime SheduledDate { get; set; }
 
@@ -23,7 +24,7 @@ namespace AlchemicShop.WEB.Models
         [Required]
         public Status Status { get; set; }
 
-        public UserViewModel Customer { get; set; }
+        public UserViewModel User { get; set; }
 
         public ICollection<OrderProductViewModel> OrderProductViewModel { get; set; }
     }

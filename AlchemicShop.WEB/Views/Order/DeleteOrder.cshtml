@@ -10,7 +10,7 @@
 
         @foreach (var user in ViewBag.Users)
         {
-            if (user.Id == Model.CustomerId)
+            if (user.Id == Model.UserId)
             {
                 <dd>
                     @user.Name

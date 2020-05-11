@@ -7,13 +7,13 @@ namespace AlchemicShop.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class initial_migration : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initial_migration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005082024522_initial_migration"; }
+            get { return "202005110945477_initial"; }
         }
         
         string IMigrationMetadata.Source

@@ -59,6 +59,7 @@
     <Compile Include="Helpers\BLLProfile.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
+    <Compile Include="Interfaces\ISortService.cs" />
     <Compile Include="Interfaces\IUserAccountService.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IOrderProductService.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\ShoppingCartService.cs" />
+    <Compile Include="Services\SortingService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

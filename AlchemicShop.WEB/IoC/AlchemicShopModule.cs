@@ -16,6 +16,7 @@ namespace AlchemicShop.WEB.IoC
             Bind<IOrderProductService>().To<OrderProductService>();
             Bind<IUserService>().To<UserService>();
             Bind<IShoppingCartService>().To<ShoppingCartService>();
+            Bind<ISortService>().To<SortingService>();
             Bind<IMapper>().ToConstant(WebMapper.Configure().CreateMapper());
         }
     }
