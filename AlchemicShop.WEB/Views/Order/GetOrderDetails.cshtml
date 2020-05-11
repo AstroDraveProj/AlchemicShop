@@ -1,0 +1,32 @@
+﻿@model IEnumerable<AlchemicShop.WEB.Models.OrderProductViewModel>
+
+<table class="table">
+    <tr>
+        <th>
+            Product
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @foreach (var product in ViewBag.GetProductName)
+            {
+                if (product.Id == item.ProductId)
+                {
+                    <td>
+                        @product.Name
+                    </td>
+                }
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td></td>
+        </tr>
+    }
+
+</table>

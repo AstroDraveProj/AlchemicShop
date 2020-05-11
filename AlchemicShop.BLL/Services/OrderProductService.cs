@@ -24,13 +24,14 @@ namespace AlchemicShop.BLL.Services
 
         public async Task AddOrderProduct(OrderProductDTO orderProductDTO)
         {
-             _dbOperation.OrderProducts.Create(_mapper.Map<OrderProduct>(orderProductDTO));
+            _dbOperation.OrderProducts.Create(_mapper.Map<OrderProduct>(orderProductDTO));
             await _dbOperation.Save();
         }
+
         public async Task<IEnumerable<OrderProductDTO>> GetOrderProducts()
         {
-            var orderProducts = await _dbOperation.OrderProducts.GetAllAsync();
-            return _mapper.Map<IEnumerable<OrderProductDTO>>(orderProducts).ToList();
+            return _mapper.Map<IEnumerable<OrderProductDTO>>
+                (await _dbOperation.OrderProducts.GetAllAsync()).ToList();
         }
 
         public async Task<OrderProductDTO> GetOrderProduct(int? id)
@@ -39,15 +40,31 @@ namespace AlchemicShop.BLL.Services
             {
                 throw new ValidationException("Не установлено id заказанного продукта", "");
             }
-            var orderProduct = await _dbOperation.OrderProducts.GetIdAsync(id.Value);
+            var orderProduct = await _dbOperation.OrderProducts.GetIdAsync(id);
             if (orderProduct == null)
             {
                 throw new ValidationException("Заказаный продукт не найден", "");
             }
-
-            var orderProductDTO = _mapper.Map<OrderProductDTO>(orderProduct);
-            return orderProductDTO;
+            return _mapper.Map<OrderProductDTO>(orderProduct);
         }
+
+        public async Task<IEnumerable<OrderProductDTO>> GetOrderProductsId(int? id)
+        {
+            if (id == null)
+            {
+                throw new ValidationException("Не установлено id заказанного продукта", "");
+            }
+
+            var products = await _dbOperation.OrderProducts.GetAllAsync();
+            products = products.Where(x => x.OrderId == id).ToList();
+
+            if (products == null)
+            {
+                throw new ValidationException("Заказаный продукт не найден", "");
+            }
+            return _mapper.Map<IEnumerable<OrderProductDTO>>(products);
+        }
+
         public void Dispose()
         {
             _dbOperation.Dispose();

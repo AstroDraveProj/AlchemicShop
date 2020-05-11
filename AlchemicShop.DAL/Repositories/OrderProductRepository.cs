@@ -55,7 +55,9 @@ namespace AlchemicShop.DAL.Repositories
         public async Task<IEnumerable<OrderProduct>> GetAllAsync()
         {
             return await _dbContext.OrderProducts
-               .Include(x => x.OrderId).ToListAsync();
+               .Include(x => x.Order)
+               .Include(x=>x.Product)
+               .ToListAsync();
         }
 
         public void Update(OrderProduct item)

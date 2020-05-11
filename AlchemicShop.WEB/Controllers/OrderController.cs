@@ -3,12 +3,10 @@ using AlchemicShop.BLL.Interfaces;
 using AlchemicShop.WEB.Managers;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace AlchemicShop.WEB.Controllers
 {
@@ -128,6 +126,15 @@ namespace AlchemicShop.WEB.Controllers
                 return RedirectToAction("Index", "Home");
             }
             return View(orderViewModel);
+        }
+
+        public async Task<ActionResult> GetOrderDetails(int? id)
+        {
+            ViewBag.GetProductName = _mapper.Map<List<ProductViewModel>>(
+                await _productService.GetProducts()).ToList();
+
+            return View(_mapper.Map<List<OrderProductViewModel>>
+                (await _orderProductService.GetOrderProductsId(id)).ToList());
         }
     }
 }
