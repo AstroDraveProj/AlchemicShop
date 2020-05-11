@@ -18,7 +18,7 @@ namespace AlchemicShop.BLL.DTO
         public DateTime? ClosedDate { get; set; }
 
         [Required]
-        public Status StatusDTO { get; set; }
+        public Status Status { get; set; }
 
         public virtual ICollection<OrderProductDTO> OrderProductsDTO { get; set; }
     }

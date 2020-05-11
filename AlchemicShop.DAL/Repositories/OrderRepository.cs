@@ -20,9 +20,7 @@ namespace AlchemicShop.DAL.Repositories
 
         public void Create(Order item)
         {
-          
-                _dbContext.Orders.Add(item);
-           
+            _dbContext.Orders.Add(item);
         }
 
         public void Delete(Order item)

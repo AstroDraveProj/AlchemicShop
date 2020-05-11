@@ -96,6 +96,8 @@ namespace AlchemicShop.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
+                var x = Models.Status.InTransit;
+
                 await _orderService.AddOrder(
                     _mapper.Map<OrderDTO>(
                         new OrderViewModel()
