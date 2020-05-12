@@ -64,6 +64,13 @@
                     @Html.ActionLink("Edit", "EditOrder", new { id = item.Id }) |
                     @Html.ActionLink("Details", "GetOrderDetails", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "DeleteOrder", new { id = item.Id })
+                    <a class="btn btn-danger delete"
+                       data-id="@item.Id"
+                       data-controller="Order"
+                       data-action="DeleteOrder"
+                       data-body-message="are you sure?">
+                        Delete
+                    </a>
                 </td>
             }
             else
