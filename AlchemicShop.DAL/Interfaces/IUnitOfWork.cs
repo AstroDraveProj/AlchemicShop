@@ -16,8 +16,6 @@ namespace AlchemicShop.DAL.Interfaces
 
         IRepository<OrderProduct> OrderProducts { get; }
 
-        IShoppingCart ShoppingCart { get; }
-
         Task Save();
     }
 }

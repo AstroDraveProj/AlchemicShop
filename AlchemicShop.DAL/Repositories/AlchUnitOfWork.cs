@@ -15,7 +15,6 @@ namespace AlchemicShop.DAL.Repositories
         private OrderRepository orderRepository;
         private OrderProductRepository orderProductRepository;
         private UserRepository userRepository;
-        private ShoppingCartRepository scRepository;
 
         public AlchUnitOfWork(string connection)
         {
@@ -88,16 +87,6 @@ namespace AlchemicShop.DAL.Repositories
                     _dbContext.Dispose();
                 }
                 this.disposed = true;
-            }
-        }
-
-        public IShoppingCart ShoppingCart
-        {
-            get
-            {
-                if (scRepository == null)
-                    scRepository = new ShoppingCartRepository(_dbContext);
-                return scRepository;
             }
         }
 
