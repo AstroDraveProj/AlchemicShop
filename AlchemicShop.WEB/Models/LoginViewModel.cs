@@ -8,6 +8,7 @@ namespace AlchemicShop.WEB.Models
         public string Login { get; set; }
 
         [Required, MaxLength(40)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
 }
