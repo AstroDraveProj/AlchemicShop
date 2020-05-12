@@ -5,6 +5,7 @@ using AlchemicShop.DAL.Entities;
 using AlchemicShop.DAL.Interfaces;
 using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AlchemicShop.BLL.Services
@@ -61,6 +62,13 @@ namespace AlchemicShop.BLL.Services
             }
 
             return _mapper.Map<OrderDTO>(order);
+        }
+
+        public async Task<IEnumerable<OrderDTO>> GetUserOrderList(int idUser)
+        {
+            var orders = await _dbOperation.Orders.GetAllAsync();
+            return _mapper.Map<IEnumerable<OrderDTO>>
+                (orders.Where(x => x.UserId == idUser).ToList());
         }
 
         public void Dispose()

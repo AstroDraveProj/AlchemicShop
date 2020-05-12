@@ -88,8 +88,6 @@ namespace AlchemicShop.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var x = Models.Status.InTransit;
-
                 await _orderService.AddOrder(
                     _mapper.Map<OrderDTO>(
                         new OrderViewModel()
@@ -129,6 +127,16 @@ namespace AlchemicShop.WEB.Controllers
 
             return View(_mapper.Map<List<OrderProductViewModel>>
                 (await _orderProductService.GetOrderProductsId(id)).ToList());
+        }
+
+        public async Task<ActionResult> GetUserOrders()
+        {
+            ViewBag.GetUserName = _mapper.Map<List<UserViewModel>>(
+                await _userService.GetUsers()).ToList();
+
+            return View(_mapper.Map<List<OrderViewModel>>
+                (await _orderService.GetUserOrderList((int)Session["userLogin"])).ToList());
+
         }
     }
 }

@@ -51,14 +51,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
+            @if (@HttpContext.Current.User.Identity.Name == "User")
+            {
+                <td>
+                    @Html.ActionLink("Details", "GetUserOrders", new { id = item.Id }) |
+                </td>
+            }
 
             @if (@HttpContext.Current.User.Identity.Name == "Admin")
             {
-        <td>
-            @Html.ActionLink("Edit", "EditOrder", new { id = item.Id }) |
-            @Html.ActionLink("Details", "GetOrderDetails", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "DeleteOrder", new { id = item.Id })
-        </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditOrder", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "GetOrderDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteOrder", new { id = item.Id })
+                </td>
             }
             else
             {

@@ -16,6 +16,8 @@ namespace AlchemicShop.BLL.Interfaces
 
         Task<IEnumerable<OrderDTO>> GetOrders();
 
+        Task<IEnumerable<OrderDTO>> GetUserOrderList(int idUser);
+
         void Dispose();
     }
 }
