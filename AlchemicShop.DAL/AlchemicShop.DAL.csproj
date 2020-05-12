@@ -59,7 +59,6 @@
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Interfaces\IUserAccount.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\202005110945477_initial.cs" />
