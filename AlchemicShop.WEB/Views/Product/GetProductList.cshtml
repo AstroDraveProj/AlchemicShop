@@ -41,7 +41,15 @@
     <td>
         @Html.DisplayFor(modelItem => item.Price)
     </td>
-
+    @foreach (var category in ViewBag.Categories)
+    {
+        if (category.Id == item.CategoryId)
+        {
+            <td>
+                @category.Name
+            </td>
+        }
+    }
     @if (@HttpContext.Current.User.Identity.Name == "Admin")
     {
         <td>
@@ -56,15 +64,7 @@
         </td>
     }
 
-    @foreach (var category in ViewBag.Categories)
-    {
-        if (category.Id == item.CategoryId)
-        {
-            <td>
-                @category.Name
-            </td>
-        }
-    }
+
 </tr>
     }
 </table>
