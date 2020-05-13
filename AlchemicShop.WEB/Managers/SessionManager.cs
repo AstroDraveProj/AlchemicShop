@@ -69,5 +69,15 @@ namespace AlchemicShop.WEB.Managers
             var products = GetOrCreateProductList();
             products.Clear();
         }
+
+        public float GetCartSum(List<ProductViewModel> products)
+        {
+            float productSum = 0;
+            foreach (var item in products)
+            {
+                productSum = productSum + (item.Amount * item.Price);
+            }
+            return productSum;
+        }
     }
 }

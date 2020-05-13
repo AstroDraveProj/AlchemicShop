@@ -2,6 +2,7 @@
 using AlchemicShop.WEB.Managers;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -77,9 +78,11 @@ namespace AlchemicShop.WEB.Controllers
         }
 
         public ActionResult GetCart()
-        {
+        {          
             var session = new SessionManager(HttpContext);
-            return View(session.GetOrCreateProductList());
+            var products = session.GetOrCreateProductList();
+            ViewBag.GetCartSum = session.GetCartSum(products);
+            return View(products);
         }
 
         public ActionResult RemoveCart()
