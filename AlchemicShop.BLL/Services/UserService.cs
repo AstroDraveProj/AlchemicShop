@@ -82,6 +82,13 @@ namespace AlchemicShop.BLL.Services
                 .FindItemAsync(x => x.Login == login && x.Password == password));
         }
 
+        public async Task<int?> GetUserId(string login)
+        {
+            return _mapper.Map<UserDTO>(
+                await _dbOperation.Users
+                .FindItemAsync(x => x.Login == login)).Id;
+        }
+
         public void Dispose()
         {
             _dbOperation.Dispose();
