@@ -352,6 +352,7 @@
     <Content Include="Views\Order\EditOrder.cshtml" />
     <Content Include="Views\Order\GetOrderDetails.cshtml" />
     <Content Include="Views\Order\GetUserOrders.cshtml" />
+    <Content Include="Views\Order\EmptyOrderHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

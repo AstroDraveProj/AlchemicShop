@@ -125,18 +125,37 @@ namespace AlchemicShop.WEB.Controllers
             ViewBag.GetProductName = _mapper.Map<List<ProductViewModel>>(
                 await _productService.GetProducts()).ToList();
 
-            return View(_mapper.Map<List<OrderProductViewModel>>
-                (await _orderProductService.GetOrderProductsId(id)).ToList());
+            var orderDetails = _mapper.Map<List<OrderProductViewModel>>
+                (await _orderProductService.GetOrderProductsId(id)).ToList();
+
+            if(orderDetails.Count>0 && orderDetails != null)
+            {
+                return View(orderDetails);
+            }
+
+            return RedirectToAction(nameof(GetOrderList));
         }
 
+        [Authorize(Users = "User")]
         public async Task<ActionResult> GetUserOrders()
         {
             ViewBag.GetUserName = _mapper.Map<List<UserViewModel>>(
                 await _userService.GetUsers()).ToList();
 
-            return View(_mapper.Map<List<OrderViewModel>>
-                (await _orderService.GetUserOrderList((int)Session["userLogin"])).ToList());
+            var userOrders = _mapper.Map<List<OrderViewModel>>
+                (await _orderService.GetUserOrderList((int)Session["userLogin"])).ToList();
+            
+            if (userOrders.Count > 0 && userOrders != null)
+            {
+                return View(userOrders);
+            }
+            return RedirectToAction(nameof(EmptyOrderHistory));
+        }
 
+        [Authorize(Users = "User")]
+        public ActionResult EmptyOrderHistory()
+        {
+            return View();
         }
     }
 }
