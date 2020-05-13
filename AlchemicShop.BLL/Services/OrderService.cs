@@ -71,6 +71,21 @@ namespace AlchemicShop.BLL.Services
                 (orders.Where(x => x.UserId == idUser).ToList());
         }
 
+        public async Task<float> GetOrderSum(int? idOrder)
+        {
+            var products = await _dbOperation.OrderProducts.GetAllAsync();
+            float sumOrder = 0;
+
+            foreach (var item in products)
+            {
+                if (item.OrderId == idOrder)
+                {
+                    sumOrder = sumOrder + (item.Amount * item.Product.Price);
+                }
+            }
+            return sumOrder;
+        }
+
         public void Dispose()
         {
             _dbOperation.Dispose();

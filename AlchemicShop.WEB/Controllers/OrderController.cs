@@ -122,6 +122,8 @@ namespace AlchemicShop.WEB.Controllers
 
         public async Task<ActionResult> GetOrderDetails(int? id)
         {
+            ViewBag.GetOrderSum = await _orderService.GetOrderSum(id);
+
             ViewBag.GetProductName = _mapper.Map<List<ProductViewModel>>(
                 await _productService.GetProducts()).ToList();
 
