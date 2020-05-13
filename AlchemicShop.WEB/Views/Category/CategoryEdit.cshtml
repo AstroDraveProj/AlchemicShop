@@ -6,7 +6,7 @@
 
 <h2>Edit Category</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CategoryEdit", "Category", FormMethod.Post, new { id = "editform" }))
 {
     @Html.AntiForgeryToken()
 
@@ -23,10 +23,20 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "GetCategoryList", null, new { @class = "btn btn-primary" })
+
+        <div class="col-md-offset-2 col-md-10">
+            <a href="#popup" class="popup-link btn btn-success">Save</a>
+            @Html.ActionLink("Back to List", "GetCategoryList", null, new { @class = "btn btn-primary" })
+        </div>
+
+
+        <div id="popup" class="form-group white-popup mfp-hide text-center">
+            <p>
+                Are you sure?
+            </p>
+            <div class="d-flex justify-content-around">
+                <input type="submit" value="yes" class="popup-ok  btn btn-success" />
+                <input type="submit" value="no" class="popup-no btn btn-danger" />
             </div>
         </div>
     </div>

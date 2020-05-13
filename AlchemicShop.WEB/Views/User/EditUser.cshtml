@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit User";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditUser", "User", FormMethod.Post, new { id = "editform" }))
 {
     @Html.AntiForgeryToken()
     
@@ -20,22 +20,9 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
+        @Html.HiddenFor(model => model.Login)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @Html.HiddenFor(model => model.Password)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -47,10 +34,18 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "GetUserList", null, new { @class = "btn btn-primary" })
+        <div class="col-md-offset-2 col-md-10">
+            <a href="#popup" class="popup-link btn btn-success">Save</a>
+            @Html.ActionLink("Back to List", "GetUserList", null, new { @class = "btn btn-primary" })
+        </div>
+
+        <div id="popup" class="form-group white-popup mfp-hide text-center">
+            <p>
+                Are you sure?
+            </p>
+            <div class="d-flex justify-content-around">
+                <input type="submit" value="Yes" class="popup-ok  btn btn-success" />
+                <input type="submit" value="No" class="popup-no btn btn-danger" />
             </div>
         </div>
     </div>

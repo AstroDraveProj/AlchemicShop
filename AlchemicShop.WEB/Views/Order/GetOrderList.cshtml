@@ -61,8 +61,8 @@
             @if (@HttpContext.Current.User.Identity.Name == "Admin")
             {
                 <td>
-                    @Html.ActionLink("Edit", "EditOrder", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "GetOrderDetails", new { id = item.Id }) 
+                    @Html.ActionLink("Edit", "EditOrder",new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "GetOrderDetails", new { id = item.Id }, new { @class = "btn btn-info" }) 
                     <a class="btn btn-danger delete"
                        data-id="@item.Id"
                        data-controller="Order"
