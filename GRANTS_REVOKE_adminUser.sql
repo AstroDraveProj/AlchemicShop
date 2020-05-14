@@ -1,0 +1,17 @@
+﻿--DROP ALL adminUser GRANTS
+REVOKE SELECT, DELETE ON [USERS] TO [adminUser]
+
+REVOKE SELECT, DELETE, UPDATE ON [PRODUCTS] TO [adminUser]
+
+REVOKE SELECT ON [CATEGORIES] TO [adminUser]
+
+REVOKE SELECT, DELETE, UPDATE ON [ORDERPRODUCTS] TO [adminUser]
+
+REVOKE SELECT, DELETE, UPDATE ON [ORDERS] TO [adminUser]
+
+REVOKE EXECUTE ON [SP_Count_User_Without_Order] FROM [adminUser];
+
+REVOKE EXECUTE ON [SP_Count_User_With_Order] FROM [adminUser];
+
+REVOKE EXECUTE ON [SP_Count_User_With_N_Order] FROM [adminUser];
+

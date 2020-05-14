@@ -1,0 +1,9 @@
+﻿--DROP ALL astroUser GRANTS
+
+REVOKE SELECT, DELETE ON [ORDERPRODUCTS] FROM [astroUser];
+
+REVOKE SELECT ON [USERS] FROM [astroUser];
+
+REVOKE EXECUTE ON [SP_Count_User_Without_Order] FROM [astroUser];
+
+REVOKE ALTER ON [CATEGORIES] FROM [astroUser];

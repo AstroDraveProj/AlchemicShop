@@ -1,0 +1,39 @@
+﻿--SELECT, DELETE PERMISIONS  ON USERS
+USE [AlchemicShopDb]
+GO
+GRANT SELECT, DELETE ON [USERS] to [adminUser]
+
+--SELECT, DELETE, UPDATE, REFERENCES PERMISIONS ON PRODUCT
+USE [AlchemicShopDb]
+GO
+GRANT SELECT, DELETE, UPDATE, REFERENCES ON [PRODUCTS] to [adminUser]
+
+--SELECT PERMISIONS ON CATEGORIES
+USE [AlchemicShopDb]
+GO
+GRANT SELECT ON [CATEGORIES] to [adminUser]
+
+--SELECT, DELETE, UPDATE PERMISIONS ON ORDERPRODUCTS
+USE [AlchemicShopDb]
+GO
+GRANT SELECT, DELETE, UPDATE ON [ORDERPRODUCTS] to [adminUser]
+
+--SELECT, DELETE, UPDATE PERMISIONS ON ORDERS
+USE [AlchemicShopDb]
+GO
+GRANT SELECT, DELETE, UPDATE ON [ORDERS] to [adminUser]
+
+--ACCESS EXECUTE SP_Count_User_Without_Order
+USE [AlchemicShopDb]
+GO
+GRANT EXECUTE ON [SP_Count_User_Without_Order] to [adminUser]
+
+--ACCESS EXECUTE SP_Count_User_With_Order
+USE [AlchemicShopDb]
+GO
+GRANT EXECUTE ON [SP_Count_User_With_Order] to [adminUser]
+
+--ACCESS EXECUTE SP_Count_User_With_N_Order
+USE [AlchemicShopDb]
+GO
+GRANT EXECUTE ON [SP_Count_User_With_N_Order] to [adminUser]

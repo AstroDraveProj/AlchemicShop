@@ -17,6 +17,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Triggers", "Triggers", "{A1
 		TR_Products_AFTER_UPDATE_Discount.sql = TR_Products_AFTER_UPDATE_Discount.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Procedures", "Procedures", "{4119CDA0-A7FA-4414-A356-764288BCE44E}"
+	ProjectSection(SolutionItems) = preProject
+		SP_Count_User_With_N_Order.sql = SP_Count_User_With_N_Order.sql
+		SP_Count_User_With_Order.sql = SP_Count_User_With_Order.sql
+		SP_Count_User_Without_Order.sql = SP_Count_User_Without_Order.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{5B78D714-50E6-4C98-8FFE-9AE15C22BDE1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{B5E9B965-4192-4287-B2BA-FF64D67CE15E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grants", "Grants", "{69FCCDED-17E8-4F86-AB3C-790AE3D496A5}"
+	ProjectSection(SolutionItems) = preProject
+		GRT_AstroUSER.sql = GRT_AstroUSER.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{52D6A7DC-0008-47C8-804F-AE014BA56F45}"
+	ProjectSection(SolutionItems) = preProject
+		CREATE_USER.sql = CREATE_USER.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +62,11 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A17BC23A-FB4A-4AC1-9305-6E3C7C3A9F5F} = {E98EBB5E-96B4-4CA1-9621-8BF6B1F1D014}
+		{4119CDA0-A7FA-4414-A356-764288BCE44E} = {E98EBB5E-96B4-4CA1-9621-8BF6B1F1D014}
+		{5B78D714-50E6-4C98-8FFE-9AE15C22BDE1} = {E98EBB5E-96B4-4CA1-9621-8BF6B1F1D014}
+		{B5E9B965-4192-4287-B2BA-FF64D67CE15E} = {E98EBB5E-96B4-4CA1-9621-8BF6B1F1D014}
+		{69FCCDED-17E8-4F86-AB3C-790AE3D496A5} = {E98EBB5E-96B4-4CA1-9621-8BF6B1F1D014}
+		{52D6A7DC-0008-47C8-804F-AE014BA56F45} = {E98EBB5E-96B4-4CA1-9621-8BF6B1F1D014}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E668333D-1A25-4FE7-96DE-28B911247053}
