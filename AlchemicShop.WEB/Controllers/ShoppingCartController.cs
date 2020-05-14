@@ -56,7 +56,11 @@ namespace AlchemicShop.WEB.Controllers
                                 return RedirectToAction("GetProductList", "Product");
                             }
                         }
-                        else
+                    }
+
+                    foreach (var item in curCartAmount)
+                    {
+                        if (item.Id != product.Id)
                         {
                             session.AddProduct(product);
                             return RedirectToAction(nameof(GetCart));
