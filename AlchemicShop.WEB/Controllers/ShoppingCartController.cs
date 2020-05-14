@@ -56,10 +56,14 @@ namespace AlchemicShop.WEB.Controllers
                                 return RedirectToAction("GetProductList", "Product");
                             }
                         }
+                        else
+                        {
+                            session.AddProduct(product);
+                            return RedirectToAction(nameof(GetCart));
+                        }
                     }
                 }
             }
-            ViewBag.AmountMsg = "Choose another amount";
             return RedirectToAction(nameof(GetCart));
         }
 
