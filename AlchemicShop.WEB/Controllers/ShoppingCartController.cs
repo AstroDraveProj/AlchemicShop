@@ -2,7 +2,6 @@
 using AlchemicShop.WEB.Managers;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -13,15 +12,18 @@ namespace AlchemicShop.WEB.Controllers
         private readonly IMapper _mapper;
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly IShoppingCartService _shoppingCartService;
 
         public ShoppingCartController(
             IMapper mapper,
             ICategoryService categoryService,
-            IProductService productService)
+            IProductService productService,
+            IShoppingCartService shoppingCartService)
         {
             _mapper = mapper;
             _categoryService = categoryService;
             _productService = productService;
+            _shoppingCartService = shoppingCartService;
         }
 
         public async Task<ActionResult> AddProduct(int? id)
@@ -29,12 +31,35 @@ namespace AlchemicShop.WEB.Controllers
             if (id != null)
             {
                 var session = new SessionManager(HttpContext);
+                var curCartAmount = session.GetOrCreateProductList();
                 var product = _mapper.Map<ProductViewModel>
                     (await _productService.GetProduct(id));
                 product.Amount = 1;
-                session.AddProduct(product);
-                return RedirectToAction(nameof(GetCart));
+
+                if (curCartAmount.Count == 0)
+                {
+                    session.AddProduct(product);
+                }
+                else
+                {
+                    foreach (var item in curCartAmount)
+                    {
+                        if (item.Id == product.Id)
+                        {
+                            if (await _shoppingCartService.IsEnoughProduct(product.Id, item.Amount))
+                            {
+                                session.AddProduct(product);
+                                return RedirectToAction(nameof(GetCart));
+                            }
+                            else
+                            {
+                                return RedirectToAction("GetProductList", "Product");
+                            }
+                        }
+                    }
+                }
             }
+            ViewBag.AmountMsg = "Choose another amount";
             return RedirectToAction(nameof(GetCart));
         }
 
@@ -66,19 +91,25 @@ namespace AlchemicShop.WEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditCartAmount(ProductViewModel product)
+        public async Task<ActionResult> EditCartAmount(ProductViewModel product)
         {
-            if (ModelState.IsValid)
+            if (await _productService.IsEnoughProduct(product.Id, product.Amount))
             {
-                var session = new SessionManager(HttpContext);
-                session.EditProduct(product);
-                return RedirectToAction(nameof(GetCart));
+                ViewBag.AmountMsg = "";
+                if (ModelState.IsValid)
+                {
+                    var session = new SessionManager(HttpContext);
+                    session.EditProduct(product);
+                    return RedirectToAction(nameof(GetCart));
+                }
+                return View(product);
             }
+            ViewBag.AmountMsg = "Choose another amount";
             return View(product);
         }
 
         public ActionResult GetCart()
-        {          
+        {
             var session = new SessionManager(HttpContext);
             var products = session.GetOrCreateProductList();
             ViewBag.GetCartSum = session.GetCartSum(products);

@@ -7,5 +7,7 @@ namespace AlchemicShop.BLL.Interfaces
         Task<int> GetMaxOrderIdAsync();
 
         Task UpdateProductAmount(int amount, int id);
+
+        Task<bool> IsEnoughProduct(int? id, int? amount);
     }
 }

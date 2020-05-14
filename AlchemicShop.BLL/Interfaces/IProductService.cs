@@ -16,6 +16,8 @@ namespace AlchemicShop.BLL.Interfaces
 
         Task<IEnumerable<ProductDTO>> GetProducts();
 
+        Task<bool> IsEnoughProduct(int? id, int? amount);
+
         void Dispose();
     }
 }

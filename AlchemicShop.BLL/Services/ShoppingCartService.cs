@@ -2,6 +2,7 @@
 using AlchemicShop.DAL.Interfaces;
 using System.Threading.Tasks;
 using System.Linq;
+using AlchemicShop.BLL.Infrastructure;
 
 namespace AlchemicShop.BLL.Services
 {
@@ -28,6 +29,20 @@ namespace AlchemicShop.BLL.Services
             product.Amount -= amount;
             _dbOperation.Products.Update(product);
             await _dbOperation.Save();
+        }
+
+        public async Task<bool> IsEnoughProduct(int? id, int? amount)
+        {
+            if (id == null || amount == null)
+            {
+                throw new ValidationException("Не установлено id продукта", "");
+            }
+
+            var product = await _dbOperation.Products.GetIdAsync(id.Value);
+
+            if (product.Amount-(amount+1) >= 0)
+                return true;
+            return false;
         }
     }
 }

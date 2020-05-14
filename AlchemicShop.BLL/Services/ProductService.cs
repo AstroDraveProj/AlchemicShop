@@ -73,6 +73,20 @@ namespace AlchemicShop.BLL.Services
             return _mapper.Map<ProductDTO>(product);
         }
 
+        public async Task<bool> IsEnoughProduct(int? id, int? amount)
+        {
+            if (id == null || amount == null)
+            {
+                throw new ValidationException("Не установлено id продукта", "");
+            }
+
+            var product = await _dbOperation.Products.GetIdAsync(id.Value);
+
+            if ((product.Amount - amount) >= 0)
+                return true;
+            return false;
+        }
+
         public void Dispose()
         {
             _dbOperation.Dispose();
