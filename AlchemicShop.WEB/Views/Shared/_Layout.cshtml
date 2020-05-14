@@ -25,11 +25,11 @@
                     <li class="nav-item">
                         <p class="nav-link">@Html.ActionLink("Category", "GetCategoryList", "Category")</p>
                     </li>
+                    <li class="nav-item">
+                        <p class="nav-link">@Html.ActionLink("Cart", "GetCart", "ShoppingCart")</p>
+                    </li>
                     @if (@HttpContext.Current.User.Identity.Name == "User")
                     {
-                        <li class="nav-item">
-                            <p class="nav-link">@Html.ActionLink("Cart", "GetCart", "ShoppingCart")</p>
-                        </li>
                         <li class="nav-item">
                             <p class="nav-link">@Html.ActionLink("My orders", "GetUserOrders", "Order")</p>
                         </li>
