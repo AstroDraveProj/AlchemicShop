@@ -372,6 +372,10 @@
       <Project>{8B8037C1-A326-4F23-9651-0AF8009F2B8D}</Project>
       <Name>AlchemicShop.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AlchemicShop.Security\AlchemicShop.Security.csproj">
+      <Project>{DBDF0B0E-702A-4DFC-A367-2EA658303CF6}</Project>
+      <Name>AlchemicShop.Security</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

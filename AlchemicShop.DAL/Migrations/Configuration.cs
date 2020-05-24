@@ -1,6 +1,7 @@
 ﻿namespace AlchemicShop.DAL.Migrations
 {
     using AlchemicShop.DAL.Entities;
+    using AlchemicShop.Security.Encoding;
     using System;
     using System.Data.Entity.Migrations;
 
@@ -17,7 +18,7 @@
             {
                 Login = "admin",
                 Name = "Admin",
-                Password = "admin",
+                Password = CryptoProvider.GetMD5Hash("admin"),
                 Role = Role.Admin
             };
 
@@ -28,7 +29,7 @@
             {
                 Login = "user",
                 Name = "user",
-                Password = "user",
+                Password = CryptoProvider.GetMD5Hash("user"),
                 Role = Role.User
             };
 
@@ -39,7 +40,7 @@
             {
                 Login = "user1",
                 Name = "user1",
-                Password = "user1",
+                Password = CryptoProvider.GetMD5Hash("user1"),
                 Role = Role.User
             };
 
@@ -50,7 +51,7 @@
             {
                 Login = "user2",
                 Name = "user2",
-                Password = "user2",
+                Password = CryptoProvider.GetMD5Hash("user2"),
                 Role = Role.User
             };
 
@@ -61,7 +62,7 @@
             {
                 Login = "user3",
                 Name = "user3",
-                Password = "user3",
+                Password = CryptoProvider.GetMD5Hash("user3"),
                 Role = Role.User
             };
 

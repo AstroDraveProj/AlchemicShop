@@ -83,6 +83,12 @@
       <DependentUpon>202005110945477_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlchemicShop.Security\AlchemicShop.Security.csproj">
+      <Project>{DBDF0B0E-702A-4DFC-A367-2EA658303CF6}</Project>
+      <Name>AlchemicShop.Security</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

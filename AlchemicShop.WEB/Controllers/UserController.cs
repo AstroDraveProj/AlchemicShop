@@ -1,5 +1,6 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Interfaces;
+using AlchemicShop.Security.Encoding;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System.Collections.Generic;
@@ -41,6 +42,7 @@ namespace AlchemicShop.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.Password = CryptoProvider.GetMD5Hash(user.Password);
                 await _userService.AddUser(_mapper.Map<UserDTO>(user));
                 return RedirectToAction(nameof(GetUserList));
             }

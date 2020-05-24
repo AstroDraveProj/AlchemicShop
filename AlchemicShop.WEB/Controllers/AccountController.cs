@@ -4,8 +4,10 @@ using AlchemicShop.WEB.Managers;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
+using AlchemicShop.Security.Encoding;
 
 namespace AlchemicShop.WEB.Controllers
 {
@@ -34,6 +36,7 @@ namespace AlchemicShop.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
+                account.Password = CryptoProvider.GetMD5Hash(account.Password);
                 var userAccount = await _userService.GetUser(account.Login, account.Password);
                 if (userAccount != null)
                 {
@@ -67,6 +70,7 @@ namespace AlchemicShop.WEB.Controllers
                 }
                 else
                 {
+                    model.Password = CryptoProvider.GetMD5Hash(model.Password);
                     await _userService.AddUser(_mapper.Map<UserDTO>(
                     new UserViewModel { Login = model.Login, Name = model.Name, Password = model.Password, Role = Models.Role.User }));
                     var userId = await _userService.GetUserId(model.Login);
