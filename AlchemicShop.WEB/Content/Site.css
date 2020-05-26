@@ -36,7 +36,8 @@ textarea {
     max-width: 280px;
 }
 
-p {
+p,
+.form-group {
     text-align: justify;
     font-weight: 600;
     font-family: Swamp Witch;
@@ -51,12 +52,13 @@ p {
 }
 
 .p-about {
-    text-align: left;
+    text-align: justify;
     color: #e69bcb;
     font-size: 19px;
     text-shadow: 1px 1px 2px black, 0 0 3em white;
-    background-color: #1f64ae;
-    margin-right: 300px;
+    background: linear-gradient(#923f8b, #294827);
+    margin-right: 30%;
+
 }
 
 .p-link-column {
@@ -72,32 +74,55 @@ p {
     height: 80%;
 }
 
-.center-auth-form {
-    margin-left: 35%;
-}
-
-
 .display-4 {
     font-family: Swamp Witch;
-    margin-left: 7%;
     color: #923f8b;
     text-shadow: 1px 2px 2px black, 0 0 1em #e69bcb;
-    /*background-color: #d282e5;*/
-    margin-right: 300px;
-    margin-left: 250px;
-    background-image: url(Images/About/jumbotron-about.png);
+    text-align: center;
+    border-radius: 10px 10px;
+    background: linear-gradient(#e69bcb, #48e9df);
 }
 
-.display-4-ieg {
-    font-family: Swamp Witch;
-    margin-left: 10%;
-    color: #923f8b;
-    text-shadow: 1px 2px 2px black, 0 0 1em #e69bcb;
-}
-
-.row {
+.row
+{
     background: linear-gradient(to top, #e69bcb,lightsalmon);
     border-radius: 10px 10px;
     margin-left: 0.5px;
     margin-right: 0.5px;
 }
+
+.center-auth-form {
+    background: linear-gradient(#fedcdc, white);
+    border-radius: 20px 20px;
+    padding: 10px;
+    justify-content: center;
+    display: flex;
+}
+
+.col-md-4{
+padding-left:10px;
+}
+
+.btn-secondary {
+    color: brown;
+    background-color: #fedcdc;
+    border-color: brown;
+    margin-top: 3%;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    display: flex;
+    font-size: 20px;
+}
+.btn-primary {
+    color: brown;
+    background-color: #e5c6e2;
+    border-color: brown;
+    margin-top: 2%;
+    width: 100%;
+    height: 100%;
+    font-size:20px;
+    justify-content: center;
+    display: flex;
+}
+
