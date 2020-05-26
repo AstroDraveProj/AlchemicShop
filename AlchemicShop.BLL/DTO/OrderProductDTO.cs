@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace AlchemicShop.BLL.DTO
+﻿namespace AlchemicShop.BLL.DTO
 {
     public class OrderProductDTO
     {
@@ -14,7 +12,6 @@ namespace AlchemicShop.BLL.DTO
 
         public ProductDTO Product { get; set; }
 
-        [Required]
         public int Amount { get; set; }
     }
 }

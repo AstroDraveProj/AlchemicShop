@@ -9,7 +9,8 @@ namespace AlchemicShop.WEB
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.magnific-popup.min.js",
-                        "~/Scripts/AlchemicShopScripts/magnificpopup.js"));
+                        "~/Scripts/AlchemicShopScripts/magnificpopup.js",
+                        "~/Scripts/AlchemicShopScripts/jquery.DeleteOrder.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

@@ -13,21 +13,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AlchemicShop.SQL", "Alchemi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Triggers", "Triggers", "{A17BC23A-FB4A-4AC1-9305-6E3C7C3A9F5F}"
 	ProjectSection(SolutionItems) = preProject
-		TR_Products_AFTER_INSERT_Discount.sql = TR_Products_AFTER_INSERT_Discount.sql
-		TR_Products_AFTER_UPDATE_Discount.sql = TR_Products_AFTER_UPDATE_Discount.sql
+		AlchemicShop.SQL\Triggers\TR_Products_AFTER_INSERT_Discount.sql = AlchemicShop.SQL\Triggers\TR_Products_AFTER_INSERT_Discount.sql
+		AlchemicShop.SQL\Triggers\TR_Products_AFTER_UPDATE_Discount.sql = AlchemicShop.SQL\Triggers\TR_Products_AFTER_UPDATE_Discount.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Procedures", "Procedures", "{4119CDA0-A7FA-4414-A356-764288BCE44E}"
 	ProjectSection(SolutionItems) = preProject
-		SP_Count_User_With_N_Order.sql = SP_Count_User_With_N_Order.sql
-		SP_Count_User_With_Order.sql = SP_Count_User_With_Order.sql
-		SP_Count_User_Without_Order.sql = SP_Count_User_Without_Order.sql
-		SP_Update_Order_Status_ClosedDate.sql = SP_Update_Order_Status_ClosedDate.sql
+		AlchemicShop.SQL\Procedures\SP_Count_User_With_N_Order.sql = AlchemicShop.SQL\Procedures\SP_Count_User_With_N_Order.sql
+		AlchemicShop.SQL\Procedures\SP_Count_User_With_Order.sql = AlchemicShop.SQL\Procedures\SP_Count_User_With_Order.sql
+		AlchemicShop.SQL\Procedures\SP_Count_User_Without_Order.sql = AlchemicShop.SQL\Procedures\SP_Count_User_Without_Order.sql
+		AlchemicShop.SQL\Procedures\SP_Update_Order_Status_ClosedDate.sql = AlchemicShop.SQL\Procedures\SP_Update_Order_Status_ClosedDate.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{5B78D714-50E6-4C98-8FFE-9AE15C22BDE1}"
 	ProjectSection(SolutionItems) = preProject
-		FUNCTION_ORDER_SUM.sql = FUNCTION_ORDER_SUM.sql
+		AlchemicShop.SQL\Functions\FUNCTION_ORDER_SUM.sql = AlchemicShop.SQL\Functions\FUNCTION_ORDER_SUM.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{B5E9B965-4192-4287-B2BA-FF64D67CE15E}"
@@ -36,19 +36,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grants", "Grants", "{69FCCD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{52D6A7DC-0008-47C8-804F-AE014BA56F45}"
 	ProjectSection(SolutionItems) = preProject
-		CREATE_USER.sql = CREATE_USER.sql
+		AlchemicShop.SQL\Users\CREATE_USER.sql = AlchemicShop.SQL\Users\CREATE_USER.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "astroUser", "astroUser", "{B4EE1F21-70E7-4CB2-A3E3-C307FB8AB9EF}"
 	ProjectSection(SolutionItems) = preProject
-		GRANTS_astroUser.sql = GRANTS_astroUser.sql
-		GRANTS_REVOKE_astroUser.sql = GRANTS_REVOKE_astroUser.sql
+		AlchemicShop.SQL\Grants\astroUser\GRANTS_astroUser.sql = AlchemicShop.SQL\Grants\astroUser\GRANTS_astroUser.sql
+		AlchemicShop.SQL\Grants\astroUser\GRANTS_REVOKE_astroUser.sql = AlchemicShop.SQL\Grants\astroUser\GRANTS_REVOKE_astroUser.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "adminUser", "adminUser", "{2066EBC8-CD24-452F-948D-06B38597B6B6}"
 	ProjectSection(SolutionItems) = preProject
-		GRANTS_adminUser.sql = GRANTS_adminUser.sql
-		GRANTS_REVOKE_adminUser.sql = GRANTS_REVOKE_adminUser.sql
+		AlchemicShop.SQL\Grants\adminUser\GRANTS_adminUser.sql = AlchemicShop.SQL\Grants\adminUser\GRANTS_adminUser.sql
+		AlchemicShop.SQL\Grants\adminUser\GRANTS_REVOKE_adminUser.sql = AlchemicShop.SQL\Grants\adminUser\GRANTS_REVOKE_adminUser.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlchemicShop.Security", "AlchemicShop.Security\AlchemicShop.Security.csproj", "{DBDF0B0E-702A-4DFC-A367-2EA658303CF6}"

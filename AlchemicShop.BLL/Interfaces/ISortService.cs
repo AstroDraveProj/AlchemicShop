@@ -7,6 +7,5 @@ namespace AlchemicShop.BLL.Interfaces
     public interface ISortService
     {
         Task<IEnumerable<ProductDTO>> SortProductPrice(string sortOrder);
-
     }
 }
