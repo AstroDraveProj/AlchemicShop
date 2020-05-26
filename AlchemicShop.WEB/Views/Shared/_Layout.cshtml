@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>   
+    <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
 </head>
 <body>
@@ -11,6 +11,11 @@
         <div class="container">
             <div class="navbar-header">
                 <ul class="nav">
+                    <li class="nav-item">
+                        <div class="layout-img">
+                            <img src="~/Content/Images/Layout/layout_moon.gif">
+                        </div>
+                    </li>
                     <li class="nav-item">
                         <p class="nav-link">@Html.ActionLink("Home", "Index", "Home")</p>
                     </li>
@@ -55,11 +60,9 @@
                 @RenderBody()
                 <hr />
             </div>
-            <div class="footer">
-                <footer>
-                    <p>&copy; @DateTime.Now.Year - AstroDrave Project</p>
-                </footer>
-            </div>
+            <footer class="footer">
+                <p>&copy; @DateTime.Now.Year - AstroDrave Project</p>
+            </footer>
         </div>
     </div>
     @Scripts.Render("~/bundles/modernizr")

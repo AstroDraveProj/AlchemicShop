@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<AlchemicShop.WEB.Models.ProductViewModel>
 
-<h2>Cart</h2>
 @if (@HttpContext.Current.User.Identity.Name == "Admin")
 {
     <p>Ur cart is empty and u can't add to cart product cuz ur admin now c:</p>
 }
-    @if (Model.Count() != 0)
-    {
-        <p> @Html.ActionLink("Create order", "CreateOrder", "Order")</p>
-        <p> @Html.ActionLink("Delete all", "RemoveCart", "ShoppingCart")</p>
-        <p> Cart: @ViewBag.GetCartSum $</p>
-    }
+else
+if (Model.Count() != 0)
+{
+    <p> @Html.ActionLink("Create order", "CreateOrder", "Order")</p>
+    <p> @Html.ActionLink("Delete all", "RemoveCart", "ShoppingCart")</p>
+    <p> Cart: @ViewBag.GetCartSum $</p>
+
 
     <table class="table">
         <tr>
@@ -41,3 +41,12 @@
         }
 
     </table>
+}
+else if (Model.Count() == 0 && @HttpContext.Current.User.Identity.Name != "Admin")
+{
+    <div class="cart-items">
+        <p>Ur cart is emty :(</p>
+        <p>Add smth to make me happy ♥  </p>
+    </div>
+
+}
