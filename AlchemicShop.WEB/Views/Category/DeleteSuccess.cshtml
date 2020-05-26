@@ -1,9 +1,13 @@
 ﻿@{
-    ViewBag.Title = "DeleteSuccess";
+    ViewBag.Title = "Success";
 }
 
-<h2>Delete Success</h2>
-<h8>You are successfully deleted @ViewBag.Name </h8>
-<div>
-    @Html.ActionLink("Back to List", "GetCategoryList", null, new { @class = "btn btn-primary" })
+<div class="center-form">
+    <div class="col-md-10">
+        <p>Delete Success</p>
+        You are successfully deleted @ViewBag.Name
+        <div>
+            @Html.ActionLink("Back to List", "GetCategoryList", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
 </div>

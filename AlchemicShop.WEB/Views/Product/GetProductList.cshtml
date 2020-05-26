@@ -3,6 +3,13 @@
 @{
     ViewBag.Title = "Product List";
 }
+@if (@HttpContext.Current.User.Identity.Name == "Admin")
+{
+    <p>
+        @Html.ActionLink("Create New", "CreateProduct")
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -22,12 +29,6 @@
         <th></th>
     </tr>
 
-    @if (@HttpContext.Current.User.Identity.Name == "Admin")
-    {
-        <h4>
-            @Html.ActionLink("Create New", "CreateProduct")
-        </h4>
-    }
     @foreach (var item in Model)
     {
         <tr>

@@ -4,71 +4,70 @@
     ViewBag.Title = "ProductEdit";
 }
 
-<h2>ProductEdit</h2>
+    <h3>Edit Product</h3>
 
 @using (Html.BeginForm("ProductEdit", "Product", FormMethod.Post, new { id = "editform" }))
 {
     @Html.AntiForgeryToken()
+    <div class="center-form">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
 
-<div class="form-horizontal">
-    <h4>ProductViewModel</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2"> Category </label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <a href="#popup" class="popup-link btn btn-success">Save</a>
+                @Html.ActionLink("Back to List", "GetProductList", "Product", null, new { @class = "btn btn-primary" })
+            </div>
+
+            <div id="popup" class="form-group white-popup mfp-hide text-center">
+                <p>
+                    Are you sure?
+                </p>
+                <div class="d-flex justify-content-around">
+                    <input type="submit" value="Yes" class="popup-ok  btn btn-success" />
+                    <input type="submit" value="No" class="popup-no btn btn-danger" />
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-md-2"> Category </label>
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
-            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="col-md-offset-2 col-md-10">
-        <a href="#popup" class="popup-link btn btn-success">Save</a>
-        @Html.ActionLink("Back to List", "GetProductList", "Product", null, new { @class = "btn btn-primary" })
-    </div>
-
-    <div id="popup" class="form-group white-popup mfp-hide text-center">
-        <p>
-            Are you sure?
-        </p>
-        <div class="d-flex justify-content-around">
-            <input type="submit" value="Yes" class="popup-ok  btn btn-success" />
-            <input type="submit" value="No" class="popup-no btn btn-danger" />
-        </div>
-    </div>
-</div>
 }

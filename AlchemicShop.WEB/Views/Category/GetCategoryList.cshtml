@@ -4,12 +4,11 @@
     ViewBag.Title = "Category List";
 }
 
-<h2>Categories</h2>
 @if (@HttpContext.Current.User.Identity.Name == "Admin")
 {
-    <h4>
+    <p>
         @Html.ActionLink("Create New", "CreateCategories")
-    </h4>
+    </p>
 }
 
 <table class="table">

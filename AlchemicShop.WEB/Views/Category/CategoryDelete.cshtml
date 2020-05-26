@@ -5,25 +5,26 @@
 }
 
 <h3>Are you sure you want to delete this?</h3>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+<div class="center-form">
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+        </dl>
 
-    @using (Html.BeginForm("CategoryDelete", "Category", new { id = Model.Id, name = Model.Name }, FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm("CategoryDelete", "Category", new { id = Model.Id, name = Model.Name }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" />
-            @Html.ActionLink("Back to List", "GetCategoryList", null, new {@class = "btn btn-primary" })
-        </div>
-            }
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                @Html.ActionLink("Back to List", "GetCategoryList", null, new { @class = "btn btn-primary" })
+            </div>
+        }
+    </div>
 </div>

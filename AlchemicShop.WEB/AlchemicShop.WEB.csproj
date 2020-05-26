@@ -182,8 +182,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\About\img_about1.png" />
+    <Content Include="Content\Images\About\img_about2.gif" />
     <Content Include="Content\Images\About\img_about3.png" />
-    <Content Include="Content\Images\About\img_about2.png" />
+    <Content Include="Content\Images\About\jumbotron-about.png" />
     <Content Include="Content\Images\Index\jumbotron_index.jpg" />
     <Content Include="Content\Images\Index\potion1.png" />
     <Content Include="Content\Images\Index\potion2.png" />

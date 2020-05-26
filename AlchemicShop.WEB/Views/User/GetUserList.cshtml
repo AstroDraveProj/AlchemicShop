@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<AlchemicShop.WEB.Models.UserViewModel>
-
+@{
+    ViewBag.Title = "User List";
+}
 <p>
     @Html.ActionLink("Create New", "CreateUser")
 </p>
@@ -7,7 +9,7 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
-        </th>       
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Role)
         </th>
