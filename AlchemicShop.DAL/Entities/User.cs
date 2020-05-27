@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AlchemicShop.DAL.Entities
 {
-    public class User
+    public class User:BaseEntity
     {
-        public int Id { get; set; }
 
         [Required]
         public Role Role { get; set; }

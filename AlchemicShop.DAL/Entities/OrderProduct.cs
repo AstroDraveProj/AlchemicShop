@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AlchemicShop.DAL.Entities
 {
-    public class OrderProduct
+    public class OrderProduct: BaseEntity
     {
-        public int Id { get; set; }
 
         [Index("IX_OrderProduct", 1, IsUnique = true)]
         public int OrderId { get; set; }

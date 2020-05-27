@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AlchemicShop.DAL.Entities
 {
-    public class Order
+    public class Order: BaseEntity
     {
-        public int Id { get; set; }
        
         public int UserId { get; set; }
 

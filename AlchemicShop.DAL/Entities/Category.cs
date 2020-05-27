@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AlchemicShop.DAL.Entities
 {
-    public class Category
+    public class Category: BaseEntity
     {
-        public int Id { get; set; }
 
         [Required, MaxLength(40)]
         public string Name { get; set; }

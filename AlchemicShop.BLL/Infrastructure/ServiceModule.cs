@@ -15,7 +15,7 @@ namespace AlchemicShop.BLL.Infrastructure
 
         public override void Load()
         {
-            Bind<IUnitOfWork>().To<AlchUnitOfWork>().WithConstructorArgument(_connectionString);
+            Bind<IUnitOfWork>().To<AlchGenUnitOfWork>().WithConstructorArgument(_connectionString);
         }
     }
 }

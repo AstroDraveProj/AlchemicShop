@@ -1,10 +1,11 @@
-﻿using System;
+﻿using AlchemicShop.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AlchemicShop.DAL.Interfaces
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> where T : BaseEntity
     {
         void Create(T item);
 
