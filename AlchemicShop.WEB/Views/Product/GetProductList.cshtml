@@ -19,13 +19,16 @@
             Name
         </th>
         <th>
+            Category
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
             @Html.ActionLink("Amount", "GetProductList", new { sortOrder = ViewBag.SortAmount })
         </th>
         <th>
             @Html.ActionLink("Price", "GetProductList", new { sortOrder = ViewBag.SortPrice })
-        </th>
-        <th>
-            Category
         </th>
         <th></th>
         <th></th>
@@ -38,12 +41,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
             @foreach (var category in ViewBag.Categories)
             {
                 if (category.Id == item.CategoryId)
@@ -53,6 +50,15 @@
                     </td>
                 }
             }
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
             @if (@HttpContext.Current.User.Identity.Name == "Admin")
             {
                 <td>
