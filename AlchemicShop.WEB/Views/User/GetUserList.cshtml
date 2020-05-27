@@ -13,23 +13,29 @@
         <th>
             @Html.DisplayNameFor(model => model.Role)
         </th>
+         <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditUser", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "DeleteUser", new { id = item.Id })
-            </td>
-        </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Role)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Password)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "EditUser", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "DeleteUser", new { id = item.Id })
+    </td>
+</tr>
     }
 
 </table>

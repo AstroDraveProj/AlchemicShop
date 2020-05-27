@@ -69,7 +69,12 @@
             else
             {
                 <td>
+                    @if (item.Amount != 0)
+                    {
+
                     @Html.ActionLink("Add to Cart", "AddProduct", "ShoppingCart", new { id = item.Id }, null)
+
+                    }
                 </td>
             }
         </tr>
