@@ -1,0 +1,55 @@
+﻿@model IEnumerable<AlchemicShop.WEB.Models.ProductViewModel>
+@{
+    ViewBag.Title = "Product History";
+}
+<table class="table">
+    <tr>
+        <th>
+           Category
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    @foreach (var category in ViewBag.Categories)
+    {
+        if (category.Id == item.CategoryId)
+        {
+            <td>
+                @category.Name
+            </td>
+        }
+    }
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Amount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+        @Html.ActionLink("Rollback", "RollbackProduct", new { id = item.Id })
+    </td>
+</tr>
+    }
+
+</table>

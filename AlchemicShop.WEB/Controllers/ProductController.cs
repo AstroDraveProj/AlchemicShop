@@ -1,5 +1,6 @@
 ﻿using AlchemicShop.BLL.DTO;
 using AlchemicShop.BLL.Interfaces;
+using AlchemicShop.WEB.Memento;
 using AlchemicShop.WEB.Models;
 using AutoMapper;
 using System;
@@ -77,12 +78,17 @@ namespace AlchemicShop.WEB.Controllers
         [Authorize(Users = "Admin")]
         public async Task<ActionResult> ProductEdit(int? id)
         {
+            var product = _mapper.Map<ProductViewModel>(
+                await _productService.GetProduct(id));
+
+            var history = new ProductHistory(HttpContext);
+            history.AddProduct(product);
+
             ViewBag.Categories = new SelectList(
             _mapper.Map<IEnumerable<CategoryViewModel>>
             (await _categoryService.GetCategories()), "Id", "Name");
 
-            return View(_mapper.Map<ProductViewModel>
-                (await _productService.GetProduct(id)));
+            return View(product);
         }
 
         [HttpPost]
@@ -123,6 +129,28 @@ namespace AlchemicShop.WEB.Controllers
         {
             ViewBag.Name = deletingProduct;
             return View();
+        }
+
+        public async Task<ActionResult> GetProductHistory()
+        {
+            ViewBag.Categories = _mapper.Map<List<CategoryViewModel>>(
+                  (await _categoryService.GetCategories()).ToList());
+
+            var productHistory = new ProductHistory(HttpContext);
+            return View(productHistory.GetOrCreateProductList());
+        }
+
+        public async Task<ActionResult> RollbackProduct(int id)
+        {
+            var productHistory = new ProductHistory(HttpContext);
+
+            await _productService.EditProduct(
+                _mapper.Map<ProductDTO>(
+                productHistory.GetProductId(id))
+                );
+            productHistory.ReturnProduct(id);
+
+            return RedirectToAction(nameof(GetProductList));
         }
     }
 }

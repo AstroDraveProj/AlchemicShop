@@ -162,6 +162,7 @@
     <Compile Include="Helpers\WebMapper.cs" />
     <Compile Include="IoC\AlchemicShopModule.cs" />
     <Compile Include="Managers\SessionManager.cs" />
+    <Compile Include="Memento\ProductHistory.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\OrderProductViewModel.cs" />
@@ -356,6 +357,7 @@
     <Content Include="Views\Order\GetOrderDetails.cshtml" />
     <Content Include="Views\Order\GetUserOrders.cshtml" />
     <Content Include="Views\Order\EmptyOrderHistory.cshtml" />
+    <Content Include="Views\Product\GetProductHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
