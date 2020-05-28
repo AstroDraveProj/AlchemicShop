@@ -46,4 +46,5 @@ GO
 
 --DROP PROCEDURE IF EXISTS[dbo].[SP_UPDATE_STATUS] 
 
---EXEC[dbo].[SP_UPDATE_STATUS] @idOrder = 14
+--EXEC[dbo].[SP_UPDATE_STATUS] @idOrder = 11
+--4

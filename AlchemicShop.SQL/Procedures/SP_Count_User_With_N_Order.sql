@@ -16,4 +16,4 @@ CREATE PROCEDURE [dbo].[SP_Count_User_With_N_Order]
 								HAVING COUNT([o].[UserId]) = @Number)
 		END
 
---EXEC [dbo].[SP_Count_User_With_N_Order] 1
+--EXEC [dbo].[SP_Count_User_With_N_Order] 2
